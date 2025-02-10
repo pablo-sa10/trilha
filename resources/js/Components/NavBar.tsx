@@ -14,6 +14,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/Components/ui/navigation-menu"
+import { Collapsible } from "@radix-ui/react-collapsible";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -113,6 +114,7 @@ export function NavigationMenuDemo() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        
       </NavigationMenuList>
     </NavigationMenu>
   )
