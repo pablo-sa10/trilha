@@ -15,6 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/Components/ui/navigation-menu"
 import { Collapsible } from "@radix-ui/react-collapsible";
+import { PageProps } from "@/types";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -54,7 +55,10 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
-export function NavigationMenuDemo() {
+export function NavigationMenuDemo({auth}: PageProps) {
+
+  console.log(auth)
+
   return (
     <NavigationMenu>
       <NavigationMenuList>

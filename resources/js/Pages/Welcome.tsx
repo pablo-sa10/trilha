@@ -1,4 +1,3 @@
-import { ModeToggle } from '@/Components/ModeToggle';
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { NavigationMenuDemo } from '@/Components/NavBar'
@@ -11,8 +10,7 @@ export default function Welcome({
     return (
         <>
             <Head title="Bem Vindo!" />
-            <NavigationMenuDemo />
-
+            <NavigationMenuDemo auth={auth} />
         </>
     );
 }
