@@ -11,34 +11,106 @@ import {
   NavigationMenuViewport,
 } from "@/Components/ui/navigation-menu"
 import { LogoIcon } from "./Icons";
+import { ModeToggle } from "./ModeToggle";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/Components/ui/sheet";
+import { Ghost, Menu } from "lucide-react";
+import { buttonVariants } from "./ui/button";
 
 interface RouteProps {
   href: string,
   label: string,
 }
 
+const routeList: RouteProps[] = [
+  {
+    href: "#features",
+    label: "Features",
+  },
+  {
+    href: "#testimonials",
+    label: "Testimonials",
+  },
+  {
+    href: "#pricing",
+    label: "Pricing",
+  },
+  {
+    href: "#faq",
+    label: "FAQ",
+  },
+]
 
 export function NavBar({ auth }: PageProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  console.log(auth)
+  // console.log(auth)
 
   return (
     <header className="sticky z-10 bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur top-0 flex shrink-0 items-center gap-2 border-b h-16 px-3">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between">
           <NavigationMenuItem className="font-bold flex">
-            
+
             <a
               href=""
               rel=""
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-xl flex items-center gap-4"
             >
-              <LogoIcon className=" w-6 h-6 text-primary mr-2" />
+              <LogoIcon className=" w-10 h-10 text-primary mr-2" />
+              Trilha de Estudos
 
             </a>
           </NavigationMenuItem>
-          
+
+          {/* Mobile */}
+          <span className="flex md:hidden">
+            <ModeToggle />
+
+            <Sheet
+              open={isOpen}
+              onOpenChange={setIsOpen}
+            >
+              <SheetTrigger className="px-2">
+                <Menu
+                  className="flex md:hidden h-5 w-5"
+                  onClick={() => setIsOpen(true)}
+                >
+                  <span className="sr-only">Menu Icon</span>
+                </Menu>
+              </SheetTrigger>
+
+              <SheetContent side={"right"}>
+                <SheetHeader>
+                  <SheetTitle className="font-bold text-xl">
+
+                  </SheetTitle>
+                </SheetHeader>
+
+                <nav className="flex flex-col justify-center items-center gap-2 mt-2">
+                  {routeList.map(({ href, label }:RouteProps) => (
+                    <a
+                      rel="noreferrer"
+                      key={label}
+                      href={href}
+                      onClick={() => setIsOpen(false)}
+                      className={buttonVariants({ variant: "ghost" })}
+                    >
+                      {label}
+                    </a>
+                  ))}
+                  <a
+                    rel="noreferrer noopener"
+                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+                    target="_blank"
+                    className={`w-[110px] border ${buttonVariants({
+                      variant: "secondary",
+                    })}`}
+                  ></a>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </span>
+
         </NavigationMenuList>
       </NavigationMenu>
     </header>
