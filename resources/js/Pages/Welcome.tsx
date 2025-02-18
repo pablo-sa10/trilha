@@ -1,6 +1,6 @@
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { NavigationMenuDemo } from '@/Components/NavBar'
+import { NavBar } from '@/Components/NavBar'
 
 
 export default function Welcome({
@@ -10,7 +10,7 @@ export default function Welcome({
     return (
         <>
             <Head title="Bem Vindo!" />
-            <NavigationMenuDemo auth={auth} />
+            <NavBar auth={auth} />
         </>
     );
 }
