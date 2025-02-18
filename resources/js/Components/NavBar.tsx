@@ -46,7 +46,7 @@ export function NavBar({ auth }: PageProps) {
   // console.log(auth)
 
   return (
-    <header className="sticky z-10 bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur top-0 flex shrink-0 items-center gap-2 border-b h-16 px-3">
+    <header className="sticky z-10 bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur top-0 flex shrink-0 items-center gap-2 border-b h-16 pr-5">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between">
           <NavigationMenuItem className="font-bold flex">
@@ -62,7 +62,7 @@ export function NavBar({ auth }: PageProps) {
             </a>
           </NavigationMenuItem>
 
-          {/* Mobile */}
+          {/* MOBILE */}
           <span className="flex md:hidden">
             <ModeToggle />
 
@@ -87,7 +87,7 @@ export function NavBar({ auth }: PageProps) {
                 </SheetHeader>
 
                 <nav className="flex flex-col justify-center items-center gap-2 mt-2">
-                  {routeList.map(({ href, label }:RouteProps) => (
+                  {routeList.map(({ href, label }: RouteProps) => (
                     <a
                       rel="noreferrer"
                       key={label}
@@ -98,18 +98,30 @@ export function NavBar({ auth }: PageProps) {
                       {label}
                     </a>
                   ))}
-                  <a
-                    rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
-                  ></a>
                 </nav>
               </SheetContent>
             </Sheet>
           </span>
+
+          {/* DESKTOP */}
+          <nav className="hidden md:flex gap-2">
+            {routeList.map((route: RouteProps) => (
+              <a
+                rel="noreferrer"
+                href={route.href}
+                key={route.label}
+                className={`text-[15px] ${buttonVariants({
+                  variant: "ghost",
+                })}`}
+              >
+                {route.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="hidden md:flex gap-2">
+            <ModeToggle />
+          </div>
 
         </NavigationMenuList>
       </NavigationMenu>
