@@ -112,13 +112,24 @@ export function NavBar({ auth }: PageProps) {
                     )
                     :
                     (
-                      <a
-                        rel=""
-                        href=""
-                        className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
-                      >
-                        Login
-                      </a>
+                      <>
+                        <a
+                          rel=""
+                          href=""
+                          key={"login"}
+                          className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
+                        >
+                          Login
+                        </a>
+                        <a
+                          rel=""
+                          href=""
+                          key={"register"}
+                          className={`text-[15px] ${buttonVariants({ variant: "outline" })}`}
+                        >
+                          Inscreva-se
+                        </a>
+                      </>
                     )
                   }
                 </nav>
