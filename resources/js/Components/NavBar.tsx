@@ -15,6 +15,7 @@ import { ModeToggle } from "./ModeToggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/Components/ui/sheet";
 import { Ghost, Menu } from "lucide-react";
 import { buttonVariants } from "./ui/button";
+import { Button } from "@headlessui/react";
 
 interface RouteProps {
   href: string,
@@ -79,7 +80,7 @@ export function NavBar({ auth }: PageProps) {
                 </Menu>
               </SheetTrigger>
 
-              <SheetContent side={"right"}>
+              <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
 
@@ -98,6 +99,28 @@ export function NavBar({ auth }: PageProps) {
                       {label}
                     </a>
                   ))}
+
+                  {auth.user ?
+                    (
+                      <a
+                        rel=""
+                        href=""
+                        className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
+                      >
+                        Login
+                      </a>
+                    )
+                    :
+                    (
+                      <a
+                        rel=""
+                        href=""
+                        className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
+                      >
+                        Login
+                      </a>
+                    )
+                  }
                 </nav>
               </SheetContent>
             </Sheet>
@@ -119,20 +142,38 @@ export function NavBar({ auth }: PageProps) {
             ))}
           </nav>
 
-          <div className="hidden md:flex gap-2">
+          <div className="hidden md:flex gap-5">
             {auth.user ?
               (
                 <a
-                  
+                  rel=""
+                  href=""
+                  key={"login"}
+                  className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
                 >
-
+                  Login
                 </a>
               )
               :
               (
-                <a>
-
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    rel=""
+                    href=""
+                    key={"login"}
+                    className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
+                  >
+                    Login
+                  </a>
+                  <a
+                    rel=""
+                    href=""
+                    key={"register"}
+                    className={`text-[15px] ${buttonVariants({ variant: "outline" })}`}
+                  >
+                    Inscreva-se
+                  </a>
+                </div>
               )
             }
             <ModeToggle />
