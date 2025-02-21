@@ -3,10 +3,11 @@ import { Button } from '@/Components/ui/button';
 import { Link } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { HeroCards } from '@/Components/HeroCards';
 
 export default function Guest() {
     return (
-        <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
+        <section className="container px-12 grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
             <div className="text-center lg:text-start space-y-6">
                 <main className="text-5xl md:text-6xl font-bold">
                     <h1 className="inline">
@@ -43,6 +44,15 @@ export default function Guest() {
                     </Link>
                 </div>
             </div>
+
+            {/* HERO CARDS SECTION */}
+            <div className='z-5'>
+                <HeroCards />
+            </div>
+
+
+            {/* Shadow effect */}
+            <div className="shadow"></div>
         </section>
     );
 }
