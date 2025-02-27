@@ -13,8 +13,8 @@ import { Check, Linkedin } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 const benefits = [
-    "4 Team member", 
-    "4 GB Storage", 
+    "4 Team member",
+    "4 GB Storage",
     "Upto 6 pages"
 ]
 
@@ -151,17 +151,33 @@ export const HeroCards = () => {
                     <div className="space-y-4">
                         {benefits.map(
                             (benefit: string) => (
-                                <li 
+                                <li
                                     key={benefit}
                                     className="flex"
                                 >
-                                    <Check className="text-green-500"/>{""}
+                                    <Check className="text-green-500" />{""}
                                     <h3 className="ml-2">{benefit}</h3>
                                 </li>
                             )
                         )}
                     </div>
                 </CardFooter>
+            </Card>
+
+            {/* SERVICE */}
+            <Card className="absolute w-[350px] -right-[10px] bottom-[40px] drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+                <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4">
+                    <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
+                        {/* icone */}
+                    </div>
+                    <div>
+                        <CardTitle>Light & Dark Mode</CardTitle>
+                        <CardDescription className="text-md mt-2">
+                            Lorem ipsum dolor sit amet consect adipisicing elit. Consectetur
+                            natusm.
+                        </CardDescription>
+                    </div>
+                </CardHeader>
             </Card>
         </div >
     )

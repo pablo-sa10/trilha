@@ -50,7 +50,6 @@ export default function Guest() {
                 <HeroCards />
             </div>
 
-
             {/* Shadow effect */}
             <div className="shadow"></div>
         </section>
