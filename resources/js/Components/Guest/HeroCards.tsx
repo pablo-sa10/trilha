@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar"
-import { Badge } from "./ui/badge"
-import { Button, buttonVariants } from "./ui/button"
+import { Badge } from "../ui/badge"
+import { Button, buttonVariants } from "../ui/button"
 import {
     Card,
     CardContent,

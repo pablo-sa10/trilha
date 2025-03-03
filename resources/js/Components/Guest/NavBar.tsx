@@ -10,12 +10,13 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/Components/ui/navigation-menu"
-import { LogoIcon } from "./Icons";
-import { ModeToggle } from "./ModeToggle";
+import { LogoIcon } from "@/Components/Icons";
+import { ModeToggle } from "@/Components/ModeToggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/Components/ui/sheet";
 import { Menu } from "lucide-react";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "@/Components/ui/button";
 import { Link } from '@inertiajs/react';
+import NavLink from "../NavLink";
 
 interface RouteProps {
   href: string,
@@ -52,7 +53,7 @@ export function NavBar({ auth }: PageProps) {
         <NavigationMenuList className="container h-14 md:px-10 px-4 w-screen flex justify-between">
           <NavigationMenuItem className="font-bold flex">
 
-            <Link
+            <NavLink
               href=""
               rel=""
               className="ml-2 font-bold text-xl flex items-center gap-4"
@@ -60,7 +61,7 @@ export function NavBar({ auth }: PageProps) {
               <LogoIcon className=" w-10 h-10 text-primary mr-2" />
               Trilha de Estudos
 
-            </Link>
+            </NavLink>
           </NavigationMenuItem>
 
           {/* MOBILE */}
@@ -89,7 +90,7 @@ export function NavBar({ auth }: PageProps) {
 
                 <nav className="flex flex-col justify-center items-center gap-2 mt-2">
                   {routeList.map(({ href, label }: RouteProps) => (
-                    <Link
+                    <NavLink
                       rel="noreferrer"
                       key={label}
                       href={href}
@@ -97,38 +98,38 @@ export function NavBar({ auth }: PageProps) {
                       className={buttonVariants({ variant: "ghost" })}
                     >
                       {label}
-                    </Link>
+                    </NavLink>
                   ))}
 
                   {auth.user ?
                     (
-                      <Link
+                      <NavLink
                         rel=""
                         href=""
                         className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
                       >
                         Login
-                      </Link>
+                      </NavLink>
                     )
                     :
                     (
                       <>
-                        <Link
+                        <NavLink
                           rel=""
                           href=""
                           key={"login"}
                           className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
                         >
                           Login
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                           rel=""
                           href=""
                           key={"register"}
                           className={`text-[15px] ${buttonVariants({ variant: "outline" })}`}
                         >
                           Inscreva-se
-                        </Link>
+                        </NavLink>
                       </>
                     )
                   }
@@ -140,7 +141,7 @@ export function NavBar({ auth }: PageProps) {
           {/* DESKTOP */}
           <nav className="hidden md:flex gap-2">
             {routeList.map((route: RouteProps) => (
-              <Link
+              <NavLink
                 rel="noreferrer"
                 href={route.href}
                 key={route.label}
@@ -149,41 +150,41 @@ export function NavBar({ auth }: PageProps) {
                 })}`}
               >
                 {route.label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
 
           <div className="hidden md:flex gap-5">
             {auth.user ?
               (
-                <Link
+                <NavLink
                   rel=""
                   href=""
                   key={"login"}
                   className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
                 >
                   Login
-                </Link>
+                </NavLink>
               )
               :
               (
                 <div className="flex gap-2">
-                  <Link
+                  <NavLink
                     rel=""
                     href=""
                     key={"login"}
                     className={`text-[15px] ${buttonVariants({ variant: "default" })}`}
                   >
                     Login
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     rel=""
                     href=""
                     key={"register"}
                     className={`text-[15px] ${buttonVariants({ variant: "outline" })}`}
                   >
                     Inscreva-se
-                  </Link>
+                  </NavLink>
                 </div>
               )
             }
