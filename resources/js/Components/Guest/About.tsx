@@ -1,7 +1,7 @@
 import { Statistics } from "./Statistics";
 
 // import { Stat }
-const pilot = `${import.meta.env.BASE_URL}images/pilot.png`;
+import pilot from "@images/pilot.png"
 
 export const About = () => {
 

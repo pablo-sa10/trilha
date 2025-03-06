@@ -7,9 +7,9 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 
-const image = `${import.meta.env.BASE_URL}images/growth.png`
-const image3 = `${import.meta.env.BASE_URL}images/reflecting.png`
-const image4 = `${import.meta.env.BASE_URL}images/looking-ahead.png`
+import image from "@images/growth.png"
+import image3 from "@images/reflecting.png"
+import image4 from "@images/looking-ahead.png"
 
 interface FeaturesProps {
     title: string;
