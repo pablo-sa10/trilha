@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../Icons"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../Icons";
 
 interface FeaturesProps {
     icon: JSX.Element;
@@ -11,24 +11,28 @@ const features: FeaturesProps[] = [
     {
         icon: <MedalIcon />,
         title: "Acessibilidade",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum"
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
     },
     {
         icon: <MapIcon />,
         title: "Comunidade",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum"
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
     },
     {
         icon: <PlaneIcon />,
         title: "Escabilidade",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum"
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
     },
     {
         icon: <GiftIcon />,
         title: "Gamificação",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum"
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
     },
-]
+];
 
 export const HowItWorks = () => {
     return (
@@ -44,16 +48,13 @@ export const HowItWorks = () => {
                 Step-by-Step Guide
             </h2>
             <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-                dolor pariatur sit!
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Veritatis dolor pariatur sit!
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {features.map(({ icon, title, description }: FeaturesProps) => (
-                    <Card
-                        key={title}
-                        className="bg-muted/50"
-                    >
+                    <Card key={title} className="bg-muted/50">
                         <CardHeader>
                             <CardTitle className="grid gap-4 place-items-center">
                                 {icon}
@@ -65,5 +66,5 @@ export const HowItWorks = () => {
                 ))}
             </div>
         </section>
-    )
-}
+    );
+};

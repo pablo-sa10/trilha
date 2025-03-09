@@ -7,9 +7,9 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 
-import image from "@images/growth.png"
-import image3 from "@images/reflecting.png"
-import image4 from "@images/looking-ahead.png"
+import image from "@images/growth.png";
+import image3 from "@images/reflecting.png";
+import image4 from "@images/looking-ahead.png";
 
 interface FeaturesProps {
     title: string;
@@ -26,26 +26,29 @@ const FeaturesList: string[] = [
     "Our team",
     "Responsive design",
     "Newsletter",
-    "Minimalist"
-]
+    "Minimalist",
+];
 
 const features: FeaturesProps[] = [
     {
         title: "Design responsivo",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
         image: image4,
     },
     {
         title: "Interface intuitiva",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
         image: image3,
     },
     {
         title: "Design responsivo",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
         image: image,
-    }
-]
+    },
+];
 
 export const Features = () => {
     return (
@@ -63,10 +66,7 @@ export const Features = () => {
             <div className="flex flex-wrap md:justify-center gap-4">
                 {FeaturesList.map((feature: string) => (
                     <div key={feature}>
-                        <Badge
-                            variant="secondary"
-                            className="text-sm"
-                        >
+                        <Badge variant="secondary" className="text-sm">
                             {feature}
                         </Badge>
                     </div>
@@ -74,24 +74,26 @@ export const Features = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {features.map(({title, description, image}: FeaturesProps) => (
-                    <Card key={title}>
-                        <CardHeader>
-                            <CardTitle>{title}</CardTitle>
-                        </CardHeader>
+                {features.map(
+                    ({ title, description, image }: FeaturesProps) => (
+                        <Card key={title}>
+                            <CardHeader>
+                                <CardTitle>{title}</CardTitle>
+                            </CardHeader>
 
-                        <CardContent>{description}</CardContent>
+                            <CardContent>{description}</CardContent>
 
-                        <CardFooter>
-                            <img
-                                src={image}
-                                alt="About feature"
-                                className="w-[200px] lg:w-[300px] mx-auto"
-                            />
-                        </CardFooter>
-                    </Card>
-                ))}
+                            <CardFooter>
+                                <img
+                                    src={image}
+                                    alt="About feature"
+                                    className="w-[200px] lg:w-[300px] mx-auto"
+                                />
+                            </CardFooter>
+                        </Card>
+                    )
+                )}
             </div>
         </section>
-    )
-}
+    );
+};

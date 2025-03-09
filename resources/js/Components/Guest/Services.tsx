@@ -1,4 +1,9 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
 import { MagnifierIcon, WalletIcon, ChartIcon } from "@/Components/Icons";
 import cubeLeg from "@images/cube-leg.png";
 
@@ -11,20 +16,23 @@ interface ServiceProps {
 const serviceList: ServiceProps[] = [
     {
         title: "Code Collaboration",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-        icon: <ChartIcon />
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        icon: <ChartIcon />,
     },
     {
         title: "Project Management",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-        icon: <WalletIcon />
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        icon: <WalletIcon />,
     },
     {
         title: "Task Automation",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-        icon: <MagnifierIcon />
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+        icon: <MagnifierIcon />,
     },
-]
+];
 
 export const Services = () => {
     return (
@@ -39,26 +47,28 @@ export const Services = () => {
                     </h2>
 
                     <p className="text-muted-foreground text-xl mt-4 mb-8">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-                        dolor.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing
+                        elit. Veritatis dolor.
                     </p>
 
                     <div className="flex flex-col gap-8">
-                        {serviceList.map(({ icon, title, description }: ServiceProps) => (
-                            <Card>
-                                <CardHeader className="space-y-1 flex md:fle-row justify-start items-start gap-4">
-                                    <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
-                                        {icon}
-                                    </div>
-                                    <div>
-                                        <CardTitle>{title}</CardTitle>
-                                        <CardDescription className="text-md mt-2">
-                                            {description}
-                                        </CardDescription>
-                                    </div>
-                                </CardHeader>
-                            </Card>
-                        ))}
+                        {serviceList.map(
+                            ({ icon, title, description }: ServiceProps) => (
+                                <Card>
+                                    <CardHeader className="space-y-1 flex md:fle-row justify-start items-start gap-4">
+                                        <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
+                                            {icon}
+                                        </div>
+                                        <div>
+                                            <CardTitle>{title}</CardTitle>
+                                            <CardDescription className="text-md mt-2">
+                                                {description}
+                                            </CardDescription>
+                                        </div>
+                                    </CardHeader>
+                                </Card>
+                            )
+                        )}
                     </div>
                 </div>
 
@@ -69,5 +79,5 @@ export const Services = () => {
                 />
             </div>
         </section>
-    )
-}
+    );
+};

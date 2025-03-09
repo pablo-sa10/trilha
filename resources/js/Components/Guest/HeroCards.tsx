@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar"
-import { Badge } from "../ui/badge"
-import { Button, buttonVariants } from "../ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
+import { Badge } from "../ui/badge";
+import { Button, buttonVariants } from "../ui/button";
 import {
     Card,
     CardContent,
@@ -8,15 +8,11 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card"
+} from "@/Components/ui/card";
 import { Check, Linkedin } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
-const benefits = [
-    "4 Team member",
-    "4 GB Storage",
-    "Upto 6 pages"
-]
+const benefits = ["4 Team member", "4 GB Storage", "Upto 6 pages"];
 
 export const HeroCards = () => {
     return (
@@ -36,9 +32,10 @@ export const HeroCards = () => {
                         <CardTitle className="text-lg">
                             Pablo do React
                         </CardTitle>
-                        <CardDescription>pablomoura2016@gmail.com</CardDescription>
+                        <CardDescription>
+                            pablomoura2016@gmail.com
+                        </CardDescription>
                     </div>
-
                 </CardHeader>
 
                 <CardContent>This landing page is awesome!</CardContent>
@@ -52,9 +49,7 @@ export const HeroCards = () => {
                         src="https://github.com/pablo-sa10.png"
                         className="absolute grayscale-[0%] -top-12 rounded-full w-24 aspect-square object-cover"
                     />
-                    <CardTitle className="text-center">
-                        Pablo Roberto
-                    </CardTitle>
+                    <CardTitle className="text-center">Pablo Roberto</CardTitle>
                     <CardDescription className="font-normal text-primary">
                         Front Developer
                     </CardDescription>
@@ -114,7 +109,6 @@ export const HeroCards = () => {
                             <span className="sr-only">Linkedin icon</span>
                             <Linkedin size="20" />
                         </a>
-
                     </div>
                 </CardFooter>
             </Card>
@@ -149,17 +143,13 @@ export const HeroCards = () => {
 
                 <CardFooter className="flex">
                     <div className="space-y-4">
-                        {benefits.map(
-                            (benefit: string) => (
-                                <li
-                                    key={benefit}
-                                    className="flex"
-                                >
-                                    <Check className="text-green-500" />{""}
-                                    <h3 className="ml-2">{benefit}</h3>
-                                </li>
-                            )
-                        )}
+                        {benefits.map((benefit: string) => (
+                            <li key={benefit} className="flex">
+                                <Check className="text-green-500" />
+                                {""}
+                                <h3 className="ml-2">{benefit}</h3>
+                            </li>
+                        ))}
                     </div>
                 </CardFooter>
             </Card>
@@ -173,12 +163,12 @@ export const HeroCards = () => {
                     <div>
                         <CardTitle>Light & Dark Mode</CardTitle>
                         <CardDescription className="text-md mt-2">
-                            Lorem ipsum dolor sit amet consect adipisicing elit. Consectetur
-                            natusm.
+                            Lorem ipsum dolor sit amet consect adipisicing elit.
+                            Consectetur natusm.
                         </CardDescription>
                     </div>
                 </CardHeader>
             </Card>
-        </div >
-    )
-}
+        </div>
+    );
+};
