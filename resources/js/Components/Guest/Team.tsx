@@ -67,5 +67,12 @@ export const Team = () => {
         }
     };
 
-    return <></>;
+    return (
+        <section
+            id="team"
+            className="container mx-auto px-5 md:px-24 py-24 sm:py-32"
+        >
+            <h2></h2>
+        </section>
+    )
 };
