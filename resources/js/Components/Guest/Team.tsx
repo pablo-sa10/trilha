@@ -7,8 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { iconNames } from "lucide-react/dynamic";
+import { Instagram, Linkedin } from "lucide-react";
 
 interface TeamProps {
     imageUrl: string;
