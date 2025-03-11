@@ -1,5 +1,5 @@
 import { Badge } from "@/Components/ui/badge";
-import { Button } from "@headlessui/react";
+import { Button } from "@/Components/ui/button";
 import {
     Card,
     CardContent,
@@ -9,8 +9,6 @@ import {
     CardFooter
 } from "@/Components/ui/card";
 import { Check } from "lucide-react";
-import { title } from "process";
-
 enum PopularPlanType {
     NO = 0,
     YES = 1,
