@@ -6,7 +6,7 @@ import {
     CardHeader,
     CardTitle,
     CardDescription,
-    CardFooter
+    CardFooter,
 } from "@/Components/ui/card";
 import { Check } from "lucide-react";
 enum PopularPlanType {
@@ -28,45 +28,48 @@ const pricingList: PrincigProps[] = [
         title: "Free",
         popular: 0,
         price: 0,
-        description: "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+        description:
+            "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
         buttonText: "Get Started",
         benefitList: [
             "1 Team member",
             "2 GB Storage",
             "Upto 4 pages",
             "Community support",
-            "lorem ipsum dolor"
+            "lorem ipsum dolor",
         ],
     },
     {
         title: "Premium",
         popular: 1,
         price: 5,
-        description: "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+        description:
+            "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
         buttonText: "Start Free Trial",
         benefitList: [
             "4 Team member",
             "4 GB Storage",
             "Upto 6 pages",
             "Priority support",
-            "lorem ipsum dolor"
+            "lorem ipsum dolor",
         ],
     },
     {
         title: "Enterprise",
         popular: 0,
         price: 40,
-        description: "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+        description:
+            "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
         buttonText: "Contact US",
         benefitList: [
             "10 Team member",
             "16 GB Storage",
             "Upto 10 pages",
             "Priority support",
-            "lorem ipsum dolor"
+            "lorem ipsum dolor",
         ],
     },
-]
+];
 
 export const Pricing = () => {
     return (
@@ -76,7 +79,7 @@ export const Pricing = () => {
         >
             <h2 className="text-3xl md:text-4xl font-bold text-center">
                 Get
-                <span className="bg-gradient-to-b from-primary/60 to-primary">
+                <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
                     {" "}
                     Unlimited{" "}
                 </span>
@@ -106,20 +109,27 @@ export const Pricing = () => {
                                     >
                                         Most Popular
                                     </Badge>
-                                ) :
-                                    null
-                                }
+                                ) : null}
                             </CardTitle>
                             <div>
-                                <span className="text-3xl font-bold">${pricing.price}</span>
-                                <span className="text-muted-foreground"> /month</span>
+                                <span className="text-3xl font-bold">
+                                    ${pricing.price}
+                                </span>
+                                <span className="text-muted-foreground">
+                                    {" "}
+                                    /month
+                                </span>
                             </div>
 
-                            <CardDescription>{pricing.description}</CardDescription>
+                            <CardDescription>
+                                {pricing.description}
+                            </CardDescription>
                         </CardHeader>
 
                         <CardContent>
-                            <Button className="w-full">{pricing.buttonText}</Button>
+                            <Button className="w-full">
+                                {pricing.buttonText}
+                            </Button>
                         </CardContent>
 
                         <hr className="w-4/5 m-auto mb-4" />
@@ -127,11 +137,8 @@ export const Pricing = () => {
                         <CardFooter className="flex">
                             <div className="space-y-4">
                                 {pricing.benefitList.map((benefit: string) => (
-                                    <span
-                                        key={benefit}
-                                        className="flex"
-                                    >
-                                        <Check className="text-green-500 "/>{" "}
+                                    <span key={benefit} className="flex">
+                                        <Check className="text-green-500 " />{" "}
                                         <h3 className="ml-2">{benefit}</h3>
                                     </span>
                                 ))}
@@ -141,5 +148,5 @@ export const Pricing = () => {
                 ))}
             </div>
         </section>
-    )
-}
+    );
+};
