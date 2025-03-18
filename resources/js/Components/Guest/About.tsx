@@ -14,28 +14,26 @@ export const About = () => {
                     <img
                         src={pilot}
                         alt="Pilot"
-                        className="w-[300px] object-contain rounded-lg"
+                        className="w-[250px] object-contain rounded-lg"
                     />
 
-                    <div className="bg-blue-0 flex flex-col justify-between">
+                    <div className="bg-blue-0 flex flex-col justify-center">
                         <div className="pb-6">
                             <h2 className="text-3xl md:text-4xl font-bold">
                                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-                                    About{" "}
+                                    Sobre a{" "}
                                 </span>
-                                Company
+                                Plataforma
                             </h2>
                             <p className="text-xl text-muted-foreground mt-4">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.
+                                A nossa plataforma de estudos foi criada para ajudar alunos a se prepararem de maneira
+                                eficiente para vestibulares e exames. Utilizando inteligência artificial,
+                                ela cria trilhas de estudo personalizadas, adaptadas às necessidades de cada aluno.
+                                Com planos de estudos focados nas suas dificuldades, você consegue otimizar o tempo
+                                e melhorar seu desempenho. Estamos aqui para transformar a forma como você estuda!
                             </p>
                         </div>
-                        <Statistics />
+                        {/* <Statistics /> */}
                     </div>
                 </div>
             </div>

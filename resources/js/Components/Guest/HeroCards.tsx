@@ -25,7 +25,9 @@ export const HeroCards = () => {
                             alt=""
                             src=""
                         />
-                        <AvatarFallback><LogoIcon className=" w-10 h-10 text-primary mr-2" /></AvatarFallback>
+                        <AvatarFallback className="">
+                            <LogoIcon className="w-7 h-7 text-primary"/>
+                        </AvatarFallback>
                     </Avatar>
 
                     <div className="flex flex-col">
