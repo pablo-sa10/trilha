@@ -50,7 +50,7 @@ const routeList: RouteProps[] = [
 
 export function NavBar({ auth }: PageProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    // console.log(auth)
+    console.log(auth)
 
     return (
         <header className="sticky z-10 bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur top-0 flex shrink-0 items-center gap-2 border-b h-16">
@@ -106,7 +106,7 @@ export function NavBar({ auth }: PageProps) {
                                     {auth.user ? (
                                         <NavLink
                                             rel=""
-                                            href=""
+                                            href={route("login")}
                                             className={`text-[15px] ${buttonVariants(
                                                 { variant: "default" }
                                             )}`}
@@ -117,7 +117,7 @@ export function NavBar({ auth }: PageProps) {
                                         <>
                                             <NavLink
                                                 rel=""
-                                                href=""
+                                                href={route("login")}
                                                 key={"login"}
                                                 className={`text-[15px] ${buttonVariants(
                                                     { variant: "default" }
@@ -162,7 +162,7 @@ export function NavBar({ auth }: PageProps) {
                         {auth.user ? (
                             <NavLink
                                 rel=""
-                                href=""
+                                href={route("login")}
                                 key={"login"}
                                 className={`text-[15px] ${buttonVariants({
                                     variant: "default",
@@ -174,7 +174,7 @@ export function NavBar({ auth }: PageProps) {
                             <div className="flex gap-2">
                                 <NavLink
                                     rel=""
-                                    href=""
+                                    href={route("login")}
                                     key={"login"}
                                     className={`text-[15px] ${buttonVariants({
                                         variant: "default",

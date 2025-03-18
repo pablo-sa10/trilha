@@ -9,56 +9,57 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
-import { Check, Linkedin } from "lucide-react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Check, ChartLine, User, BrainCircuit } from "lucide-react";
+import { LogoIcon } from "../Icons";
 
-const benefits = ["4 Team member", "4 GB Storage", "Upto 6 pages"];
+const benefits = ["Acesso ao plano de estudos", "Sugestões personalizadas de matérias", "Acesso à trilha de estudos"];
 
 export const HeroCards = () => {
     return (
         <div className="hidden lg:flex flex-row flex-wrap gap-8 relative w-[700px] h-[500px]">
             {/* TESTIMONIAL */}
-            <Card className="absolute w-[340px] -top-[15px] drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+            <Card className="absolute w-[340px] -top-[25px] drop-shadow-xl shadow-black/10 dark:shadow-white/10">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                     <Avatar>
                         <AvatarImage
-                            alt="minha foto de perfil"
-                            src="https://github.com/pablo-sa10.png"
+                            alt=""
+                            src=""
                         />
-                        <AvatarFallback>PM</AvatarFallback>
+                        <AvatarFallback><LogoIcon className=" w-10 h-10 text-primary mr-2" /></AvatarFallback>
                     </Avatar>
 
                     <div className="flex flex-col">
                         <CardTitle className="text-lg">
-                            Pablo do React
+                            Trilha de Estudos Inteligente
                         </CardTitle>
                         <CardDescription>
-                            pablomoura2016@gmail.com
+                            suporte@trilhaestudos.com
                         </CardDescription>
                     </div>
                 </CardHeader>
 
-                <CardContent>This landing page is awesome!</CardContent>
+                <CardContent>Organize seus estudos de forma eficiente!</CardContent>
             </Card>
 
             {/* TEAM */}
             <Card className="absolute right-[20px] top-4 w-80 flex flex-col justify-center items-center drop-shadow-xl shadow-black/10 dark:shadow-white/10">
                 <CardHeader className="mt-8 flex justify-center items-center pb-2">
                     <img
-                        alt="fot do git"
-                        src="https://github.com/pablo-sa10.png"
+                        alt="foto do usuário"
+                        src="https://github.com/shadcn.png"
                         className="absolute grayscale-[0%] -top-12 rounded-full w-24 aspect-square object-cover"
                     />
-                    <CardTitle className="text-center">Pablo Roberto</CardTitle>
+                    <CardTitle className="text-center">Seu Usuário</CardTitle>
                     <CardDescription className="font-normal text-primary">
-                        Front Developer
+                        Estudante
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent className="text-center pb-2">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Veniam, at animi
+                        Você está no nível <strong>Intermediário</strong>
+                        <br />
+                        Próximo objetivo: <strong>Aprimorar Matemática</strong>
                     </p>
                 </CardContent>
 
@@ -73,8 +74,8 @@ export const HeroCards = () => {
                                 size: "sm",
                             })}
                         >
-                            <span className="sr-only">Github Icon</span>
-                            <GitHubLogoIcon className="w-5 h-5" />
+                            <span className="sr-only">User Icon</span>
+                            <User className="w-5 h-5" />
                         </a>
                         <a
                             rel="noreferrer noopener"
@@ -85,58 +86,38 @@ export const HeroCards = () => {
                                 size: "sm",
                             })}
                         >
-                            <span className="sr-only">X icon</span>
-                            <svg
-                                role="img"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="fill-foreground w-5 h-5"
-                            >
-                                <title>X</title>
-                                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                            </svg>
+                            <span className="sr-only">Progress icon</span>
+                            <ChartLine className="w-5 h-5" />
                         </a>
 
-                        <a
-                            rel="noreferrer noopener"
-                            href="https://www.linkedin.com/in/leopoldo-miranda/"
-                            target="_blank"
-                            className={buttonVariants({
-                                variant: "ghost",
-                                size: "sm",
-                            })}
-                        >
-                            <span className="sr-only">Linkedin icon</span>
-                            <Linkedin size="20" />
-                        </a>
                     </div>
                 </CardFooter>
             </Card>
 
             {/* PRICING */}
-            <Card className="absolute top-[150px] left-[50px] w-72 drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+            <Card className="absolute top-[150px] left-[10px] w-72 drop-shadow-xl shadow-black/10 dark:shadow-white/10">
                 <CardHeader>
                     <CardTitle className="flex items-center justify-between">
-                        Free
+                        Gratuito
                         <Badge
                             variant="secondary"
                             className="text-sm text-primary"
                         >
-                            Most Popular
+                            Mais Popular
                         </Badge>
                     </CardTitle>
                     <div>
-                        <span className="text-3xl font-bold">$0</span>
-                        <span className="text-muted-foreground"> /month</span>
+                        <span className="text-3xl font-bold">R$0</span>
+                        <span className="text-muted-foreground"> /mês</span>
                     </div>
 
                     <CardDescription>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Comece a organizar seus estudos de forma eficiente e gratuita.
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent>
-                    <Button className="w-full">Start Free Trial</Button>
+                    <Button className="w-full">Comece Agora Grátis</Button>
                 </CardContent>
 
                 <hr className="w-4/5 m-auto mb-4" />
@@ -155,16 +136,16 @@ export const HeroCards = () => {
             </Card>
 
             {/* SERVICE */}
-            <Card className="absolute w-[350px] -right-[10px] bottom-[40px] drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+            <Card className="absolute w-[350px] right-[10px] -bottom-[15px] drop-shadow-xl shadow-black/10 dark:shadow-white/10">
                 <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4">
                     <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
-                        {/* icone */}
+                        <BrainCircuit />
                     </div>
                     <div>
-                        <CardTitle>Light & Dark Mode</CardTitle>
+                        <CardTitle>Estudo Personalizado com IA</CardTitle>
                         <CardDescription className="text-md mt-2">
-                            Lorem ipsum dolor sit amet consect adipisicing elit.
-                            Consectetur natusm.
+                            Nossa inteligência artificial cria um plano de estudos feito sob medida para você,
+                            considerando suas dificuldades e necessidades.
                         </CardDescription>
                     </div>
                 </CardHeader>

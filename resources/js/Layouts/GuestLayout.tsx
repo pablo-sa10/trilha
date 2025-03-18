@@ -13,7 +13,7 @@ import WelcomeGuest from '@/Components/Guest/WelcomeGuest';
 export default function Guest() {
     return (
         <>
-            <WelcomeGuest />
+            <WelcomeGuest/>
             {/* <Sponsors/> */}
             <About/>
             <HowItWorks/>
@@ -22,8 +22,8 @@ export default function Guest() {
             <Cta/>
             <Team/>
             <Pricing/>
-            <ScrollToTop />
-            <Footer />
+            <ScrollToTop/>
+            <Footer/>
         </>
     );
 }
