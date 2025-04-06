@@ -25,7 +25,7 @@ export const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h3 className="font-bold text-lg">Siga-nos</h3>
                     {followUs.map((media: string) => (
-                        <div>
+                        <div key={media}>
                             <a
                                 href=""
                                 rel="#"
@@ -39,7 +39,7 @@ export const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h3 className="font-bold text-lg">Plataforma</h3>
                     {platforms.map((media: string) => (
-                        <div>
+                        <div key={media}>
                             <a
                                 href=""
                                 rel="#"
@@ -53,7 +53,7 @@ export const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h3 className="font-bold text-lg">Sobre</h3>
                     {about.map((media: string) => (
-                        <div>
+                        <div key={media}>
                             <a
                                 href=""
                                 rel="#"
@@ -67,7 +67,7 @@ export const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h3 className="font-bold text-lg">Comunidade</h3>
                     {community.map((media: string) => (
-                        <div>
+                        <div key={media}>
                             <a
                                 href=""
                                 rel="#"

@@ -43,7 +43,7 @@ const features: FeaturesProps[] = [
         image: image3,
     },
     {
-        title: "Design responsivo",
+        title: "Design responsivoo",
         description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
         image: image,
