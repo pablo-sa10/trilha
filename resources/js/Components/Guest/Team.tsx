@@ -30,26 +30,26 @@ const teamList: TeamProps[] = [
         socialNetworks: [
             {
                 name: "Linkedin",
-                url: "www.google.com",
+                url: "#",
             },
             {
                 name: "Instagram",
-                url: "www.google.com",
+                url: "#",
             },
         ],
     },
     {
-        imageUrl: "https://github.com/pablo-sa10.png",
+        imageUrl: "https://github.com/Deigosz.png",
         name: "Diego Rodrigues",
         position: "Analista de Dados & Desen. Back End",
         socialNetworks: [
             {
                 name: "Linkedin",
-                url: "www.google.com",
+                url: "#",
             },
             {
                 name: "Instagram",
-                url: "www.google.com",
+                url: "#",
             },
         ],
     },
@@ -73,9 +73,9 @@ export const Team = () => {
         >
             <h2 className="text-3xl md:text-4xl font-bold">
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-                    Our Dedicated{" "}
+                    Nossos Dedicados{" "}
                 </span>
-                Crew
+                Criadores
             </h2>
 
             <p className="mt-4 mb-10 text-xl text-muted-foreground">
