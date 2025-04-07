@@ -127,7 +127,7 @@ export function NavBar({ auth }: PageProps) {
                                             </NavLink>
                                             <NavLink
                                                 rel=""
-                                                href=""
+                                                href={route("register")}
                                                 key={"register"}
                                                 className={`text-[15px] ${buttonVariants(
                                                     { variant: "outline" }
@@ -184,7 +184,7 @@ export function NavBar({ auth }: PageProps) {
                                 </NavLink>
                                 <NavLink
                                     rel=""
-                                    href=""
+                                    href={route("register")}
                                     key={"register"}
                                     className={`text-[15px] ${buttonVariants({
                                         variant: "outline",
