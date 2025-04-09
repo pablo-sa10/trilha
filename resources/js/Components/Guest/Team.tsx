@@ -26,7 +26,7 @@ const teamList: TeamProps[] = [
     {
         imageUrl: "https://github.com/pablo-sa10.png",
         name: "Pablo Moura",
-        position: "Desenvolver Full Stack",
+        position: "Desenvolvedor Full Stack",
         socialNetworks: [
             {
                 name: "Linkedin",
