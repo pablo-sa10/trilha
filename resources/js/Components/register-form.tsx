@@ -31,8 +31,6 @@ export function LoginForm({
         password_confirmation: "",
     });
 
-    console.log(data)
-
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -88,6 +86,7 @@ export function LoginForm({
                                         onChange={(e) => {
                                             setData("name", e.target.value)
                                         }}
+                                        autoComplete="name"
                                         placeholder="Seu nome"
                                         required
                                     />
@@ -101,6 +100,11 @@ export function LoginForm({
                                     <Input
                                         id="email"
                                         type="email"
+                                        value={data.email}
+                                        autoComplete="username"
+                                        onChange={(e) =>{
+                                            setData("email", e.target.value)
+                                        }}
                                         placeholder="nome@email.com"
                                         required
                                     />
@@ -110,6 +114,9 @@ export function LoginForm({
                                     <Input
                                         id="password"
                                         type="password"
+                                        onChange={(e) => {
+                                            
+                                        }}
                                         required
                                     />
                                 </div>
