@@ -19,10 +19,9 @@ export function LoginForm({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-
     /**
      * HOCK USEFORM NATIVO DO INERTIA QUE FACILITA A VALIDAÇÃO DE DADOS
-     * 
+     *
      */
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
@@ -30,6 +29,7 @@ export function LoginForm({
         password: "",
         password_confirmation: "",
     });
+    console.log(data);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -38,13 +38,13 @@ export function LoginForm({
             onFinish: () => reset("password", "password_confirmation"),
         });
     };
-    
-    // função para exibir spinner e trocar o nome 
+
+    // função para exibir spinner e trocar o nome
     // PRECISO TERMINAR DE CORRIGIR !!!
-    const [textLogin, setTextLogin] = useState("Registrar")
+    const [textLogin, setTextLogin] = useState("Registrar");
     const SpinnerToggle = () => {
         const [show, setShow] = useState(false);
-    }
+    };
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -84,7 +84,7 @@ export function LoginForm({
                                         id="name"
                                         value={data.name}
                                         onChange={(e) => {
-                                            setData("name", e.target.value)
+                                            setData("name", e.target.value);
                                         }}
                                         autoComplete="name"
                                         placeholder="Seu nome"
@@ -102,8 +102,8 @@ export function LoginForm({
                                         type="email"
                                         value={data.email}
                                         autoComplete="username"
-                                        onChange={(e) =>{
-                                            setData("email", e.target.value)
+                                        onChange={(e) => {
+                                            setData("email", e.target.value);
                                         }}
                                         placeholder="nome@email.com"
                                         required
@@ -114,8 +114,9 @@ export function LoginForm({
                                     <Input
                                         id="password"
                                         type="password"
+                                        value={data.password}
                                         onChange={(e) => {
-                                            
+                                            setData("password", e.target.value);
                                         }}
                                         required
                                     />
@@ -127,6 +128,13 @@ export function LoginForm({
                                     <Input
                                         id="password_confirmation"
                                         type="password"
+                                        value={data.password_confirmation}
+                                        onChange={(e) => {
+                                            setData(
+                                                "password_confirmation",
+                                                e.target.value
+                                            );
+                                        }}
                                         required
                                     />
                                 </div>
