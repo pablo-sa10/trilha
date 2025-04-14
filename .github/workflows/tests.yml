@@ -14,11 +14,11 @@ permissions:
 
 env:
   DB_CONNECTION: mysql
-  DB_HOST: 127.0.0.1
+  DB_HOST: mysql
   DB_PORT: 3306
   DB_DATABASE: DB_TRILHA
   DB_USERNAME: root
-  DB_PASSWORD: 
+  DB_PASSWORD: root
 
 jobs:
   tests:
@@ -30,7 +30,7 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: DB_TRILHA
 
     strategy:
@@ -65,3 +65,7 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/phpunit
+
+      - name: Set environment to testing
+        run: cp .env.testing .env
+      
