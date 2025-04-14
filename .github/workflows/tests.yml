@@ -12,9 +12,26 @@ on:
 permissions:
   contents: read
 
+env:
+  DB_CONNECTION: mysql
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_DATABASE: DB_TRILHA
+  DB_USERNAME: root
+  DB_PASSWORD: 
+
 jobs:
   tests:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: DB_TRILHA
 
     strategy:
       fail-fast: true
@@ -31,7 +48,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql
           coverage: none
 
       - name: Install Composer dependencies
@@ -42,6 +59,9 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
+
+      - name: Run database migrations
+        run: php artisan migrate --force
 
       - name: Execute tests
         run: vendor/bin/phpunit
