@@ -1,6 +1,6 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/delete/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
+// import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/delete/TextInput';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
@@ -126,7 +126,7 @@ export default function UpdatePasswordForm({
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    {/* <PrimaryButton disabled={processing}>Save</PrimaryButton> */}
 
                     <Transition
                         show={recentlySuccessful}

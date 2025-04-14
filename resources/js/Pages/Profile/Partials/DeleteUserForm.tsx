@@ -1,8 +1,8 @@
-import DangerButton from '@/Components/DangerButton';
+// import DangerButton from '@/Components/DangerButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/delete/InputLabel';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
+// import Modal from '@/Components/Modal';
+// import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/delete/TextInput';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef, useState } from 'react';
@@ -64,7 +64,7 @@ export default function DeleteUserForm({
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>
+            {/* <DangerButton onClick={confirmUserDeletion}>
                 Delete Account
             </DangerButton>
 
@@ -118,7 +118,7 @@ export default function DeleteUserForm({
                         </DangerButton>
                     </div>
                 </form>
-            </Modal>
+            </Modal> */}
         </section>
     );
 }

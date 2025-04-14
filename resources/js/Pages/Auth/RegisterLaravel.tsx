@@ -24,7 +24,7 @@ export default function Register() {
 
     return (
         <>
-            <Head title="Register" />
+            {/* <Head title="Register" />
 
             <form onSubmit={submit}>
                 <div>
@@ -115,7 +115,7 @@ export default function Register() {
                         Register
                     </PrimaryButton>
                 </div>
-            </form>
+            </form> */}
         </>
     );
 }

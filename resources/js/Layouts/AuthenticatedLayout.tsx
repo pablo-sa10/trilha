@@ -1,5 +1,5 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
+// import ApplicationLogo from '@/Components/ApplicationLogo';
+// import Dropdown from '@/Components/Dropdown';
 import { ModeToggle } from '@/Components/ModeToggle';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
@@ -23,14 +23,14 @@ export default function Authenticated({
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    {/* <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" /> */}
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
-                                    active={route().current('dashboard')}
+                                    // active={route().current('dashboard')}
                                 >
                                     Dashboard
                                 </NavLink>
@@ -39,7 +39,7 @@ export default function Authenticated({
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative ms-3">
-                                <Dropdown>
+                                {/* <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
@@ -78,7 +78,7 @@ export default function Authenticated({
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
-                                </Dropdown>
+                                </Dropdown> */}
                             </div>
                         </div>
 
