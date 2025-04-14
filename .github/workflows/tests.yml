@@ -53,8 +53,19 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      - name: Wait for MySQL
-        run: sleep 20
+      - name: Install MySQL client
+        run: sudo apt-get update && sudo apt-get install -y default-mysql-client
+
+      - name: Wait until MySQL is ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h"$DB_HOST" -uroot -proot --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
 
       - name: Run database migrations
         run: php artisan migrate --force
