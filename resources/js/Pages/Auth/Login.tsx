@@ -3,6 +3,7 @@ import { GalleryVerticalEnd } from "lucide-react";
 import { LoginForm } from "@/Components/login-form";
 import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
+import { Toaster } from "@/Components/ui/sonner"
 
 export default function LoginPage() {
     return (
@@ -24,6 +25,7 @@ export default function LoginPage() {
                     />
                 </div>
             </div>
+            <Toaster className="toast"/>
         </>
     );
 }

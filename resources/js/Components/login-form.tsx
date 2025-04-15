@@ -3,7 +3,7 @@ import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Link } from "@inertiajs/react";
-import { Toaster } from "./ui/sonner";
+import { toast } from "sonner";
 
 export function LoginForm({
     className,
@@ -47,12 +47,15 @@ export function LoginForm({
                         Ou continue com
                     </span>
                 </div>
-                <Button 
-                    variant="outline" 
+                <Button
+                    variant="outline"
                     className="w-full"
-                    onClick={()=>{
-
-                    }}
+                    type="button"
+                    onClick={() =>
+                        toast("Disponível em breve", {
+                            dismissible: true,
+                        })
+                    }
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
@@ -65,7 +68,10 @@ export function LoginForm({
             </div>
             <div className="text-center text-sm">
                 Não tem uma conta?{" "}
-                <Link href={route("register")} className="underline underline-offset-4">
+                <Link
+                    href={route("register")}
+                    className="underline underline-offset-4"
+                >
                     Inscreva-se
                 </Link>
             </div>

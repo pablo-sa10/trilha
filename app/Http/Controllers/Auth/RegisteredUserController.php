@@ -24,16 +24,21 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * Recebe os dados enviados pelo formulario e retorna uma resposta de redirecionamento
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
+        /**
+         * função para validar os dados
+         * 
+         * caso seja invalidado, ele retorna indicando o erro
+         */
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
         ]);
 
         $user = User::create([

@@ -14,8 +14,9 @@ import { Link, useForm } from "@inertiajs/react";
 import ResetPassword from "@/Pages/Auth/ResetPassword";
 import InputError from "./InputError";
 import { Spinner } from "./ui/spinner";
+import { toast } from "sonner";
 
-export function LoginForm({
+export function RegisterForm({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<"div">) {
@@ -29,7 +30,7 @@ export function LoginForm({
         password: "",
         password_confirmation: "",
     });
-    console.log(data);
+    console.log(errors);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -59,7 +60,16 @@ export function LoginForm({
                     <form onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="flex flex-col gap-4">
-                                <Button variant="outline" className="w-full">
+                                <Button
+                                    variant="outline"
+                                    className="w-full"
+                                    type="button"
+                                    onClick={() =>
+                                        toast("Disponível em breve", {
+                                            dismissible: true,
+                                        })
+                                    }
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
@@ -87,7 +97,7 @@ export function LoginForm({
                                             setData("name", e.target.value);
                                         }}
                                         autoComplete="name"
-                                        placeholder="Seu nome"
+                                        placeholder="Ex: Maria da Graça"
                                         required
                                     />
                                     <InputError
@@ -108,17 +118,26 @@ export function LoginForm({
                                         placeholder="nome@email.com"
                                         required
                                     />
+                                    <InputError
+                                        message={errors.email}
+                                        className="mt-1"
+                                    />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="password">Senha</Label>
                                     <Input
                                         id="password"
                                         type="password"
+                                        placeholder="Minímo 8 caracteres"
                                         value={data.password}
                                         onChange={(e) => {
                                             setData("password", e.target.value);
                                         }}
                                         required
+                                    />
+                                    <InputError
+                                        message={errors.password}
+                                        className="mt-1"
                                     />
                                 </div>
                                 <div className="grid gap-2">

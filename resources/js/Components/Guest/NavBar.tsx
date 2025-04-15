@@ -106,7 +106,7 @@ export function NavBar({ auth }: PageProps) {
                                     {auth.user ? (
                                         <NavLink
                                             rel=""
-                                            href={route("login")}
+                                            href={route("dashboard")}
                                             className={`text-[15px] ${buttonVariants(
                                                 { variant: "default" }
                                             )}`}
@@ -162,7 +162,7 @@ export function NavBar({ auth }: PageProps) {
                         {auth.user ? (
                             <NavLink
                                 rel=""
-                                href={route("login")}
+                                href={route("dashboard")}
                                 key={"login"}
                                 className={`text-[15px] ${buttonVariants({
                                     variant: "default",
