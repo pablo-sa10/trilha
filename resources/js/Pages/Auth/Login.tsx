@@ -5,7 +5,18 @@ import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
 import { Toaster } from "@/Components/ui/sonner"
 
-export default function LoginPage() {
+interface LoginProps {
+    status?: string,
+    canResetPassword: boolean
+}
+
+export default function LoginPage({
+    status,
+    canResetPassword
+}: LoginProps) {
+
+    console.log(status, canResetPassword)
+
     return (
         <>
             <Head title="Login" />
