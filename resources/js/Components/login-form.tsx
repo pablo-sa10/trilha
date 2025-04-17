@@ -4,11 +4,15 @@ import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Link } from "@inertiajs/react";
 import { toast } from "sonner";
+import { useLoginContext } from "@/context/LoginContext";
 
 export function LoginForm({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+
+    const {status, canResetPassword} = useLoginContext();
+
     return (
         <form className={cn("flex flex-col gap-6", className)} {...props}>
             <div className="flex flex-col items-center gap-2 text-center">

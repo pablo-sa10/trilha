@@ -4,10 +4,11 @@ import { LoginForm } from "@/Components/login-form";
 import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
 import { Toaster } from "@/Components/ui/sonner"
+import { LoginProvider } from "@/context/LoginContext";
 
 interface LoginProps {
-    status?: string,
-    canResetPassword: boolean
+    status?: string;
+    canResetPassword: boolean;
 }
 
 export default function LoginPage({
@@ -18,7 +19,7 @@ export default function LoginPage({
     console.log(status, canResetPassword)
 
     return (
-        <>
+        <LoginProvider value={{ status, canResetPassword }}>
             <Head title="Login" />
             <div className="grid min-h-svh lg:grid-cols-2">
                 <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -36,7 +37,7 @@ export default function LoginPage({
                     />
                 </div>
             </div>
-            <Toaster className="toast"/>
-        </>
+            <Toaster className="toast" />
+        </LoginProvider>
     );
 }
