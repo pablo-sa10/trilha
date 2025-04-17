@@ -30,7 +30,6 @@ export function RegisterForm({
         password: "",
         password_confirmation: "",
     });
-    console.log(errors);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
