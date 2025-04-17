@@ -22,8 +22,6 @@ export function ModalInfo ({
     ...props
 }: ModalALertProps){
 
-    console.log(status)
-
     const [open, setOpen] = useState(!status ? false : true) // se o status chegar declarado, exibe uma modal com a mensagem
 
     return (
