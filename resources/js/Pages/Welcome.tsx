@@ -8,8 +8,6 @@ export default function Welcome({
     auth
 }: PageProps) {
 
-    console.log(auth)
-
     return (
         <AuthProvider value={auth}>
             <Head title="Bem Vindo!" />
