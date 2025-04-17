@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { PageProps } from "@/types";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -23,6 +22,7 @@ import { Menu } from "lucide-react";
 import { buttonVariants } from "@/Components/ui/button";
 import { Link } from "@inertiajs/react";
 import NavLink from "../NavLink";
+import { useAuthContext } from "@/context/AuthUserContext";
 
 interface RouteProps {
     href: string;
@@ -48,8 +48,10 @@ const routeList: RouteProps[] = [
     },
 ];
 
-export function NavBar({ auth }: PageProps) {
+export function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const auth = useAuthContext()
+
     console.log(auth)
 
     return (
