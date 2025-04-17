@@ -1,4 +1,3 @@
-import { GalleryVerticalEnd } from "lucide-react";
 import { LoginForm } from "@/Components/login-form";
 import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
