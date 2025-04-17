@@ -3,8 +3,6 @@ import { Head, Link } from '@inertiajs/react';
 import { NavBar } from '@/Components/Guest/NavBar'
 import Guest from '@/Layouts/GuestLayout';
 
-
-
 export default function Welcome({
     auth
 }: PageProps) {
