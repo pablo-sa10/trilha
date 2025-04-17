@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 
 interface LoginContextProps {
+    title?:string;
     status?: string;
     canResetPassword: boolean;
 }

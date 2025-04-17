@@ -50,7 +50,7 @@ const routeList: RouteProps[] = [
 
 export function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const auth = useAuthContext()
+    const auth = useAuthContext();
 
     return (
         <header className="sticky z-10 bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur top-0 flex shrink-0 items-center gap-2 border-b h-16">
