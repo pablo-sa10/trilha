@@ -15,7 +15,7 @@ interface ModalALertProps {
     status?: string
 }
 
-export default function ModalAlert ({
+export function ModalInfo ({
     className,
     status,
     title,

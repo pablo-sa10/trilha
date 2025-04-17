@@ -6,7 +6,7 @@ import { Link, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { useLoginContext } from "@/context/LoginContext";
 import { FormEventHandler } from "react";
-import ModalAlert from "./ModalAlert";
+import { ModalInfo } from "@/Components/ModalInfo";
 
 export function LoginForm({
     className,
@@ -99,7 +99,7 @@ export function LoginForm({
             </form>
 
             {/* modal para exibir mensagem */}
-            <ModalAlert title={title} status={status} />
+            <ModalInfo title={title} status={status} />
         </>
     );
 }
