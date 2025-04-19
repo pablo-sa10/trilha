@@ -1,7 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Dashboard() {
+export default function Dashboard({userRole}: {userRole: string}) {
+    console.log(userRole);
     return (
         <>
             <Head title="Home" />

@@ -8,13 +8,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @method \Illuminate\Support\Collection getRoleNames() Retorna os nomes das roles atribuídas ao usuário
+ */
 class User extends Authenticatable
 {
+    use HasRoles;
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /** para permissões */
-    use HasRoles;
+    /** para permissões  */
 
     /**
      * The attributes that are mass assignable.

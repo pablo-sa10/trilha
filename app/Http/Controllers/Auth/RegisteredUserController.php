@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -47,10 +48,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Atribuir a role padrão
+        $user->assignRole('user');
 
-        Auth::login($user);
+        event(new Registered($user)); // dispara um evento, como mensagem de boas vindas
+ 
+        Auth::login($user); // logar o usuário após o registro
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false)); // redireciona para a rota dashboard
     }
 }
