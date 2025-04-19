@@ -39,13 +39,6 @@ export function RegisterForm({
         });
     };
 
-    // função para exibir spinner e trocar o nome
-    // PRECISO TERMINAR DE CORRIGIR !!!
-    const [textLogin, setTextLogin] = useState("Registrar");
-    const SpinnerToggle = () => {
-        const [show, setShow] = useState(false);
-    };
-
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
@@ -157,8 +150,8 @@ export function RegisterForm({
                                     />
                                 </div>
                                 <div className="grid gap-3 mt-3">
-                                    <Button type="submit" className="w-full">
-                                        {textLogin}
+                                    <Button type="submit" className="w-full" disabled={processing}>
+                                        {!processing ? "Registrar" : <Spinner className="text-black"/>}
                                     </Button>
                                     <Link
                                         href="/"

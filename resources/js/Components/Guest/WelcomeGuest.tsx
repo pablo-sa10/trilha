@@ -62,7 +62,7 @@ export default function WelcomeGuest() {
             </div>
 
             {/* Shadow effect */}
-            <div className="shadow"></div>
+            <div className="shadow-move"></div>
         </section>
     );
 }

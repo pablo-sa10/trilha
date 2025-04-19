@@ -72,7 +72,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.shadow{
+.shadow-move{
   position: absolute;
   background: hsl(var(--primary) / 0%);
   border-radius: 24px;
@@ -98,7 +98,7 @@ html {
 }
 
 @media (max-width: 1024px){
-  .shadow {
+  .shadow-move {
     top: 70px;
   }
 
@@ -115,7 +115,7 @@ html {
 }
 
 @media (max-width: 768px) {
-  .shadow {
+  .shadow-move {
     top: 70px;
     width: 100px;
     height: 350px;

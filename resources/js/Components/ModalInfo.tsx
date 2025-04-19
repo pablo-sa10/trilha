@@ -17,8 +17,8 @@ interface ModalALertProps {
 
 export function ModalInfo({
     className,
-    status,
     title,
+    status,
     ...props
 }: ModalALertProps) {
 
