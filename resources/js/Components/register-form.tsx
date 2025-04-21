@@ -162,7 +162,7 @@ export function RegisterForm({
                                         )}
                                     </Button>
                                     <Link
-                                        href="/"
+                                        href={route("ladingPage")}
                                         className={buttonVariants({
                                             variant: "destructive",
                                         })}

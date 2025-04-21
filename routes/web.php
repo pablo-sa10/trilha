@@ -14,7 +14,7 @@ Route::get('/', function () {
         // 'laravelVersion' => Application::VERSION,
         // 'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('ladingPage');
 
 Route::get('/home', function () {
     // $user = Auth::user();
