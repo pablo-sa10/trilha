@@ -150,8 +150,16 @@ export function RegisterForm({
                                     />
                                 </div>
                                 <div className="grid gap-3 mt-3">
-                                    <Button type="submit" className="w-full" disabled={processing}>
-                                        {!processing ? "Registrar" : <Spinner className="text-black"/>}
+                                    <Button
+                                        type="submit"
+                                        className="w-full"
+                                        disabled={processing}
+                                    >
+                                        {!processing ? (
+                                            "Registrar"
+                                        ) : (
+                                            <Spinner className="text-black" />
+                                        )}
                                     </Button>
                                     <Link
                                         href="/"

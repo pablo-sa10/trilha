@@ -33,7 +33,11 @@ export function LoginForm({
 
     return (
         <>
-            <form onSubmit={submit} className={cn("flex flex-col gap-6", className)} {...props}>
+            <form
+                onSubmit={submit}
+                className={cn("flex flex-col gap-6", className)}
+                {...props}
+            >
                 <div className="flex flex-col items-center gap-2 text-center">
                     <h1 className="text-2xl font-bold">
                         Login para a sua conta
@@ -100,8 +104,16 @@ export function LoginForm({
                             </Label>
                         </div>
                     </div>
-                    <Button type="submit" className="w-full" disabled={processing}>
-                        {!processing ? "Login" : <Spinner className="text-black"/>}
+                    <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={processing}
+                    >
+                        {!processing ? (
+                            "Login"
+                        ) : (
+                            <Spinner className="text-black" />
+                        )}
                     </Button>
                     <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                         <span className="relative z-10 bg-background px-2 text-muted-foreground">
