@@ -1,17 +1,22 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { AuthContextType, AuthProvider } from "@/context/AuthUserContext";
+import { AuthProvider } from "@/context/AuthUserContext";
+import { User } from "@/types";
+import { MainMenu } from "@/Layouts/MainMenuLayout";
 
 type DashboardProps = {
-    auth: AuthContextType;
+    auth: User | null;
     userRole: string;
 };
 
 export default function Dashboard({ auth, userRole }: DashboardProps) {
 
     return (
-        <AuthProvider value={auth}>
+        <AuthProvider value={{user: auth, userRole}}>
             <Head title="Home" />
+            <MainMenu>
+                ola
+            </MainMenu>
         </AuthProvider>
     );
 }

@@ -6,7 +6,7 @@ interface MainMenuProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function MainMenu({ children, ...props }: MainMenuProps) {
-    <SidebarProvider>
-        
+    return <SidebarProvider>
+        {children}
     </SidebarProvider>;
 }
