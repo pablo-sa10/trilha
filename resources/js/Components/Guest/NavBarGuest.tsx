@@ -48,7 +48,7 @@ const routeList: RouteProps[] = [
     },
 ];
 
-export function NavBar() {
+export function NavBarGuest() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const auth = useAuthContext();
 
