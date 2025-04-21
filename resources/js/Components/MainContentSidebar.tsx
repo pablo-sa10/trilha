@@ -1,5 +1,21 @@
-import { Home, Map, LucideIcon } from "lucide-react";
+import { Home, Map, LucideIcon, ChevronRight } from "lucide-react";
 import { title } from "process";
+import {
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubButton,
+    SidebarMenuSubItem,
+} from "./ui/sidebar";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "./ui/collapsible";
+import { Link } from "@inertiajs/react";
 
 interface itensMenuProps {
     title: string;
@@ -29,16 +45,65 @@ const itensMenu = [
         items: [
             {
                 title: "Trilha 1",
-                url: "Trilha 1",
+                url: "dashboard",
             },
             {
                 title: "Trilha 2",
-                url: "Trilha 2",
+                url: "dashboard",
             },
         ],
     },
 ];
 
 export function MainContentSidebar({}) {
-    return <></>;
+    return (
+        <SidebarGroup>
+            <SidebarGroupLabel>Plataforma</SidebarGroupLabel>
+            <SidebarMenu className="gap-3">
+                {itensMenu.map((item: itensMenuProps) => {
+                    return item.collapsible ? (
+                        <Collapsible
+                            key={item.title}
+                            asChild
+                            defaultOpen={item.isActive}
+                            className="group/collapsible"
+                        >
+                            <SidebarMenuItem>
+                                <CollapsibleTrigger asChild>
+                                    <SidebarMenuButton tooltip={item.title}>
+                                        {item.icon && <item.icon />}
+                                        <span>{item.title}</span>
+                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>
+                                    </SidebarMenuButton>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent>
+                                    <SidebarMenuSub>
+                                        {item.items?.map((subItem) => (
+                                            <SidebarMenuSubItem
+                                                key={subItem.title}
+                                            >
+                                                <SidebarMenuSubButton asChild>
+                                                    <Link
+                                                        href={route(
+                                                            subItem.url
+                                                        )}
+                                                    >
+                                                        <span>
+                                                            {subItem.title}
+                                                        </span>
+                                                    </Link>
+                                                </SidebarMenuSubButton>
+                                            </SidebarMenuSubItem>
+                                        ))}
+                                    </SidebarMenuSub>
+                                </CollapsibleContent>
+                            </SidebarMenuItem>
+                        </Collapsible>
+                    ) : (
+                        "testeaaa"
+                    );
+                })}
+            </SidebarMenu>
+        </SidebarGroup>
+    );
 }
