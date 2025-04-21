@@ -1,4 +1,5 @@
-import { SidebarProvider } from "@/Components/ui/sidebar";
+import { AppSidebar } from "@/Components/AppSideBar";
+import { SidebarInset, SidebarProvider } from "@/Components/ui/sidebar";
 import React, { HTMLAttributes } from "react";
 
 interface MainMenuProps extends HTMLAttributes<HTMLDivElement> {
@@ -6,7 +7,12 @@ interface MainMenuProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function MainMenu({ children, ...props }: MainMenuProps) {
-    return <SidebarProvider>
-        {children}
-    </SidebarProvider>;
+    return (
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+                <main className="p-5">{children}</main>
+            </SidebarInset>
+        </SidebarProvider>
+    );
 }

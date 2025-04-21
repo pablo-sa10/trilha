@@ -17,12 +17,12 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    $user = Auth::user();
-    /** @var User $user */ 
+    // $user = Auth::user();
+    // /** @var User $user */ 
      
-    return Inertia::render('Dashboard', [
-        'userRole' => $user->getRoleNames()->first(),
-    ]);
+    // $user->load('roles'); // <- Isso carrega o relacionamento
+
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

@@ -3,7 +3,6 @@ import { User } from '@/types';
 
 export interface AuthContextType {
     user: User | null;
-    userRole?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

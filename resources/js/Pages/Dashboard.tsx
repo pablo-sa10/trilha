@@ -5,14 +5,15 @@ import { User } from "@/types";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
 
 type DashboardProps = {
-    auth: User | null;
-    userRole: string;
+    auth: {
+        user: User | null;
+    }
 };
 
-export default function Dashboard({ auth, userRole }: DashboardProps) {
+export default function Dashboard({ auth }: DashboardProps) {
 
     return (
-        <AuthProvider value={{user: auth, userRole}}>
+        <AuthProvider value={{user: auth.user}}>
             <Head title="Home" />
             <MainMenu>
                 ola
