@@ -18,11 +18,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar variant="inset" collapsible="icon" {...props}>
             <SidebarHeader>
-                <div className="flex gap-3">
+                <div className="flex items-center gap-7">
                     <LogoIcon className="w-10 h-10 text-primary" />
                     <div className="flex flex-col">
-                        <span className="">Trilha de estudos</span>
-                        <span>Bem vindo, {user?.name}</span>
+                        <span className="text-sm text-gray-500">Trilha de estudos</span>
+                        <span className="font-bold">Bem vindo, {user?.name}!</span>
                     </div>
                 </div>
             </SidebarHeader>
