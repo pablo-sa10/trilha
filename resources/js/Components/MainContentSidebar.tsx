@@ -1,5 +1,5 @@
-import { Home, Map, LucideIcon, ChevronRight } from "lucide-react";
-import { title } from "process";
+import { Home, Map, LucideIcon, ChevronRight, Plus } from "lucide-react";
+
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -45,17 +45,23 @@ const itensMenu = [
         items: [
             {
                 title: "Trilha 1",
-                url: "dashboard",
+                url: "ladingPage",
             },
             {
                 title: "Trilha 2",
-                url: "dashboard",
+                url: "ladingPage",
             },
         ],
     },
+    {
+        title: "Adicionar Trilha",
+        url: "dashboard",
+        icon: Plus,
+        collapsible: false,
+    },
 ];
 
-export function MainContentSidebar({}) {
+export function MainContentSidebar({ }) {
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Plataforma</SidebarGroupLabel>
@@ -73,7 +79,7 @@ export function MainContentSidebar({}) {
                                     <SidebarMenuButton tooltip={item.title}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>
+                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
@@ -100,7 +106,16 @@ export function MainContentSidebar({}) {
                             </SidebarMenuItem>
                         </Collapsible>
                     ) : (
-                        "testeaaa"
+                        <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton asChild>
+                                <Link
+                                    href={route(item.url || "ladingPage")}
+                                    >
+                                    {item.icon && <item.icon />}
+                                    <span>{item.title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
                     );
                 })}
             </SidebarMenu>

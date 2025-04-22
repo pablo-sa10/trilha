@@ -17,14 +17,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar variant="inset" collapsible="icon" {...props}>
             <SidebarHeader>
-                <NavTitle/>
+                <NavTitle />
             </SidebarHeader>
             <SidebarContent>
                 <ScrollArea>
                     <MainContentSidebar />
                 </ScrollArea>
             </SidebarContent>
-            <SidebarFooter>usuario</SidebarFooter>
+            <SidebarFooter>
+                
+            </SidebarFooter>
             <SidebarRail />
         </Sidebar>
     );

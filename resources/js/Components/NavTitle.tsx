@@ -10,7 +10,7 @@ export function NavTitle() {
             <SidebarMenuItem>
                 <SidebarMenuButton
                     size="lg"
-                    className="group flex items-center gap-3 px-3 py-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                    className="group cursor-default flex items-center gap-3 px-3 py-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                         <LogoIcon />
