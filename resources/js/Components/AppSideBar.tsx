@@ -11,6 +11,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { NavTitle } from "./NavTitle";
 import { MainContentSidebar } from "./MainContentSidebar";
 import { NavConfig } from "./NavConfig";
+import { NavUser } from "./NavUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { user } = useAuthContext(); // pega as infos do usuario
@@ -27,6 +28,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
             <SidebarFooter>
                 <NavConfig />
+                <NavUser className=""/>
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

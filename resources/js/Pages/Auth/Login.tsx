@@ -1,4 +1,4 @@
-import { LoginForm } from "@/Components/login-form";
+import { LoginForm } from "@/Components/LoginForm";
 import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
 import { Toaster } from "@/Components/ui/sonner"
