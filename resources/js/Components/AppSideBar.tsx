@@ -17,7 +17,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { user } = useAuthContext(); // pega as infos do usuario
 
     return (
-        <Sidebar variant="inset" collapsible="icon" {...props}>
+        <Sidebar variant="floating" collapsible="icon" {...props}>
             <SidebarHeader>
                 <NavTitle />
             </SidebarHeader>
