@@ -6,7 +6,7 @@ import { Link, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { useLoginContext } from "@/context/LoginContext";
 import { FormEventHandler } from "react";
-import { ModalInfo } from "@/Components/ModalInfo";
+import { ModalInfo } from "@/Components/modal/ModalInfo";
 import InputError from "./InputError";
 import { Checkbox } from "@/Components/ui/checkbox";
 import { Spinner } from "./ui/spinner";

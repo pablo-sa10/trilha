@@ -9,14 +9,17 @@ import { useAuthContext } from "@/context/AuthUserContext";
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuGroup,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+    DropdownMenuItem,
 } from "./ui/dropdown-menu";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { ChevronsUpDown } from "lucide-react";
+import { Bell, ChevronsUpDown, LogOut } from "lucide-react";
+import { toast } from "sonner";
+import { ModalAlert } from "./modal/ModalAlert";
 
 type NavUserProps = {
     isNavBar?: boolean;
@@ -98,9 +101,36 @@ export function NavUser({ isNavBar, btnClassName }: NavUserProps) {
                             </DropdownMenuLabel>
                         )}
                         <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem
+                                onClick={() => {
+                                    toast("Disponível em breve", {
+                                        dismissible: true,
+                                    });
+                                }}
+                            >
+                                <Bell />
+                                Notificação
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => setShowLougoutAlert(true)}
+                        >
+                            <LogOut />
+                            Sair
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>
+
+            <ModalAlert
+                open={showLougoutAlert}
+                onOpenChange={setShowLougoutAlert}
+                title="Você tem certeza?"
+                description="Deseja realmente sair da sessão?"
+                classBtnConfirm="bg-destructive hover:bg-destructive/80"
+            />
         </SidebarMenu>
     );
 }

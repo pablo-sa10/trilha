@@ -14,10 +14,14 @@ import { NavConfig } from "./NavConfig";
 import { NavUser } from "./NavUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { user } = useAuthContext(); // pega as infos do usuario
+    // const { user } = useAuthContext(); // pega as infos do usuario
 
     return (
-        <Sidebar variant="floating" collapsible="icon" {...props}>
+        <Sidebar
+            variant="floating"
+            collapsible="icon"
+            {...props}
+        >
             <SidebarHeader>
                 <NavTitle />
             </SidebarHeader>
@@ -28,7 +32,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
             <SidebarFooter>
                 <NavConfig />
-                <NavUser />
+                {/* <NavUser /> */}
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
