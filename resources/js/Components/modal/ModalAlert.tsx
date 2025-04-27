@@ -28,6 +28,18 @@ export function ModalAlert({
     onAction,
     ...props
 }: ModalAlertProps) {
+
+     const callFunction = async () =>{
+        try {
+            if (onAction) {
+              await onAction();
+            }
+            onOpenChange(false);
+          } catch (error) {
+            console.error(error);
+            // você poderia também mostrar um toast de erro aqui
+          }
+    }
     
     return (
         <AlertDialog onOpenChange={onOpenChange} {...props}>
@@ -44,11 +56,7 @@ export function ModalAlert({
                     </AlertDialogCancel>
                     <AlertDialogAction
                         className={classBtnConfirm}
-                        onClick={async () => {
-                            if (onAction) {
-                                await onAction();
-                            }
-                        }}
+                        onClick={callFunction}
                     >
                         Confirmar
                     </AlertDialogAction>
