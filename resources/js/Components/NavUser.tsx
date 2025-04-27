@@ -20,6 +20,7 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Bell, ChevronsUpDown, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { ModalAlert } from "./modal/ModalAlert";
+import { router } from "@inertiajs/react";
 
 type NavUserProps = {
     isNavBar?: boolean;
@@ -115,7 +116,8 @@ export function NavUser({ isNavBar, btnClassName }: NavUserProps) {
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            onClick={() => setShowLougoutAlert(true)}
+                            // onClick={() => setShowLougoutAlert(true)}
+                            onClick={() => router.post(route('logout'))}
                         >
                             <LogOut />
                             Sair
@@ -124,13 +126,13 @@ export function NavUser({ isNavBar, btnClassName }: NavUserProps) {
                 </DropdownMenu>
             </SidebarMenuItem>
 
-            <ModalAlert
+            {/* <ModalAlert
                 open={showLougoutAlert}
                 onOpenChange={setShowLougoutAlert}
                 title="Você tem certeza?"
                 description="Deseja realmente sair da sessão?"
                 classBtnConfirm="bg-destructive hover:bg-destructive/80"
-            />
+            /> */}
         </SidebarMenu>
     );
 }
