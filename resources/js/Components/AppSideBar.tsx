@@ -32,7 +32,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
             <SidebarFooter>
                 <NavConfig />
-                {/* <NavUser /> */}
+                <NavUser />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
