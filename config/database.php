@@ -62,6 +62,20 @@ return [
             ]) : [],
         ],
 
+        'awsdb' => [ // <-- Nova conexão aqui
+            'driver' => 'mysql',
+            'host' => env('AWS_DB_HOST'),
+            'port' => env('AWS_DB_PORT', '3306'),
+            'database' => env('AWS_DB_DATABASE'),
+            'username' => env('AWS_DB_USERNAME'),
+            'password' => env('AWS_DB_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
@@ -147,7 +161,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

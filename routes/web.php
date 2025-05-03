@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Models\User;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,12 +15,19 @@ Route::get('/', function () {
 })->name('ladingPage');
 
 Route::get('/home', function () {
-    // $user = Auth::user();
-    // /** @var User $user */ 
-     
-    // $user->load('roles'); // <- Isso carrega o relacionamento
+    // try {
+    //     $resultado = DB::connection('awsdb')->select('SELECT 1');
+    //     // Se chegou aqui, conexão foi bem sucedida
+    //     $awsOk = true;
+    // } catch (\Exception $e) {
+    //     $awsOk = false;
+    //     $errorMessage = $e->getMessage();
+    // }
 
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard',[
+        'awsOk' => $awsOk ?? false,
+        'awsError' => $errorMessage ?? null,
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
