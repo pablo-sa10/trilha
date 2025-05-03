@@ -43,7 +43,7 @@ export function FormCreateLearningPath({
     })
     const academy = [
         {
-            label: "Fatec - Faculdade de Tecnonlogia",
+            label: "Fatec - Faculdade de Tecnologia",
             value: "fa",
         },
     ];
