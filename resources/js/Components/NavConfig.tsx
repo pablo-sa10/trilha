@@ -45,7 +45,7 @@ export function NavConfig() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton>
-                            <Settings className="size-5" />
+                            <Settings className="" />
                             <span className="truncate text-xs">
                                 Configurações
                             </span>
