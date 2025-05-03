@@ -1,5 +1,3 @@
-import { GalleryVerticalEnd } from "lucide-react";
-
 import { RegisterForm } from "@/Components/RegisterForm";
 import { Head } from "@inertiajs/react";
 import { Toaster } from "@/Components/ui/sonner";
