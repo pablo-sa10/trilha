@@ -48,7 +48,7 @@ export default function Dashboard({ auth, awsOk, awsError }: DashboardProps) {
                                 buttonVariants({ size: "xl" }),
                                 "flex gap-2 items-center"
                             )}
-                            href={route("dashboard")}
+                            href={route("new-learning-path.create")}
                         >
                             <span className="text-lg md:text-xl">
                                 Criar nova Trilha de Estudos
