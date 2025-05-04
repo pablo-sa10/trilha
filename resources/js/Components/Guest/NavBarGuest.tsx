@@ -8,18 +8,18 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-} from "@/Components/ui/navigation-menu";
-import { LogoIcon } from "@/Components/Icons";
-import { ModeToggle } from "@/Components/ModeToggle";
+} from "@/components/ui/navigation-menu";
+import { LogoIcon } from "@/components/Icons";
+import { ModeToggle } from "@/components/ModeToggle";
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/Components/ui/sheet";
+} from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { buttonVariants } from "@/Components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
 import NavLink from "../NavLink";
 import { useAuthContext } from "@/context/AuthUserContext";

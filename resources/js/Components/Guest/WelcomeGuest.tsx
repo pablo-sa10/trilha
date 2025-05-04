@@ -1,9 +1,9 @@
-import { buttonVariants } from "@/Components/ui/button";
-import { Button } from "@/Components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
 import { PropsWithChildren } from "react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { HeroCards } from "@/Components/Guest/HeroCards";
+import { HeroCards } from "@/components/Guest/HeroCards";
 import { LogoIcon } from "../Icons";
 
 export default function WelcomeGuest() {

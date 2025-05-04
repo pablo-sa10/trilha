@@ -1,6 +1,6 @@
-import { RegisterForm } from "@/Components/RegisterForm";
+import { RegisterForm } from "@/components/RegisterForm";
 import { Head } from "@inertiajs/react";
-import { Toaster } from "@/Components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function LoginPage() {
     return (

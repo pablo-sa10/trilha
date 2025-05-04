@@ -1,9 +1,9 @@
-// import DangerButton from '@/Components/DangerButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/delete/InputLabel';
-// import Modal from '@/Components/Modal';
-// import SecondaryButton from '@/Components/SecondaryButton';
-import TextInput from '@/Components/delete/TextInput';
+// import DangerButton from '@/components/DangerButton';
+import InputError from '@/components/InputError';
+import InputLabel from '@/components/delete/InputLabel';
+// import Modal from '@/components/Modal';
+// import SecondaryButton from '@/components/SecondaryButton';
+import TextInput from '@/components/delete/TextInput';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef, useState } from 'react';
 

@@ -1,9 +1,9 @@
-import { Toaster } from "@/Components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
-import { FormCreateLearningPath } from "@/Components/FormCreateLearningPath";
+import { FormCreateLearningPath } from "@/components/FormCreateLearningPath";
 
 type LearningPathsProps = {
     auth: {

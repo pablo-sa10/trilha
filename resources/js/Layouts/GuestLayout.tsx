@@ -1,14 +1,14 @@
-import { About } from '@/Components/Guest/About';
-import { Cta } from '@/Components/Guest/Cta';
-import { Features } from '@/Components/Guest/Features';
-import { Footer } from '@/Components/Guest/Footer';
-import { HowItWorks } from '@/Components/Guest/HowItWorks';
-import { Pricing } from '@/Components/Guest/Pricing';
-import { ScrollToTop } from '@/Components/Guest/ScrollToTop';
-import { Services } from '@/Components/Guest/Services';
-import { Sponsors } from '@/Components/Guest/Sponsors';
-import { Team } from '@/Components/Guest/Team';
-import WelcomeGuest from '@/Components/Guest/WelcomeGuest';
+import { About } from '@/components/Guest/About';
+import { Cta } from '@/components/Guest/Cta';
+import { Features } from '@/components/Guest/Features';
+import { Footer } from '@/components/Guest/Footer';
+import { HowItWorks } from '@/components/Guest/HowItWorks';
+import { Pricing } from '@/components/Guest/Pricing';
+import { ScrollToTop } from '@/components/Guest/ScrollToTop';
+import { Services } from '@/components/Guest/Services';
+import { Sponsors } from '@/components/Guest/Sponsors';
+import { Team } from '@/components/Guest/Team';
+import WelcomeGuest from '@/components/Guest/WelcomeGuest';
 
 export default function Guest() {
     return (

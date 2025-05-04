@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { useLoginContext } from "@/context/LoginContext";
 import { FormEventHandler } from "react";
-import { ModalInfo } from "@/Components/modal/ModalInfo";
+import { ModalInfo } from "@/components/modal/ModalInfo";
 import InputError from "./InputError";
-import { Checkbox } from "@/Components/ui/checkbox";
-import { Spinner } from "./ui/spinner";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Spinner } from "@/components/ui/spinner";
 
 export function LoginForm({
     className,

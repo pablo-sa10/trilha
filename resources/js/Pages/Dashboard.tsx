@@ -2,8 +2,8 @@ import { Head, Link } from "@inertiajs/react";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
-import { Toaster } from "@/Components/ui/sonner";
-import { buttonVariants } from "@/Components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
+import { buttonVariants } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 

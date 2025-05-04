@@ -3,8 +3,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
-import { MagnifierIcon, WalletIcon, ChartIcon } from "@/Components/Icons";
+} from "@/components/ui/card";
+import { MagnifierIcon, WalletIcon, ChartIcon } from "@/components/Icons";
 import cubeLeg from "@images/cube-leg.png";
 
 interface ServiceProps {

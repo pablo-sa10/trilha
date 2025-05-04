@@ -1,13 +1,13 @@
 import { Moon, Sun } from "lucide-react";
 
-import { Button, buttonVariants } from "@/Components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { useTheme } from "@/Components/ThemeProvider";
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/components/ThemeProvider";
 import { config } from "process";
 import { VariantProps } from "class-variance-authority";
 

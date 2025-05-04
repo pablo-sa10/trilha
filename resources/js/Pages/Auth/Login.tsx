@@ -1,7 +1,7 @@
-import { LoginForm } from "@/Components/LoginForm";
+import { LoginForm } from "@/components/LoginForm";
 import student from "@images/student.png";
 import { Head } from "@inertiajs/react";
-import { Toaster } from "@/Components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner"
 import { LoginProvider } from "@/context/LoginContext";
 
 type LoginProps = {

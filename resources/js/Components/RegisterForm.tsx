@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/Components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { FormEventHandler, useState } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import ResetPassword from "@/Pages/Auth/ResetPassword";

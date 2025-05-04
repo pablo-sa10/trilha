@@ -1,11 +1,11 @@
-import { Badge } from "@/Components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
     Card,
     CardContent,
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
+} from "@/components/ui/card";
 
 import image from "@images/growth.png";
 import image3 from "@images/reflecting.png";

@@ -2,7 +2,7 @@
 
 import { useForm } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
@@ -11,7 +11,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/Components/ui/form";
+} from "@/components/ui/form";
 import {
     Command,
     CommandEmpty,
@@ -19,15 +19,15 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-} from "@/Components/ui/command";
+} from "@/components/ui/command";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/Components/ui/popover";
+} from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Input } from "@/Components/ui/input";
-import { Checkbox } from "@/Components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { FormEventHandler } from "react";
 import { Card, CardContent } from "./ui/card";
 

@@ -1,6 +1,6 @@
-import { AppSidebar } from "@/Components/AppSideBar";
-import Navbar from "@/Components/NavBar";
-import { SidebarInset, SidebarProvider } from "@/Components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSideBar";
+import Navbar from "@/components/NavBar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 
 

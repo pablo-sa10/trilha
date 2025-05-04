@@ -1,5 +1,5 @@
 import { Head, Link } from "@inertiajs/react";
-import { NavBarGuest } from "@/Components/Guest/NavBarGuest";
+import { NavBarGuest } from "@/components/Guest/NavBarGuest";
 import Guest from "@/Layouts/GuestLayout";
 import { AuthContextType, AuthProvider } from "@/context/AuthUserContext";
 
