@@ -46,17 +46,20 @@ export function FormCreateLearningPath({
      *
      */
     type FormData = {
-        collegeExam: string,
-        city: string,
-        subject: string[],
-    }
-    const { data, setData, post, processing, errors, reset } = useForm<FormData>({
-        collegeExam: "",
-        city: "",
-        subject: [],
-    });
+        collegeExam: string;
+        learningPath: string;
+        city: string;
+        subject: string[];
+    };
+    const { data, setData, post, processing, errors, reset } =
+        useForm<FormData>({
+            collegeExam: "",
+            learningPath: "",
+            city: "",
+            subject: [],
+        });
 
-    console.log(data)
+    console.log(data);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -84,12 +87,12 @@ export function FormCreateLearningPath({
     ];
 
     return (
-        <section className="">
+        <section className="" {...props}>
             <div className="mb-10">
                 <BackButton page={"dashboard"} />
             </div>
 
-            <Card className="max-w-3xl mx-auto">
+            <Card className="max-w-3xl mx-auto mb-10">
                 <CardHeader>
                     <CardTitle>Criar Trilha de Estudos</CardTitle>
                     <CardDescription>
@@ -97,11 +100,13 @@ export function FormCreateLearningPath({
                         estudos personalizado.
                     </CardDescription>
                 </CardHeader>
-                <form onSubmit={submit} className="space-y-8 pt-10">
-                    <CardContent>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={submit} className="space-y-8">
+                    <CardContent className="px-8">
+                        <div className="grid grid-cols-1 mb-5">
                             <div>
-                                <Label className="mb-3 block">Vestibular</Label>
+                                <Label className="mb-3 block">
+                                    Vestibular *
+                                </Label>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button
@@ -124,7 +129,7 @@ export function FormCreateLearningPath({
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent
-                                        className="w-[285px] md:w-[350px] p-0"
+                                        className="w-[265px] md:w-[700px] p-0"
                                         align="start"
                                         sideOffset={4}
                                     >
@@ -169,8 +174,24 @@ export function FormCreateLearningPath({
                                     </PopoverContent>
                                 </Popover>
                             </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
-                                <Label className="mb-3 block">Cidade</Label>
+                                <Label className="mb-3 block">
+                                    Nome da Trilha *
+                                </Label>
+                                <Input
+                                    placeholder="Ex: Minha Trilha"
+                                    type=""
+                                    value={data.learningPath}
+                                    onChange={(e) => {
+                                        setData("learningPath", e.target.value);
+                                    }}
+                                />
+                                <InputError message={errors.learningPath} />
+                            </div>
+                            <div>
+                                <Label className="mb-3 block">Cidade *</Label>
                                 <Input
                                     placeholder="Ex: São Paulo"
                                     type=""
@@ -195,10 +216,18 @@ export function FormCreateLearningPath({
                                         <Checkbox
                                             checked={data.subject.includes(sub)}
                                             onCheckedChange={(checked) => {
-                                                if(checked){
-                                                    setData("subject", [...data.subject, sub])
-                                                }else{
-                                                    setData("subject", data.subject.filter((s) => s !== sub))
+                                                if (checked) {
+                                                    setData("subject", [
+                                                        ...data.subject,
+                                                        sub,
+                                                    ]);
+                                                } else {
+                                                    setData(
+                                                        "subject",
+                                                        data.subject.filter(
+                                                            (s) => s !== sub
+                                                        )
+                                                    );
                                                 }
                                             }}
                                         />
