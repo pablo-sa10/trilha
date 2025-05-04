@@ -20,12 +20,28 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormEventHandler } from "react";
-import { Card, CardContent } from "./ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "./ui/card";
 import { Label } from "./ui/label";
 import { FormControl, FormDescription, FormMessage } from "./ui/form";
 import InputError from "./InputError";
 import { error } from "console";
 import { BackButton } from "./BackButton";
+
+interface AcademysProps {
+    label: string;
+    value: string;
+}
+[];
+
+interface subjectsProps {}
+[];
 
 export function FormCreateLearningPath({
     className,
@@ -47,114 +63,138 @@ export function FormCreateLearningPath({
         post(route("createLearningPath"));
     };
 
-    const academys = [
+    const academys: AcademysProps[] = [
         {
             label: "Fatec - Faculdade de Tecnologia",
             value: "fatec",
         },
     ];
 
+    const subjects = [];
+
     return (
-        <section>
-            <BackButton page={"dashboard"}/>
-            <Card>
-                <CardContent>
-                    <form
-                        onSubmit={submit}
-                        className="space-y-8 max-w-3xl mx-auto py-10"
-                    >
-                        <div className="grid gap-6">
-                            <Label>Faculdade</Label>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        role="combobox"
-                                        className={cn(
-                                            "w-[200px] justify-between",
-                                            !data.collegeExam &&
-                                                "text-muted-foreground"
-                                        )}
+        <section className="">
+            <div className="mb-10">
+                <BackButton page={"dashboard"} />
+            </div>
+
+            <Card className="max-w-3xl mx-auto">
+                <CardHeader>
+                    <CardTitle>Criar Trilha de Estudos</CardTitle>
+                    <CardDescription>
+                        Preencha as informações abaixo para gerar seu plano de
+                        estudos personalizado.
+                    </CardDescription>
+                </CardHeader>
+                <form onSubmit={submit} className="space-y-8 pt-10">
+                    <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <Label className="mb-3 block">Faculdade</Label>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            className={cn(
+                                                "w-full justify-between",
+                                                !data.collegeExam &&
+                                                    "text-muted-foreground"
+                                            )}
+                                        >
+                                            {data.collegeExam
+                                                ? academys.find(
+                                                      (acad) =>
+                                                          acad.label ===
+                                                          data.collegeExam
+                                                  )?.label
+                                                : "Selecione o vestibular"}
+                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                        className="w-[285px] md:w-[350px] p-0"
+                                        align="start"
+                                        sideOffset={4}
                                     >
-                                        {data.collegeExam
-                                            ? academys.find(
-                                                  (acad) =>
-                                                      acad.value ===
-                                                      data.collegeExam
-                                              )?.label
-                                            : "Selecione o vestibular"}
-                                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-[200px] p-0">
-                                    <Command>
-                                        <CommandInput placeholder="Pesquisar Vestibular" />
-                                        <CommandList>
-                                            <CommandEmpty>
-                                                Vestibular não encontrado
-                                            </CommandEmpty>
-                                            <CommandGroup>
-                                                {academys.map((acad) => (
-                                                    <CommandItem
-                                                        value={acad.label}
-                                                        key={acad.value}
-                                                        onSelect={() => {
-                                                            setData(
-                                                                "collegeExam",
-                                                                acad.value
-                                                            );
-                                                        }}
-                                                    >
-                                                        <Check
-                                                            className={cn(
-                                                                "mr-2 h-4 w-4",
-                                                                acad.value ===
-                                                                    data.collegeExam
-                                                                    ? "opacity-100"
-                                                                    : "opacity-0"
-                                                            )}
-                                                        />
-                                                        {acad.label}
-                                                    </CommandItem>
-                                                ))}
-                                            </CommandGroup>
-                                        </CommandList>
-                                    </Command>
-                                </PopoverContent>
-                            </Popover>
+                                        <Command>
+                                            <CommandInput placeholder="Pesquisar Vestibular" />
+                                            <CommandList>
+                                                <CommandEmpty>
+                                                    Vestibular não encontrado
+                                                </CommandEmpty>
+                                                <CommandGroup>
+                                                    {academys.map(
+                                                        ({
+                                                            label,
+                                                            value,
+                                                        }: AcademysProps) => (
+                                                            <CommandItem
+                                                                value={label}
+                                                                key={value}
+                                                                onSelect={() => {
+                                                                    setData(
+                                                                        "collegeExam",
+                                                                        label
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <Check
+                                                                    className={cn(
+                                                                        "mr-2 h-4 w-4",
+                                                                        label ===
+                                                                            data.collegeExam
+                                                                            ? "opacity-100"
+                                                                            : "opacity-0"
+                                                                    )}
+                                                                />
+                                                                {label}
+                                                            </CommandItem>
+                                                        )
+                                                    )}
+                                                </CommandGroup>
+                                            </CommandList>
+                                        </Command>
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+                            <div>
+                                <Label className="mb-3 block">Cidade</Label>
+                                <Input
+                                    placeholder="Ex: São Paulo"
+                                    type=""
+                                    value={data.city}
+                                    onChange={(e) => {
+                                        setData("city", e.target.value);
+                                    }}
+                                />
+                                <InputError message={errors.city} />
+                            </div>
                         </div>
 
-                        {/* <FormDescription>
-                        Escolha a faculdade que você pretende se dedicar aos
-                        estudos
-                    </FormDescription> */}
+                        <div className="mt-16 space-y-10">
+                            <CardDescription>
+                                Selecione as matérias que você tem mais
+                                dificuldade
+                            </CardDescription>
+                            <div className="grid grid-cols-12 gap-4">
+                                <div className="col-span-4">
+                                    <Checkbox
+                                        checked={data.subject[0]}
+                                        // onCheckedChange={setData("subject")}
+                                    />
 
-                        <Label>Cidade</Label>
-                        <Input
-                            placeholder="Ex: São Paulo"
-                            type=""
-                            value={data.city}
-                            onChange={(e) => {
-                                setData("city", e.target.value);
-                            }}
-                        />
-                        <InputError message={errors.city} />
-
-                        <div className="grid grid-cols-12 gap-4">
-                            <div className="col-span-4">
-                                <Checkbox
-                                    checked={data.subject[0]}
-                                    // onCheckedChange={setData("subject")}
-                                />
-
-                                <div className="space-y-1 leading-none">
-                                    <Label>Matematica</Label>
+                                    <div className="space-y-1 leading-none">
+                                        <Label>Matematica</Label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </CardContent>
+                    <CardFooter>
                         <Button type="submit">Submit</Button>
-                    </form>
-                </CardContent>
+                    </CardFooter>
+                </form>
             </Card>
         </section>
     );

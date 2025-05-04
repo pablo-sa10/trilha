@@ -9,7 +9,7 @@ export function BackButton({page, ...props}: {page: string}){
             href={route(page)}
             {...props}
             className={cn(buttonVariants(
-                {variant: "destructive", size: "sm"}
+                {variant: "destructive", size: "xs"}
             ))}
         >
             <ArrowLeft/>
