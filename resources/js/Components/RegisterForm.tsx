@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card";
 import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label;
+import { Label } from "@/Components/ui/label";
 import { FormEventHandler, useState } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import ResetPassword from "@/Pages/Auth/ResetPassword";
