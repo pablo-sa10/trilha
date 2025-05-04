@@ -45,11 +45,18 @@ export function FormCreateLearningPath({
      * HOCK USEFORM NATIVO DO INERTIA QUE FACILITA A VALIDAÇÃO DE DADOS
      *
      */
-    const { data, setData, post, processing, errors, reset } = useForm({
+    type FormData = {
+        collegeExam: string,
+        city: string,
+        subject: string[],
+    }
+    const { data, setData, post, processing, errors, reset } = useForm<FormData>({
         collegeExam: "",
         city: "",
         subject: [],
     });
+
+    console.log(data)
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -94,7 +101,7 @@ export function FormCreateLearningPath({
                     <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <Label className="mb-3 block">Faculdade</Label>
+                                <Label className="mb-3 block">Vestibular</Label>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button
@@ -178,21 +185,28 @@ export function FormCreateLearningPath({
 
                         <div className="mt-16 space-y-7">
                             <CardDescription>
-                                Selecione as matérias que você mais tem
-                                dificuldades e gostaria de melhorar seu
-                                desempenho
+                                Selecione as matérias em que você tem mais
+                                dificuldade e gostaria de melhorar seu
+                                desempenho.
                             </CardDescription>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4 gap-y-8">
                                 {subjects.map((sub: string) => (
                                     <div key={sub} className="flex gap-2">
                                         <Checkbox
-                                            checked={data.subject[0]}
-                                            // onCheckedChange={setData("subject")}
+                                            checked={data.subject.includes(sub)}
+                                            onCheckedChange={(checked) => {
+                                                if(checked){
+                                                    setData("subject", [...data.subject, sub])
+                                                }else{
+                                                    setData("subject", data.subject.filter((s) => s !== sub))
+                                                }
+                                            }}
                                         />
 
                                         <div className="space-y-1 leading-none">
                                             <Label>{sub}</Label>
                                         </div>
+                                        <InputError message={errors.subject} />
                                     </div>
                                 ))}
                             </div>
