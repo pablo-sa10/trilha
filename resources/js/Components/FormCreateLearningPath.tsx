@@ -29,19 +29,13 @@ import {
     CardTitle,
 } from "./ui/card";
 import { Label } from "./ui/label";
-import { FormControl, FormDescription, FormMessage } from "./ui/form";
 import InputError from "./InputError";
-import { error } from "console";
 import { BackButton } from "./BackButton";
 
 interface AcademysProps {
     label: string;
     value: string;
 }
-[];
-
-interface subjectsProps {}
-[];
 
 export function FormCreateLearningPath({
     className,
@@ -70,7 +64,17 @@ export function FormCreateLearningPath({
         },
     ];
 
-    const subjects = [];
+    const subjects: string[] = [
+        "Matemática",
+        "Português",
+        "Física",
+        "Química",
+        "História",
+        "Geografia",
+        "Inglês",
+        "Raciocínio Lógico",
+        "Conteúdo Multidisciplinar",
+    ];
 
     return (
         <section className="">
@@ -172,27 +176,30 @@ export function FormCreateLearningPath({
                             </div>
                         </div>
 
-                        <div className="mt-16 space-y-10">
+                        <div className="mt-16 space-y-7">
                             <CardDescription>
-                                Selecione as matérias que você tem mais
-                                dificuldade
+                                Selecione as matérias que você mais tem
+                                dificuldades e gostaria de melhorar seu
+                                desempenho
                             </CardDescription>
-                            <div className="grid grid-cols-12 gap-4">
-                                <div className="col-span-4">
-                                    <Checkbox
-                                        checked={data.subject[0]}
-                                        // onCheckedChange={setData("subject")}
-                                    />
+                            <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4 gap-y-8">
+                                {subjects.map((sub: string) => (
+                                    <div key={sub} className="flex gap-2">
+                                        <Checkbox
+                                            checked={data.subject[0]}
+                                            // onCheckedChange={setData("subject")}
+                                        />
 
-                                    <div className="space-y-1 leading-none">
-                                        <Label>Matematica</Label>
+                                        <div className="space-y-1 leading-none">
+                                            <Label>{sub}</Label>
+                                        </div>
                                     </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit">Enviar</Button>
                     </CardFooter>
                 </form>
             </Card>
