@@ -110,6 +110,12 @@ export default function Dashboard({ auth, awsOk, awsError }: DashboardProps) {
                                 )
                             )}
                         </div>
+                        <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <p>card</p>
+                            <p>card</p>
+                            <p>card</p>
+                            <p>card</p>
+                        </div>
                     </section>
                 )}
             </MainMenu>
