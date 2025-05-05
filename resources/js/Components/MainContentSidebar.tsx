@@ -55,7 +55,7 @@ const itensMenu = [
     },
     {
         title: "Adicionar Trilha",
-        url: "dashboard",
+        url: "new-learning-path.create",
         icon: Plus,
         collapsible: false,
     },
