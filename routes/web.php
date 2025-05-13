@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewLearningPath;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\DB;
@@ -15,21 +16,10 @@ Route::get('/', function () {
     ]);
 })->name('ladingPage');
 
-Route::get('/home', function () {
-    // try {
-    //     $resultado = DB::connection('awsdb')->select('SELECT 1');
-    //     // Se chegou aqui, conexão foi bem sucedida
-    //     $awsOk = true;
-    // } catch (\Exception $e) {
-    //     $awsOk = false;
-    //     $errorMessage = $e->getMessage();
-    // }
-
-    return Inertia::render('Dashboard',[
-        'awsOk' => $awsOk ?? false,
-        'awsError' => $errorMessage ?? null,
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home', [DashboardController::class, 'index']) 
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+    
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

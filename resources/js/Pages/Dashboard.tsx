@@ -19,8 +19,7 @@ type DashboardProps = {
     auth: {
         user: User | null;
     };
-    awsOk: boolean;
-    awsError: string | null;
+    trilhas: any[]
 };
 
 interface SummaryProps {
@@ -29,7 +28,9 @@ interface SummaryProps {
     icon: LucideIcon;
 }
 
-export default function Dashboard({ auth, awsOk, awsError }: DashboardProps) {
+export default function Dashboard({ auth, trilhas}: DashboardProps) {
+
+    console.log(trilhas)
     /**
      * Para dar continuidade no projeto sem conectar a API
      * foi colocado dados estaticas, para popular a tela
