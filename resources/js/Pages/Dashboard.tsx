@@ -30,10 +30,10 @@ interface SummaryProps {
 }
 
 interface LearningPath {
-    init: string;
-    id_route: number;
-    user: number;
-    name: string;
+    data_criacao: string;
+    id_trilha: number;
+    id_usuario: number;
+    nome_trilha: string;
 }
 
 export default function Dashboard({ auth, trilhas }: DashboardProps) {
@@ -44,7 +44,7 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
     const summary: SummaryProps[] = [
         {
             title: "Trilhas em Andamento",
-            quantity: 1,
+            quantity: trilhas.length || 0,
             icon: Route,
         },
         {
@@ -54,41 +54,63 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
         },
         {
             title: "Trilhas Disponíveis",
-            quantity: 1,
+            quantity: 0,
             icon: Layers,
         },
     ];
 
     return (
         <AuthProvider value={{ user: auth.user }}>
-            <LearningPathsProvider value={{trilhas}}>
+            <LearningPathsProvider value={{ trilhas }}>
                 <Head title="Home" />
                 <MainMenu>
                     {trilhas.length < 1 ? (
-                        <section className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
-                            <div className="mb-6 max-w-md">
-                                <h1 className="text-3xl font-bold mb-2">
-                                    Bem-vindo ao seu Dashboard!
-                                </h1>
-                                <p className="text-muted-foreground text-lg">
-                                    Comece sua jornada criando sua primeira{" "}
-                                    <strong>Trilha de Estudos</strong>. Clique
-                                    no botão abaixo para iniciar.
-                                </p>
-                            </div>
-
-                            <Link
-                                className={cn(
-                                    buttonVariants({ size: "xl" }),
-                                    "flex gap-2 items-center"
+                        <section>
+                            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+                                {summary.map(
+                                    ({
+                                        title,
+                                        icon,
+                                        quantity,
+                                    }: {
+                                        title: string;
+                                        icon: LucideIcon;
+                                        quantity: number;
+                                    }) => (
+                                        <SummaryCards
+                                            key={title}
+                                            title={title}
+                                            icon={icon}
+                                            quantity={quantity}
+                                        />
+                                    )
                                 )}
-                                href={route("new-learning-path.create")}
-                            >
-                                <span className="text-lg md:text-xl">
-                                    Criar nova Trilha de Estudos
-                                </span>
-                                <Plus className="!w-6 !h-6" />
-                            </Link>
+                            </div>
+                            <div className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
+                                <div className="mb-6 max-w-md">
+                                    <h1 className="text-3xl font-bold mb-2">
+                                        Bem-vindo ao seu Dashboard!
+                                    </h1>
+                                    <p className="text-muted-foreground text-lg">
+                                        Comece sua jornada criando sua primeira{" "}
+                                        <strong>Trilha de Estudos</strong>. Clique
+                                        no botão abaixo para iniciar.
+                                    </p>
+                                </div>
+
+                                <Link
+                                    className={cn(
+                                        buttonVariants({ size: "xl" }),
+                                        "flex gap-2 items-center"
+                                    )}
+                                    href={route("new-learning-path.create")}
+                                >
+                                    <span className="text-lg md:text-xl">
+                                        Criar nova Trilha de Estudos
+                                    </span>
+                                    <Plus className="!w-6 !h-6" />
+                                </Link>
+                            </div>
                         </section>
                     ) : (
                         <section>

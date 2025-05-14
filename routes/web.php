@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     // form para criar trilhas de estudos (learning path)
     Route::get("/nova-trilha", [NewLearningPath::class, 'create'])->name('new-learning-path.create');
+    Route::get("/trilhas?id={id}", [NewLearningPath::class, 'show'])->name('new-learning-path.show');
 });
 
 require __DIR__.'/auth.php';

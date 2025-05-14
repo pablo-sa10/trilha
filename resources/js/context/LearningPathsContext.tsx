@@ -6,10 +6,10 @@ export interface LearningPathsType {
 }
 
 interface Props {
-    init: string;
-    id_route: number;
-    user: number;
-    name: string;
+    data_criacao: string;
+    id_trilha: number;
+    id_usuario: number;
+    nome_trilha: string;
 }
 
 const LearningPathsContext = createContext<LearningPathsType | undefined>(undefined);

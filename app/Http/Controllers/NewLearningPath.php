@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
 class NewLearningPath extends Controller
@@ -18,9 +19,18 @@ class NewLearningPath extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Inertia::render("CreateLearningPath");
+        $userId = $request->user()->id;
+        $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
+            'id_usuario' => $userId
+        ]);
+
+        $trilhas = $response->successful() ? $response->json() : [];
+
+        return Inertia::render("CreateLearningPath", [
+            'trilhas' => $trilhas
+        ]);
     }
 
     /**
@@ -37,6 +47,13 @@ class NewLearningPath extends Controller
     public function show(string $id)
     {
         //
+        $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
+            'id_trilha' => $id
+        ]);
+        $trilha = $response->successful() ? $response->json() : [];
+        return Inertia::render("LearningPath", [
+            'trilha' => $trilha
+        ]);
     }
 
     /**

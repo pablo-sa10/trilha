@@ -24,49 +24,53 @@ interface itensMenuProps {
     icon?: LucideIcon;
     collapsible: boolean;
     isActive?: boolean;
-    items?: {
-        title: string;
-        url: string;
-    }[];
+    items?: LearningPath[];
 }
 [];
 
-const itensMenu = [
-    {
-        title: "Home",
-        url: "dashboard",
-        icon: Home,
-        collapsible: false,
-    },
-    {
-        title: "Minhas Trilhas",
-        icon: Map,
-        collapsible: true,
-        isActive: true,
-        items: [
-            {
-                title: "Trilha 1",
-                url: "ladingPage",
-            },
-            {
-                title: "Trilha 2",
-                url: "ladingPage",
-            },
-        ],
-    },
-    {
-        title: "Adicionar Trilha",
-        url: "new-learning-path.create",
-        icon: Plus,
-        collapsible: false,
-    },
-];
+interface LearningPath {
+    id: number;
+    title: string;
+    url: string;
+}
 
 export function MainContentSidebar({ }) {
 
-    const {trilhas} = useLearningPathContext();
+    const { trilhas } = useLearningPathContext();
 
-    console.log(trilhas)
+    let itens = [] as LearningPath[];
+
+    trilhas.map((trilha) => {
+        itens.push({
+            id: trilha.id_trilha,
+            title: trilha.nome_trilha,
+            url: route('new-learning-path.show', { id: trilha.id_trilha }),
+        });
+    });
+
+    console.log(itens);
+
+    const itensMenu = [
+        {
+            title: "Home",
+            url: "dashboard",
+            icon: Home,
+            collapsible: false,
+        },
+        {
+            title: "Minhas Trilhas",
+            icon: Map,
+            collapsible: true,
+            isActive: true,
+            items: itens,
+        },
+        {
+            title: "Adicionar Trilha",
+            url: "new-learning-path.create",
+            icon: Plus,
+            collapsible: false,
+        },
+    ];
 
     return (
         <SidebarGroup>
@@ -90,23 +94,29 @@ export function MainContentSidebar({ }) {
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
-                                        {item.items?.map((subItem) => (
-                                            <SidebarMenuSubItem
-                                                key={subItem.title}
-                                            >
-                                                <SidebarMenuSubButton asChild>
-                                                    <Link
-                                                        href={route(
-                                                            subItem.url
-                                                        )}
-                                                    >
-                                                        <span>
-                                                            {subItem.title}
-                                                        </span>
-                                                    </Link>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
-                                        ))}
+                                        {item.items && item.items.length > 0 ? (
+                                            item.items.map((subItem) => (
+                                                <SidebarMenuSubItem
+                                                    key={subItem.id}
+                                                >
+                                                    <SidebarMenuSubButton asChild>
+                                                        <Link
+                                                            href={subItem.url}
+                                                        >
+                                                            <span>
+                                                                {subItem.title}
+                                                            </span>
+                                                        </Link>
+                                                    </SidebarMenuSubButton>
+                                                </SidebarMenuSubItem>
+                                            ))
+                                        ) : (
+                                            <div className="flex items-center justify-center w-full h-full">
+                                                <p className="text-sm text-gray-500">
+                                                    Nenhuma trilha encontrada.
+                                                </p>
+                                            </div>
+                                        )}
                                     </SidebarMenuSub>
                                 </CollapsibleContent>
                             </SidebarMenuItem>
@@ -116,7 +126,7 @@ export function MainContentSidebar({ }) {
                             <SidebarMenuButton asChild>
                                 <Link
                                     href={route(item.url || "ladingPage")}
-                                    >
+                                >
                                     {item.icon && <item.icon />}
                                     <span>{item.title}</span>
                                 </Link>

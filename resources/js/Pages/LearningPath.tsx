@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/context/AuthUserContext";
+import { LearningPathsProvider } from "@/context/LearningPathsContext";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
@@ -8,14 +9,24 @@ type LearningPathType = {
     auth: {
         user: User | null;
     };
+    trilhas: LearningPath[];
 };
 
-export default function LearningPath({ auth }: LearningPathType) {
+interface LearningPath {
+    data_criacao: string;
+    id_trilha: number;
+    id_usuario: number;
+    nome_trilha: string;
+}
+
+export default function LearningPath({ auth, trilhas, }: LearningPathType) {
     <AuthProvider value={{ user: auth.user }}>
-        <Head title="Nova Trilha" />
-        <MainMenu>
-            <></>
-        </MainMenu>
-        <Toaster className="toast" />
+        <LearningPathsProvider value={{ trilhas }}>
+            <Head title={trilhas[0].nome_trilha} />
+            <MainMenu>
+                <></>
+            </MainMenu>
+            <Toaster className="toast" />
+        </LearningPathsProvider>
     </AuthProvider>;
 }
