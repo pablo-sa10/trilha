@@ -48,8 +48,6 @@ export function MainContentSidebar({ }) {
         });
     });
 
-    console.log(itens);
-
     const itensMenu = [
         {
             title: "Home",

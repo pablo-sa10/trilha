@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
-class NewLearningPath extends Controller
+class NewLearningPathController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,14 +22,19 @@ class NewLearningPath extends Controller
     public function create(Request $request)
     {
         $userId = $request->user()->id;
-        $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
+
+        $responseTrilhas = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
             'id_usuario' => $userId
         ]);
 
-        $trilhas = $response->successful() ? $response->json() : [];
+        $responseMaterias = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarMaterias");
+
+        $trilhas = $responseTrilhas->successful() ? $responseTrilhas->json() : [];
+        $responseMaterias = $responseMaterias->successful() ? $responseMaterias->json() : [];
 
         return Inertia::render("CreateLearningPath", [
-            'trilhas' => $trilhas
+            'trilhas' => $trilhas,
+            'materias' => $responseMaterias,
         ]);
     }
 
@@ -38,7 +43,14 @@ class NewLearningPath extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'vestibular' => 'required|not_in:0', 
+            'name' => 'required',
+            'materia'=> 'required',
+        ]);
+
+        
     }
 
     /**

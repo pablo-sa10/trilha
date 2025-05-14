@@ -10,23 +10,31 @@ type LearningPathsProps = {
     auth: {
         user: User | null;
     };
-    trilhas: LearningPath[]; 
+    trilhas: LearningPath[];
+    materias: Subject[];
 };
 
 interface LearningPath {
-    init: string;
-    id_route: number;
-    user: number;
-    name: string;
+    data_criacao: string;
+    id_trilha: number;
+    id_usuario: number;
+    nome_trilha: string;
 }
 
-export default function CreateLearningPath({ auth, trilhas }: LearningPathsProps) {
+interface Subject {
+    id_materia: number;
+    nome: string;
+}
+
+export default function CreateLearningPath({ auth, trilhas, materias }: LearningPathsProps) {
+
+    console.log(materias);
     return (
         <AuthProvider value={{ user: auth.user }}>
             <LearningPathsProvider value={{ trilhas }}>
                 <Head title="Nova Trilha" />
                 <MainMenu>
-                    <FormCreateLearningPath />
+                    <FormCreateLearningPath subjects={materias} />
                 </MainMenu>
                 <Toaster className="toast" />
             </LearningPathsProvider>

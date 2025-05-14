@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\NewLearningPath;
+use App\Http\Controllers\NewLearningPathController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // form para criar trilhas de estudos (learning path)
-    Route::get("/nova-trilha", [NewLearningPath::class, 'create'])->name('new-learning-path.create');
-    Route::get("/trilhas?id={id}", [NewLearningPath::class, 'show'])->name('new-learning-path.show');
+    Route::get("/nova-trilha", [NewLearningPathController::class, 'create'])->name('new-learning-path.create');
+    Route::get("/trilhas?id={id}", [NewLearningPathController::class, 'show'])->name('new-learning-path.show');
+
+    Route::post("/nova-trilha", [NewLearningPathController::class, 'store'])->name('new-learning-path.store');
 });
 
 require __DIR__.'/auth.php';
