@@ -90,9 +90,7 @@ export function FormCreateLearningPath({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route("new-learning-path.store"), {
-            onFinish: () => reset("vestibular", "name"),
-        });
+        post(route("new-learning-path.store"));
     };
 
     const [showModal, setShowModal] = useState(false);
