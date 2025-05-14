@@ -54,12 +54,11 @@ class NewLearningPathController extends Controller
         try {
 
             // chamar a api via post para criar a trilha
-            $response = Http::asJson()->post("url", [
-                'id_usuario' => (int) $request->user()->id,
-                'nome_trilha' => (string) $request->name,
-                'materias' => (int) $request->materia, // caso espere array
+            $response = Http::post("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/CriarTrilha", [
+                'id_usuario' => 4,
+                'nome_trilha' => "teste",
+                'materias' => 1,
             ]);
-
 
             dd($response->json());
 
