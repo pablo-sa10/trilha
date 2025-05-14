@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $userId = $request->user()->id;
 
         $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
-            'id_usuario' => $userId
+            'id_usuario' => 1
         ]);
 
         $trilhas = $response->successful() ? $response->json() : [];

@@ -14,12 +14,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SummaryCards } from "@/components/SummaryCards";
+import { LearningPathsProvider } from "@/context/LearningPathsContext";
 
 type DashboardProps = {
     auth: {
         user: User | null;
     };
-    trilhas: any[]
+    trilhas: LearningPath[];
 };
 
 interface SummaryProps {
@@ -28,17 +29,16 @@ interface SummaryProps {
     icon: LucideIcon;
 }
 
-export default function Dashboard({ auth, trilhas}: DashboardProps) {
+interface LearningPath {
+    init: string;
+    id_route: number;
+    user: number;
+    name: string;
+}
 
-    console.log(trilhas)
-    /**
-     * Para dar continuidade no projeto sem conectar a API
-     * foi colocado dados estaticas, para popular a tela
-     */
-    const createTrilhas = ["trilha 1", "trilha 2", "trilha 3"];
-    const learningPath = createTrilhas;
-
-    console.log(auth);
+export default function Dashboard({ auth, trilhas }: DashboardProps) {
+    // console.log(trilhas);
+    // console.log(auth);
 
     /**Resumo geral */
     const summary: SummaryProps[] = [
@@ -61,66 +61,68 @@ export default function Dashboard({ auth, trilhas}: DashboardProps) {
 
     return (
         <AuthProvider value={{ user: auth.user }}>
-            <Head title="Home" />
-            <MainMenu>
-                {!learningPath ? (
-                    <section className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
-                        <div className="mb-6 max-w-md">
-                            <h1 className="text-3xl font-bold mb-2">
-                                Bem-vindo ao seu Dashboard!
-                            </h1>
-                            <p className="text-muted-foreground text-lg">
-                                Comece sua jornada criando sua primeira{" "}
-                                <strong>Trilha de Estudos</strong>. Clique no
-                                botão abaixo para iniciar.
-                            </p>
-                        </div>
+            <LearningPathsProvider value={{trilhas}}>
+                <Head title="Home" />
+                <MainMenu>
+                    {trilhas.length < 1 ? (
+                        <section className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
+                            <div className="mb-6 max-w-md">
+                                <h1 className="text-3xl font-bold mb-2">
+                                    Bem-vindo ao seu Dashboard!
+                                </h1>
+                                <p className="text-muted-foreground text-lg">
+                                    Comece sua jornada criando sua primeira{" "}
+                                    <strong>Trilha de Estudos</strong>. Clique
+                                    no botão abaixo para iniciar.
+                                </p>
+                            </div>
 
-                        <Link
-                            className={cn(
-                                buttonVariants({ size: "xl" }),
-                                "flex gap-2 items-center"
-                            )}
-                            href={route("new-learning-path.create")}
-                        >
-                            <span className="text-lg md:text-xl">
-                                Criar nova Trilha de Estudos
-                            </span>
-                            <Plus className="!w-6 !h-6" />
-                        </Link>
-                    </section>
-                ) : (
-                    <section>
-                        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
-                            {summary.map(
-                                ({
-                                    title,
-                                    icon,
-                                    quantity,
-                                }: {
-                                    title: string;
-                                    icon: LucideIcon;
-                                    quantity: number;
-                                }) => (
-                                    <SummaryCards
-                                        key={title}
-                                        title={title}
-                                        icon={icon}
-                                        quantity={quantity}
-                                    />
-                                )
-                            )}
-                        </div>
-                        <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <p>card</p>
-                            <p>card</p>
-                            <p>card</p>
-                            <p>card</p>
-                        </div>
-                    </section>
-                )}
-            </MainMenu>
-            <Toaster className="toast" />
+                            <Link
+                                className={cn(
+                                    buttonVariants({ size: "xl" }),
+                                    "flex gap-2 items-center"
+                                )}
+                                href={route("new-learning-path.create")}
+                            >
+                                <span className="text-lg md:text-xl">
+                                    Criar nova Trilha de Estudos
+                                </span>
+                                <Plus className="!w-6 !h-6" />
+                            </Link>
+                        </section>
+                    ) : (
+                        <section>
+                            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+                                {summary.map(
+                                    ({
+                                        title,
+                                        icon,
+                                        quantity,
+                                    }: {
+                                        title: string;
+                                        icon: LucideIcon;
+                                        quantity: number;
+                                    }) => (
+                                        <SummaryCards
+                                            key={title}
+                                            title={title}
+                                            icon={icon}
+                                            quantity={quantity}
+                                        />
+                                    )
+                                )}
+                            </div>
+                            <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <p>card</p>
+                                <p>card</p>
+                                <p>card</p>
+                                <p>card</p>
+                            </div>
+                        </section>
+                    )}
+                </MainMenu>
+                <Toaster className="toast" />
+            </LearningPathsProvider>
         </AuthProvider>
     );
 }

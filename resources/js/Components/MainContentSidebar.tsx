@@ -16,6 +16,7 @@ import {
     CollapsibleTrigger,
 } from "./ui/collapsible";
 import { Link } from "@inertiajs/react";
+import { useLearningPathContext } from "@/context/LearningPathsContext";
 
 interface itensMenuProps {
     title: string;
@@ -62,6 +63,11 @@ const itensMenu = [
 ];
 
 export function MainContentSidebar({ }) {
+
+    const {trilhas} = useLearningPathContext();
+
+    console.log(trilhas)
+
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Plataforma</SidebarGroupLabel>
