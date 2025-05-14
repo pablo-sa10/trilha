@@ -7,31 +7,33 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ModalALertProps {
     className?: string;
     title?: string;
-    status?: string;
+    description?: string;
+    open: boolean;
+    onClose: () => void;
 }
 
 export function ModalInfo({
     className,
     title,
-    status,
-    ...props
+    description,
+    open,
+    onClose,
 }: ModalALertProps) {
-    const [open, setOpen] = useState(!status ? false : true); // se o status chegar declarado, exibe uma modal com a mensagem
 
     return (
-        <AlertDialog open={open}>
+        <AlertDialog open={open} onOpenChange={onClose}>
             <AlertDialogContent className={className}>
                 <AlertDialogHeader>
                     <AlertDialogTitle>{title}</AlertDialogTitle>
-                    <AlertDialogDescription>{status}</AlertDialogDescription>
+                    <AlertDialogDescription>{description}</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogAction onClick={() => setOpen(!open)}>
+                    <AlertDialogAction onClick={onClose}>
                         Confirmar
                     </AlertDialogAction>
                 </AlertDialogFooter>

@@ -154,7 +154,7 @@ export function LoginForm({
             </form>
 
             {/* modal para exibir mensagem */}
-            <ModalInfo title={title} status={status} />
+            {/* <ModalInfo title={title} status={status} /> */}
         </>
     );
 }

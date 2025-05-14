@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Types\Relations\Car;
 use Inertia\Inertia;
 
 class NewLearningPathController extends Controller
@@ -45,12 +46,30 @@ class NewLearningPathController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'vestibular' => 'required|not_in:0', 
+            'vestibular' => 'required|not_in:0',
             'name' => 'required',
-            'materia'=> 'required',
+            'materia' => 'required',
         ]);
 
-        
+        try {
+
+
+            // chamar a api via post para criar a trilha
+            // $response = Http::post("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/CriarTrilha", [
+            //     'id_usuario' => $request->user()->id,
+            //     'materias' => 1,
+            //     'nome_trilha' => $request->name,
+            // ]);
+
+            // if ($response->failed()) {
+                return redirect()->back()->withErrors(['erro' => 'Erro ao criar a trilha']);
+            // }
+
+            return redirect(route('dashboard', absolute: false));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['erro' => 'Erro ao criar a trilha']);
+        }
     }
 
     /**

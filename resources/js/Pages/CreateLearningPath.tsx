@@ -28,7 +28,7 @@ interface Subject {
 
 export default function CreateLearningPath({ auth, trilhas, materias }: LearningPathsProps) {
 
-    console.log(materias);
+    console.log(auth)
     return (
         <AuthProvider value={{ user: auth.user }}>
             <LearningPathsProvider value={{ trilhas }}>

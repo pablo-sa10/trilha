@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,7 @@ import {
 import { Check, ChevronsUpDown, Scroll } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FormEventHandler } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import {
     Card,
     CardContent,
@@ -34,6 +34,7 @@ import { BackButton } from "./BackButton";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { ScrollArea } from "./ui/scroll-area";
 import { Spinner } from "./ui/spinner";
+import { ModalInfo } from "./modal/ModalInfo";
 
 interface AcademysProps {
     label: string;
@@ -53,33 +54,8 @@ export function FormCreateLearningPath({
     className?: React.ComponentPropsWithoutRef<"div">,
     subjects: SubjectsProps[]
 }) {
-    /**
-     * HOCK USEFORM NATIVO DO INERTIA QUE FACILITA A VALIDAÇÃO DE DADOS
-     *
-     */
-    type FormData = {
-        vestibular: number;
-        name: string;
-        materia: string;
-    };
-    const { data, setData, post, processing, errors, reset } =
-        useForm<FormData>({
-            vestibular: 0,
-            name: "",
-            materia: "",
-        });
 
-    console.log(data);
-
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        post(route("new-learning-path.store"), {
-            onFinish: () => reset("vestibular", "name", "materia"),
-        });
-    };
-
-    const academys: AcademysProps[] = [
+    const academys: AcademysProps[] = [ // vestibulares disponíveis
         {
             label: "Fatec - Faculdade de Tecnologia - 1/2024",
             id: 1,
@@ -89,6 +65,46 @@ export function FormCreateLearningPath({
             id: 2,
         }
     ];
+
+    // const {errors} = usePage().props; // pegando os erros do back end
+    /**
+     * HOCK USEFORM NATIVO DO INERTIA QUE FACILITA A VALIDAÇÃO DE DADOS
+     *
+     */
+    type FormData = {
+        vestibular: number;
+        name: string;
+        materia: string;
+        erro?: string;
+    };
+
+    const { data, setData, post, processing, errors, reset } =
+        useForm<FormData>({
+            vestibular: 0,
+            name: "",
+            materia: "",
+        });
+
+    console.log(errors);
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+
+        post(route("new-learning-path.store"), {
+            onFinish: () => reset("vestibular", "name"),
+        });
+    };
+
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        const hasValidationErrors =
+            !!errors.name || !!errors.materia || !!errors.vestibular;
+
+        if (errors.erro && !hasValidationErrors) {
+            setShowModal(true);
+        }
+    }, [errors]);
 
     return (
         <section className="" {...props}>
@@ -234,6 +250,16 @@ export function FormCreateLearningPath({
                     </CardFooter>
                 </form>
             </Card>
+
+            {showModal && (
+                <ModalInfo
+                    open={showModal}
+                    onClose={() => setShowModal(false)}
+                    title="Erro!"
+                    description={errors.erro}
+                />
+            )}
+
         </section>
     );
 }
