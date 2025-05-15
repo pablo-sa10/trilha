@@ -1,17 +1,16 @@
 import * as React from "react";
-import { useAuthContext } from "@/context/AuthUserContext";
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarHeader,
     SidebarRail,
-} from "./ui/sidebar";
+} from "@/components/ui/sidebar";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { NavTitle } from "./NavTitle";
-import { MainContentSidebar } from "./MainContentSidebar";
-import { NavConfig } from "./NavConfig";
-import { NavUser } from "./NavUser";
+import { NavTitle } from "@/components/SideBarMenu/NavTitle";
+import { MainContentSidebar } from "@/components/SideBarMenu/MainContentSidebar";
+import { NavConfig } from "@/components/SideBarMenu/NavConfig";
+import { NavUser } from "@/components/SideBarMenu/NavUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     // const { user } = useAuthContext(); // pega as infos do usuario

@@ -1,5 +1,5 @@
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
-import { LogoIcon } from "./Icons";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { LogoIcon } from "@/components/Icons";
 import { useAuthContext } from "@/context/AuthUserContext";
 
 export function NavTitle() {

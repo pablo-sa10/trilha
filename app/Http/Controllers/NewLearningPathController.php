@@ -64,28 +64,36 @@ class NewLearningPathController extends Controller
             $response = Http::post("$url?$query");
 
             if ($response->failed()) {
-                return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu"]);
+                return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
             }
 
             return redirect(route('dashboard', absolute: false));
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['erro' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
         //
-        $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
-            'id_trilha' => $id
-        ]);
-        $trilha = $response->successful() ? $response->json() : [];
-        return Inertia::render("LearningPath", [
-            'trilha' => $trilha
-        ]);
+        try {
+            $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
+                'id_usuario' => $request->user()->id,
+                'id_trilha' => $id
+            ]);
+
+            $trilha = $response->successful() ? $response->json() : [];
+
+            return Inertia::render("LearningPath", [
+                'trilha' => $trilha
+            ]);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
+        }
     }
 
     /**

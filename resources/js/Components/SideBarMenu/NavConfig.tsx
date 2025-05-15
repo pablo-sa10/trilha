@@ -3,14 +3,14 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "./ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import {
     ChevronsUpDown,
     Key,
@@ -19,7 +19,7 @@ import {
     UserPen,
 } from "lucide-react";
 import { Link } from "@inertiajs/react";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "@/components/ModeToggle";
 
 interface ConfigsProps {
     name: string;

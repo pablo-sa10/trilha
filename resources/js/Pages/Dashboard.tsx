@@ -13,9 +13,9 @@ import {
     Section,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SummaryCards } from "@/components/SummaryCards";
+import { SummaryCards } from "@/components/Dashboard/SummaryCards";
 import { LearningPathsProvider } from "@/context/LearningPathsContext";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 type DashboardProps = {
     auth: {
@@ -147,11 +147,21 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
                                         data_criacao,
 
                                     }: LearningPath) => (
-                                        <Card
+                                        <Link 
+                                            href={route('new-learning-path.show', id_trilha)}
                                             key={id_trilha}
                                         >
+                                            <Card
+                                            >
+                                                <CardHeader>
+                                                    <CardTitle>{nome_trilha}</CardTitle>
+                                                    <CardDescription>Materia na qual é ligada a trilhas</CardDescription>
+                                                </CardHeader>
+                                                <CardContent>
 
-                                        </Card>
+                                                </CardContent>
+                                            </Card>
+                                        </Link>
                                     )
                                 )}
                             </div>

@@ -19,14 +19,15 @@ interface LearningPath {
     nome_trilha: string;
 }
 
-export default function LearningPath({ auth, trilhas, }: LearningPathType) {
-    <AuthProvider value={{ user: auth.user }}>
-        <LearningPathsProvider value={{ trilhas }}>
-            <Head title={trilhas[0].nome_trilha} />
-            <MainMenu>
+export default function LearningPath({ auth, trilhas }: LearningPathType) {
+
+    return (
+        <AuthProvider value={{ user: auth.user }}>
+            <LearningPathsProvider value={{ trilhas }}>
+                {/* <Head title={trilhas[0].nome_trilha} /> */}
                 <></>
-            </MainMenu>
-            <Toaster className="toast" />
-        </LearningPathsProvider>
-    </AuthProvider>;
+                <Toaster className="toast" />
+            </LearningPathsProvider>
+        </AuthProvider>
+    );
 }

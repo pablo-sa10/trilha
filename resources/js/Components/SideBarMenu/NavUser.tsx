@@ -4,7 +4,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "./ui/sidebar";
+} from "@/components/ui/sidebar";
 import { useAuthContext } from "@/context/AuthUserContext";
 import {
     DropdownMenu,
@@ -14,12 +14,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     DropdownMenuItem,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bell, ChevronsUpDown, LogOut } from "lucide-react";
 import { toast } from "sonner";
-import { ModalAlert } from "./modal/ModalAlert";
+import { ModalAlert } from "@/components/modal/ModalAlert";
 import { router } from "@inertiajs/react";
 
 type NavUserProps = {

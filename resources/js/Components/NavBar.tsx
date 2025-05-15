@@ -1,6 +1,6 @@
 import React from 'react'
-import { SidebarTrigger } from './ui/sidebar'
-import { NavUser } from './NavUser';
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { NavUser } from '@/components/SideBarMenu/NavUser';
 import { User } from '@/types';
 import { ModeToggle } from './ModeToggle';
 

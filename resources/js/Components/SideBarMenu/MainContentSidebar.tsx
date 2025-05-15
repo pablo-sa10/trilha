@@ -9,12 +9,12 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-} from "./ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "./ui/collapsible";
+} from "@/components/ui/collapsible";
 import { Link } from "@inertiajs/react";
 import { useLearningPathContext } from "@/context/LearningPathsContext";
 
