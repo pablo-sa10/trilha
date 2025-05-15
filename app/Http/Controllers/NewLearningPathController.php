@@ -85,7 +85,7 @@ class NewLearningPathController extends Controller
                 'id_trilha' => $id
             ]);
 
-            $trilha = $response->successful() ? $response->json() : [];
+            $trilha = $response->successful() ? $response->json() : null;
 
             return Inertia::render("LearningPath", [
                 'trilha' => $trilha

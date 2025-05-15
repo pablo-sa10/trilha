@@ -9,25 +9,40 @@ type LearningPathType = {
     auth: {
         user: User | null;
     };
-    trilhas: LearningPath[];
+    trilha: LearningPath;
 };
 
 interface LearningPath {
-    data_criacao: string;
-    id_trilha: number;
     id_usuario: number;
-    nome_trilha: string;
+    id_trilha: number;
+    NomeTrilha: string;
+    questoes: Questoes[];
 }
 
-export default function LearningPath({ auth, trilhas }: LearningPathType) {
+interface Questoes {
+    Questao: string;
+    Enunciado: string;
+    Dificuldade: string;
+    Materia: string;
+    TipoQuestao: string;
+    Alternativas: Alternativas[];
+    RespostaCorreta: string;
+}
+
+interface Alternativas {
+    Alternativa: string;
+    DescricaoAlternativa: string;
+}
+
+export default function LearningPath({ auth, trilha }: LearningPathType) {
+
+    console.log(trilha);
 
     return (
         <AuthProvider value={{ user: auth.user }}>
-            <LearningPathsProvider value={{ trilhas }}>
-                {/* <Head title={trilhas[0].nome_trilha} /> */}
-                <></>
-                <Toaster className="toast" />
-            </LearningPathsProvider>
+            <Head title={trilha.NomeTrilha} />
+            <></>
+            <Toaster className="toast" />
         </AuthProvider>
     );
 }
