@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
+import { ButtonUpDown } from "@/components/LearningPathPage/ButtonUpDown";
 import { AuthProvider } from "@/context/AuthUserContext";
-import { LearningPathsProvider } from "@/context/LearningPathsContext";
-import { MainMenu } from "@/Layouts/MainMenuLayout";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
-import { ArrowBigDownIcon, ArrowBigUpIcon } from "lucide-react";
 import { Toaster } from "sonner";
 
 type LearningPathType = {
@@ -43,14 +40,36 @@ export default function LearningPath({ auth, trilha }: LearningPathType) {
     return (
         <AuthProvider value={{ user: auth.user }}>
             <Head title={trilha.NomeTrilha} />
-            <div className="flex gap-2 fixed bottom-4 right-4 z-50">
-                <Button size={"icon"} variant={"secondary"}>
-                    <ArrowBigUpIcon className="!w-6 !h-6"/>
-                </Button>
-                <Button size={"icon"} variant={"secondary"}>
-                    <ArrowBigDownIcon className="!w-6 !h-6"/>
-                </Button>
-            </div>
+
+            <section className="flex flex-col gap-4 items-center justify-center h-[100vh]">
+                <div className="hidden">
+                    <h1>pergunta 1</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Repellendus ad unde perferendis, est maxime accusantium ipsum minus quo et delectus? Aspernatur
+                        facere harum deserunt illum. Amet explicabo placeat cupiditate dolorum.
+                    </p>
+                </div>
+                <div className="hidden">
+                    <h1>pergunta 2</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Repellendus ad unde perferendis, est maxime accusantium ipsum minus quo et delectus? Aspernatur
+                        facere harum deserunt illum. Amet explicabo placeat cupiditate dolorum.
+                    </p>
+                </div>
+                <div className="">
+                    <h1>pergunta 3</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Repellendus ad unde perferendis, est maxime accusantium ipsum minus quo et delectus? Aspernatur
+                        facere harum deserunt illum. Amet explicabo placeat cupiditate dolorum.
+                    </p>
+                </div>
+            </section>
+
+            {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
+            <ButtonUpDown />
             <Toaster className="toast" />
         </AuthProvider>
     );

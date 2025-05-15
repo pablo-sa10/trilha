@@ -44,8 +44,6 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
     const  { errors } = usePage().props;
     const [showModal, setShowModal] = useState(false);
 
-    console.log(errors);
-
     useEffect(() => {
         if (errors.erro) {
             setShowModal(true);
