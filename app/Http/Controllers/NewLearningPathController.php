@@ -54,12 +54,6 @@ class NewLearningPathController extends Controller
         try {
 
             $url = "https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/CriarTrilha";
-            // chamar a api via post para criar a trilha
-            // $response = Http::post("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/CriarTrilha", [
-            //     'id_usuario' => 4,
-            //     'nome_trilha' => "teste",
-            //     'materias' => 1,
-            // ]);
 
             $query = http_build_query([
                 "id_usuario" => $request->user()->id,
