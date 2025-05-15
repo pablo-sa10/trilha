@@ -24,6 +24,11 @@ type DashboardProps = {
         user: User | null;
     };
     trilhas: LearningPath[];
+    progress: {
+        id_trilha: number;
+        finished_questions: number;
+        total_questions: number;
+    }[];
 };
 
 interface SummaryProps {
@@ -39,11 +44,13 @@ interface LearningPath {
     nome_trilha: string;
 }
 
-export default function Dashboard({ auth, trilhas }: DashboardProps) {
+export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
     
     const  { errors } = usePage().props;
     const [showModal, setShowModal] = useState(false);
-
+    console.log(trilhas);
+    console.log(progress);
+    
     useEffect(() => {
         if (errors.erro) {
             setShowModal(true);
