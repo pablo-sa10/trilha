@@ -87,6 +87,7 @@ class NewLearningPathController extends Controller
 
             $trilha = $response->successful() ? $response->json() : null;
 
+            // return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
             return Inertia::render("LearningPath", [
                 'trilha' => $trilha
             ]);

@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { SummaryCards } from "@/components/Dashboard/SummaryCards";
 import { LearningPathsProvider } from "@/context/LearningPathsContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { ModalInfo } from "@/components/modal/ModalInfo";
 
 type DashboardProps = {
     auth: {
@@ -38,14 +40,23 @@ interface LearningPath {
 }
 
 export default function Dashboard({ auth, trilhas }: DashboardProps) {
-    // console.log(trilhas);
-    // console.log(auth);
+    
+    const  { errors } = usePage().props;
+    const [showModal, setShowModal] = useState(false);
+
+    console.log(errors);
+
+    useEffect(() => {
+        if (errors.erro) {
+            setShowModal(true);
+        }
+    }, [errors]);
 
     /**Resumo geral */
     const summary: SummaryProps[] = [
         {
             title: "Trilhas em Andamento",
-            quantity: trilhas.length || 0,
+            quantity: 0,
             icon: Route,
         },
         {
@@ -55,7 +66,7 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
         },
         {
             title: "Trilhas Disponíveis",
-            quantity: 0,
+            quantity: trilhas.length ||  0,
             icon: Layers,
         },
     ];
@@ -137,28 +148,38 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
                             </div>
                             <div className="flex flex-col gap-2 my-10">
                                 <h1 className="text-2xl font-bold">Estude agora!</h1>
-                                <p className="text-sm text-gray-400 font-semibold">Suas trilhas de estudos já estão disponivéis abaixo</p>
+                                <p className="text-sm text-gray-400 font-semibold">Suas trilhas de estudos já estão disponíveis abaixo</p>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                                 {trilhas.map(
                                     ({
                                         id_trilha,
                                         nome_trilha,
                                         data_criacao,
-
+                                        
                                     }: LearningPath) => (
                                         <Link 
                                             href={route('new-learning-path.show', id_trilha)}
                                             key={id_trilha}
                                         >
                                             <Card
+                                            className="bg-card transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg hover:shadow-foreground/10"
                                             >
                                                 <CardHeader>
                                                     <CardTitle>{nome_trilha}</CardTitle>
                                                     <CardDescription>Materia na qual é ligada a trilhas</CardDescription>
+                                                    <div>
+                                                        <p className="text-sm text-gray-400 font-semibold">
+                                                            Criada em: {new Date(data_criacao).toLocaleDateString("pt-BR", {
+                                                                year: "numeric",
+                                                                month: "2-digit",
+                                                                day: "2-digit",
+                                                            })}
+                                                        </p>
+                                                    </div>
                                                 </CardHeader>
                                                 <CardContent>
-
+                                                        
                                                 </CardContent>
                                             </Card>
                                         </Link>
@@ -169,6 +190,14 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
                     )}
                 </MainMenu>
                 <Toaster className="toast" />
+                {showModal && (
+                    <ModalInfo 
+                        open={showModal}
+                        onClose={() => setShowModal(false)}
+                        title="Erro!"
+                        description={errors.erro}
+                    />
+                )}
             </LearningPathsProvider>
         </AuthProvider>
     );
