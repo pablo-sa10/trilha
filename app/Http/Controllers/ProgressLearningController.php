@@ -14,4 +14,15 @@ class ProgressLearningController extends Controller
 
         return $progress;
     }
+
+    public function storeProgrssLearning($id_trilha, $id_usuario, $questoes_totais){
+
+        $progress = ProgressLearning::create([
+            'user_id' => $id_usuario,
+            'learning_path_id' => $id_trilha,
+            'total_questions' => $questoes_totais,
+        ]);
+
+        return $progress;
+    }
 }

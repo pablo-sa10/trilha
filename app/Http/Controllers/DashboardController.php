@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ProgressLearningController as ControllersProgressLearningController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use App\Http\Controllers\ProgressLearningController;
+use App\Models\ProgressLearning;
 
 class DashboardController extends Controller
 {
@@ -31,24 +31,60 @@ class DashboardController extends Controller
         ]);
 
         $trilhas = $response->successful() ? $response->json() : []; // armazena na variável $trilhas o retorno da API
+        $allProgress = []; // array para armazenar o progresso de cada trilha
 
         if (!empty($trilhas)) {
             foreach ($trilhas as $trilha) {
 
                 // Verifica se já existe um registro de progresso para a trilha
-                $progress = (new ProgressLearningController)->getProgressLearning($trilha->id_trilha);
-
-                Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
-                    'id_usuario' => $userId,
-                    'id_trilha' => $trilha->id_trilha
-                ]);
+                $progress = $this->getProgress($userId, $trilha['id_trilha']);
+                $allProgress[] = $progress;
             }
         }
 
-        dd($trilhas);
-
         return Inertia::render('Dashboard', [
-            'trilhas' => $trilhas
+            'trilhas' => $trilhas,
+            'progress' => $allProgress
         ]);
+    }
+
+    private function getProgress($userId, $trilhaId)
+    {
+        $progress = ProgressLearning::where([
+            ['user_id', '=', $userId],
+            ['learning_path_id', '=', $trilhaId]
+        ])->first();
+
+        // se não houver progresso, insere no banco
+        if (empty($progress)) {
+            // busca na api o total de questões da trilha
+            $questoes = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
+                'id_usuario' => $userId,
+                'id_trilha' => $trilhaId
+            ]);
+            $questoes = $questoes->successful() ? $questoes->json() : [];
+            $questoesTotais = count($questoes['questoes'] ?? 0); // conta o total de questões da trilha
+
+            // faz a inserção do progresso no banco na primeira vez
+            // Inserção
+            $createProgress = ProgressLearning::create([
+                'user_id' => $userId,
+                'learning_path_id' => $trilhaId,
+                'total_questions' => $questoesTotais,
+            ]);
+
+            return [
+                'id_trilha' => $trilhaId,
+                'finished_questions' => 0,
+                'total_questions' => $createProgress->total_questions
+            ];
+        } else {
+
+            return [
+                'id_trilha' => $trilhaId,
+                'finished_questions' => $progress->finished_questions,
+                'total_questions' => $progress->total_questions
+            ];
+        }
     }
 }
