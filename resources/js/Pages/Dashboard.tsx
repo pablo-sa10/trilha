@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { SummaryCards } from "@/components/SummaryCards";
 import { LearningPathsProvider } from "@/context/LearningPathsContext";
+import { Card } from "@/components/ui/card";
 
 type DashboardProps = {
     auth: {
@@ -134,11 +135,25 @@ export default function Dashboard({ auth, trilhas }: DashboardProps) {
                                     )
                                 )}
                             </div>
-                            <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <p>card</p>
-                                <p>card</p>
-                                <p>card</p>
-                                <p>card</p>
+                            <div className="flex flex-col gap-2 my-10">
+                                <h1 className="text-2xl font-bold">Estude agora!</h1>
+                                <p className="text-sm text-gray-400 font-semibold">Suas trilhas de estudos já estão disponivéis abaixo</p>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+                                {trilhas.map(
+                                    ({
+                                        id_trilha,
+                                        nome_trilha,
+                                        data_criacao,
+
+                                    }: LearningPath) => (
+                                        <Card
+                                            key={id_trilha}
+                                        >
+
+                                        </Card>
+                                    )
+                                )}
                             </div>
                         </section>
                     )}

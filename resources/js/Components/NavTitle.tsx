@@ -16,7 +16,7 @@ export function NavTitle() {
                         <LogoIcon />
                     </div>
                     <div className="grid flex-1 text-left text-sm leading-tight transition-all duration-200 ease-in-out sidebar-open:opacity-100 sidebar-closed:opacity-0 sidebar-closed:w-0 overflow-hidden">
-                        <span className="truncate text-sm text-gray-500 font-semibold">
+                        <span className="truncate text-sm text-gray-400 font-semibold">
                             Trilha de Estudos
                         </span>
                         <span className="truncate text-base font-bold">

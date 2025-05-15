@@ -85,8 +85,6 @@ export function FormCreateLearningPath({
             materia: "",
         });
 
-    console.log(errors);
-
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -191,7 +189,7 @@ export function FormCreateLearningPath({
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
-                                <InputError message={errors.vestibular} />
+                                <InputError className="mt-2" message={errors.vestibular} />
                             </div>
                             <div>
                                 <Label className="mb-3 block">
@@ -205,7 +203,7 @@ export function FormCreateLearningPath({
                                         setData("name", e.target.value);
                                     }}
                                 />
-                                <InputError message={errors.name} />
+                                <InputError className="mt-2" message={errors.name} />
                             </div>
                         </div>
 
@@ -234,7 +232,7 @@ export function FormCreateLearningPath({
                                         </ScrollArea>
                                     </SelectContent>
                                 </Select>
-                                <InputError message={errors.materia} />
+                                <InputError className="mt-2" message={errors.materia} />
                             </div>
                         </div>
                     </CardContent>

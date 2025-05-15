@@ -63,8 +63,6 @@ class NewLearningPathController extends Controller
 
             $response = Http::post("$url?$query");
 
-            // dd($response);
-
             if ($response->failed()) {
                 return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu"]);
             }
