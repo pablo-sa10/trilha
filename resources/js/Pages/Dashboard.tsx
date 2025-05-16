@@ -58,17 +58,17 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
-    let emAndamento: number = 0;
-    let concluida: number = 0;
-
-    progress.forEach((pro) => {
-        if (pro.finished_questions === pro.total_questions) {
-            concluida++;
-        } else {
-            emAndamento++;
-        }
-    });
-
+    const { emAndamento, concluida } = progress.reduce(
+        (acc, pro) => {
+            if (pro.finished_questions === pro.total_questions) {
+                acc.concluida++;
+            } else {
+                acc.emAndamento++;
+            }
+            return acc;
+        },
+        { emAndamento: 0, concluida: 0 }
+    );
     /**Resumo geral */
     const summary: SummaryProps[] = [
         {
