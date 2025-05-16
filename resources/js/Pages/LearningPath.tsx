@@ -48,6 +48,12 @@ interface Alternativas {
 
 export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
+    const variantMap: Record<string, "success" | "warning" | "destructive"> = {
+        "Fácil": "success",
+        "Médio": "warning",
+        "Difícil": "destructive"
+    }
+
     return (
         <AuthProvider value={{ user: auth.user }}>
             <Head title={trilha.NomeTrilha} />
@@ -92,7 +98,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                     <div key={value.Questao} className="w-10/12 md:w-8/12 space-y-6">
                         <div className="flex justify-between">
                             <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {value.Questao}</h1>
-                            <Badge variant={'destructive'}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
+                            <Badge variant={variantMap[value.Dificuldade]}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
                         </div>
                         {/* Enunciado da pergunta */}
                         <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">

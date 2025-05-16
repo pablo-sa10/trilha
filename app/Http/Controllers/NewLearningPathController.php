@@ -96,7 +96,7 @@ class NewLearningPathController extends Controller
                 'trilha' => $trilha,
                 'progress' => $progress
             ]);
-            
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
         }
