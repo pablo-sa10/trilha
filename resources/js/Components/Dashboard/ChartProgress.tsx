@@ -9,8 +9,6 @@ export function ChartProgress({ progress }: { progress: { finished_questions: nu
     const endAngle = finished_questions > 0 ? 90 + (360 * (percentage / 100)) : 450;
     const chartData = [{ progress: percentage, fill: "hsl(var(--chart-3))" }]
 
-    console.log(endAngle);
-
     const chartConfig = {
         progress: {
             label: "Progresso",

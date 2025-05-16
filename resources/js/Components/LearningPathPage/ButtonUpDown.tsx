@@ -7,8 +7,8 @@ export function ButtonUpDown({
     className,
     ...props
 }:{
-    onSomar: () => void;
-    onSubtrair: () => void;
+    onSomar?: () => void;
+    onSubtrair?: () => void;
     className?: string;
 }){
     return (

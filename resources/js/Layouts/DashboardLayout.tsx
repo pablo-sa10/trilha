@@ -123,7 +123,7 @@ export function DashboardLayout({
                 </div>
                 <div className="flex flex-col gap-2 my-10">
                     <h1 className="text-2xl font-bold">Estude agora!</h1>
-                    <p className="text-sm text-gray-400 font-semibold">Suas trilhas de estudos já estão disponíveis abaixo</p>
+                    <p className="text-sm text-gray-400 font-semibold">Suas trilhas de estudos já estão disponíveis logo abaixo</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {trilhas.map(

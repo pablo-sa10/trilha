@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgressLearning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Types\Relations\Car;
@@ -80,18 +81,22 @@ class NewLearningPathController extends Controller
     {
         //
         try {
+            $idUser = $request->user()->id;
+
             $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
-                'id_usuario' => $request->user()->id,
+                'id_usuario' => $idUser,
                 'id_trilha' => $id
             ]);
 
             $trilha = $response->successful() ? $response->json() : null;
+            $progress = $this->getProgress($idUser, $id);
 
             // return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
             return Inertia::render("LearningPath", [
-                'trilha' => $trilha
+                'trilha' => $trilha,
+                'progress' => $progress
             ]);
-
+            
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
         }
@@ -119,5 +124,20 @@ class NewLearningPathController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function getProgress($idUser, $idTrilha)
+    {
+
+        $progress = ProgressLearning::where([
+            ['user_id', '=', $idUser],
+            ['learning_path_id', '=', $idTrilha]
+        ])->first();
+
+        return [
+            'id_trilha' => $idTrilha,
+            'finished_questions' => $progress->finished_questions,
+            'total_questions' => $progress->total_questions
+        ];
     }
 }
