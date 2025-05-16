@@ -49,9 +49,6 @@ interface Alternativas {
 
 export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
-    console.log(progress);
-    console.log(trilha);
-
     const variantMap: Record<string, "success" | "warning" | "destructive"> = {
         "Fácil": "success",
         "Médio": "warning",

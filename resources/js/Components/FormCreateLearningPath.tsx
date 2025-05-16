@@ -131,7 +131,8 @@ export function FormCreateLearningPath({
                                             className={cn(
                                                 "w-full justify-between",
                                                 !data.vestibular &&
-                                                "text-muted-foreground"
+                                                "text-muted-foreground",
+                                                "truncate"
                                             )}
                                         >
                                             {data.vestibular
