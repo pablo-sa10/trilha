@@ -37,6 +37,9 @@ export function DashboardLayout({
     ...Props
 }: DashboardProps) {
 
+    console.log(trilhas);
+    console.log(progress);
+
     const { emAndamento, concluida } = progress.reduce(
         (acc, pro) => {
             if (pro.finished_questions === pro.total_questions) {

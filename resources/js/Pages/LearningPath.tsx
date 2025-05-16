@@ -1,10 +1,9 @@
 import { BackButton } from "@/components/BackButton";
 import { ButtonUpDown } from "@/components/LearningPathPage/ButtonUpDown";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Separator } from "@/components/ui/separator";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
@@ -46,10 +45,8 @@ interface Alternativas {
     DescricaoAlternativa: string;
 }
 
-export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
-    console.log(trilha);
-    console.log(progress);
+export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
     return (
         <AuthProvider value={{ user: auth.user }}>
@@ -93,7 +90,10 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                 {/* PERGUNTAS DA TRILHA */}
                 {trilha.questoes.map((value: Questoes) => (
                     <div key={value.Questao} className="w-10/12 md:w-8/12 space-y-6">
-                        <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {value.Questao}</h1>
+                        <div className="flex justify-between">
+                            <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {value.Questao}</h1>
+                            <Badge variant={'destructive'}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
+                        </div>
                         {/* Enunciado da pergunta */}
                         <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">
                             {value.Enunciado}
@@ -104,7 +104,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                             <div className="space-y-3">
                                 {value.Alternativas.map((alt: Alternativas) => (
                                     <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value={alt.Alternativa}/>
+                                        <RadioGroupItem value={alt.Alternativa} />
                                         <Label className="text-base" htmlFor="alt1">{alt.DescricaoAlternativa}</Label>
                                     </div>
                                 ))}
