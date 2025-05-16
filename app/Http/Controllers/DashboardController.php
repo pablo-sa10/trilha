@@ -55,18 +55,17 @@ class DashboardController extends Controller
             ['learning_path_id', '=', $trilhaId]
         ])->first();
 
-        // se não houver progresso, insere no banco
-        if (empty($progress)) {
-            // busca na api o total de questões da trilha
-            $questoes = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
-                'id_usuario' => $userId,
-                'id_trilha' => $trilhaId
-            ]);
-            $questoes = $questoes->successful() ? $questoes->json() : [];
-            $questoesTotais = count($questoes['questoes'] ?? 0); // conta o total de questões da trilha
+        // Busca as questões da trilha via API
+        $questoes = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/ListarQuestoesTrilha", [
+            'id_usuario' => $userId,
+            'id_trilha' => $trilhaId
+        ]);
 
-            // faz a inserção do progresso no banco na primeira vez
-            // Inserção
+        $questoesArray = $questoes->successful() ? ($questoes->json()['questoes'] ?? []) : [];
+        $questoesTotais = count($questoesArray);
+
+        // Se ainda não existir progresso, cria um novo
+        if (empty($progress)) {
             $createProgress = ProgressLearning::create([
                 'user_id' => $userId,
                 'learning_path_id' => $trilhaId,
@@ -78,7 +77,12 @@ class DashboardController extends Controller
                 'finished_questions' => 0,
                 'total_questions' => $createProgress->total_questions
             ];
-        } else {
+        }
+
+        // Se já existe, mas o total de questões mudou, atualiza
+        if ($progress->total_questions != $questoesTotais) {
+            $progress->total_questions = $questoesTotais;
+            $progress->save(); // atualiza com Eloquent direto
 
             return [
                 'id_trilha' => $trilhaId,
@@ -86,5 +90,12 @@ class DashboardController extends Controller
                 'total_questions' => $progress->total_questions
             ];
         }
+
+        // Se não mudou nada, retorna o progresso atual
+        return [
+            'id_trilha' => $trilhaId,
+            'finished_questions' => $progress->finished_questions,
+            'total_questions' => $progress->total_questions
+        ];
     }
 }
