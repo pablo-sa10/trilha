@@ -37,8 +37,8 @@ export function DashboardLayout({
     ...Props
 }: DashboardProps) {
 
-    console.log(trilhas);
-    console.log(progress);
+    // console.log(trilhas);
+    // console.log(progress);
 
     const { emAndamento, concluida } = progress.reduce(
         (acc, pro) => {

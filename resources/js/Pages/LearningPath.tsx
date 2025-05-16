@@ -1,5 +1,6 @@
 import { BackButton } from "@/components/BackButton";
 import { ButtonUpDown } from "@/components/LearningPathPage/ButtonUpDown";
+import { WelcomeQuestions } from "@/components/LearningPathPage/WelcomeQuestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -48,11 +49,19 @@ interface Alternativas {
 
 export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
+    console.log(progress);
+    console.log(trilha);
+
     const variantMap: Record<string, "success" | "warning" | "destructive"> = {
         "Fácil": "success",
         "Médio": "warning",
         "Difícil": "destructive"
     }
+
+    const {finished_questions, total_questions} = progress
+    const [finalizadas, setFinalizadas] = useState(finished_questions)
+
+    console.log(finished_questions, total_questions)
 
     return (
         <AuthProvider value={{ user: auth.user }}>
@@ -62,43 +71,16 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                 <BackButton page={"dashboard"} />
             </div>
 
-            <section className="flex flex-col gap-4 items-center justify-center h-[100vh] container mx-auto">
+            <section className="flex flex-col gap-4 items-center py-8 min-h-screen justify-center container mx-auto">
                 {/* BOAS VINDAS ÀS QUESTÕES */}
-                <div className="px-1 md:px-0 text-4xl md:text-5xl font-bold text-center hidden">
-                    <h1 className="mb-4">
-                        É {" "}
-                        <span className="inline bg-gradient-to-r from-[#FFB347] to-[#FF7E5F] text-transparent bg-clip-text">
-                            Hora
-                        </span>{" "}
-                        de praticar!
-                    </h1>
-                    <h2 className="inline">
-                        Responda às{" "}
-                        <span className="inline bg-gradient-to-r from-[#7F7FD5] via-[#86A8E7] to-[#91EAE4] text-transparent bg-clip-text">
-                            Perguntas
-                        </span>{" "}
-                    </h2>
-                    <h2 className="inline">
-                        e acompanhe seu{" "}
-                        <span className="inline bg-gradient-to-r from-[#42E695] to-[#3BB2B8] text-transparent bg-clip-text">
-                            Progresso.
-                        </span>{" "}
-                    </h2>
-
-                    <div className="flex justify-center">
-                        <p className="w-10/12 md:w-5/12 text-sm md:text-base mt-6 px-4 py-1 rounded-full bg-muted text-muted-foreground block">
-                            {trilha.NomeTrilha} — HTML e CSS
-                        </p>
-                    </div>
-
-                </div>
+                <WelcomeQuestions className={finalizadas === 0 ? "" : "hidden"} nome={trilha.NomeTrilha} />
 
                 {/* PERGUNTAS DA TRILHA */}
-                {trilha.questoes.map((value: Questoes) => (
-                    <div key={value.Questao} className="w-10/12 md:w-8/12 space-y-6">
-                        <div className="flex justify-between">
-                            <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {value.Questao}</h1>
-                            <Badge variant={variantMap[value.Dificuldade]}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
+                {trilha.questoes.map((value: Questoes, index) => (
+                    <div key={value.Questao} className={`w-10/12 md:w-8/12 space-y-6 ${finalizadas >= 1 && finished_questions - 1 == index ? "":"hidden" }`}>
+                        <div className="flex flex-col md:flex-row justify-between">
+                            <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {index + 1}</h1>
+                            <Badge className="text-[12px] w-5/12 md:w-auto mt-2 md:mt-0 md:text-sm" variant={variantMap[value.Dificuldade]}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
                         </div>
                         {/* Enunciado da pergunta */}
                         <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">
@@ -146,7 +128,8 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
 
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
-
+                disabledDown={finished_questions === total_questions}
+                disabledUp={finished_questions === 0}
             />
             <Toaster className="toast" />
         </AuthProvider>
