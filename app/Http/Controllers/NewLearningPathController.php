@@ -52,6 +52,8 @@ class NewLearningPathController extends Controller
             'materia' => 'required',
         ]);
 
+        // dd($request->all());
+
         try {
 
             $url = "https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/CriarTrilha";
@@ -59,7 +61,7 @@ class NewLearningPathController extends Controller
             $query = http_build_query([
                 "id_usuario" => $request->user()->id,
                 "nome_trilha" => $request->name,
-                "materias" => $request->vestibular,
+                "materias" => $request->materia,
             ]);
 
             $response = Http::post("$url?$query");
