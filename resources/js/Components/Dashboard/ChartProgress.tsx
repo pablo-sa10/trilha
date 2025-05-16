@@ -6,10 +6,10 @@ export function ChartProgress({ progress }: { progress: { finished_questions: nu
     //----------- chart data -------------
     const { finished_questions, total_questions } = progress
     const percentage = total_questions > 0 ? Math.round((finished_questions / total_questions) * 100) : 0 // faz o calculo da porcentagem
+    const endAngle = finished_questions > 0 ? 90 + (360 * (percentage / 100)) : 450;
     const chartData = [{ progress: percentage, fill: "hsl(var(--chart-1))" }]
 
-    console.log(progress)
-    console.log(percentage);
+    console.log(endAngle);
 
     const chartConfig = {
         progress: {
@@ -20,7 +20,7 @@ export function ChartProgress({ progress }: { progress: { finished_questions: nu
 
     return (
         <ChartContainer config={chartConfig}>
-            <RadialBarChart data={chartData} startAngle={90} endAngle={450} innerRadius={70} outerRadius={100}>
+            <RadialBarChart data={chartData} startAngle={90} endAngle={endAngle} innerRadius={70} outerRadius={100}>
                 <PolarGrid
                     gridType="circle"
                     radialLines={false}
