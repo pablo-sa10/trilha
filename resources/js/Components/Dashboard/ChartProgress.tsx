@@ -7,14 +7,14 @@ export function ChartProgress({ progress }: { progress: { finished_questions: nu
     const { finished_questions, total_questions } = progress
     const percentage = total_questions > 0 ? Math.round((finished_questions / total_questions) * 100) : 0 // faz o calculo da porcentagem
     const endAngle = finished_questions > 0 ? 90 + (360 * (percentage / 100)) : 450;
-    const chartData = [{ progress: percentage, fill: "hsl(var(--chart-1))" }]
+    const chartData = [{ progress: percentage, fill: "hsl(var(--chart-3))" }]
 
     console.log(endAngle);
 
     const chartConfig = {
         progress: {
             label: "Progresso",
-            color: "hsl(var(--chart-1))",
+            color: "hsl(var(--chart-3))",
         },
     } satisfies ChartConfig;
 
