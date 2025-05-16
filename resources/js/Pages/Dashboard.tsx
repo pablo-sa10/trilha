@@ -45,12 +45,12 @@ interface LearningPath {
 }
 
 export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
-    
-    console.log(trilhas);
-    console.log(progress);
+
+    // console.log(trilhas);
+    // console.log(progress); 
 
     /**Modal de erro */
-    const  { errors } = usePage().props;
+    const { errors } = usePage().props;
     const [showModal, setShowModal] = useState(false);
     useEffect(() => {
         if (errors.erro) {
@@ -58,21 +58,32 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
+    let emAndamento: number = 0;
+    let concluida: number = 0;
+
+    progress.forEach((pro) => {
+        if (pro.finished_questions === pro.total_questions) {
+            concluida++;
+        } else {
+            emAndamento++;
+        }
+    });
+
     /**Resumo geral */
     const summary: SummaryProps[] = [
         {
             title: "Trilhas em Andamento",
-            quantity: 0,
+            quantity: emAndamento,
             icon: Route,
         },
         {
             title: "Trilhas Concluídas",
-            quantity: 0,
+            quantity: concluida,
             icon: CheckCircle,
         },
         {
             title: "Trilhas Disponíveis",
-            quantity: trilhas.length ||  0,
+            quantity: trilhas.length || 0,
             icon: Layers,
         },
     ];
@@ -162,14 +173,14 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
                                         id_trilha,
                                         nome_trilha,
                                         data_criacao,
-                                        
+
                                     }: LearningPath) => (
-                                        <Link 
+                                        <Link
                                             href={route('new-learning-path.show', id_trilha)}
                                             key={id_trilha}
                                         >
                                             <Card
-                                            className="bg-card transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg hover:shadow-foreground/10"
+                                                className="bg-card transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg hover:shadow-foreground/10"
                                             >
                                                 <CardHeader>
                                                     <CardTitle>{nome_trilha}</CardTitle>
@@ -185,7 +196,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
                                                     </div>
                                                 </CardHeader>
                                                 <CardContent>
-                                                        
+
                                                 </CardContent>
                                             </Card>
                                         </Link>
@@ -197,7 +208,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
                 </MainMenu>
                 <Toaster className="toast" />
                 {showModal && (
-                    <ModalInfo 
+                    <ModalInfo
                         open={showModal}
                         onClose={() => setShowModal(false)}
                         title="Erro!"
