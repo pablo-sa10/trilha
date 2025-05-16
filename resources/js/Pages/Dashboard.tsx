@@ -18,6 +18,9 @@ import { LearningPathsProvider } from "@/context/LearningPathsContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { ModalInfo } from "@/components/modal/ModalInfo";
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
+import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
+const chartData = [{ browser: "safari", visitors: 200, fill: "var(--color-safari)" }]
 
 type DashboardProps = {
     auth: {
@@ -69,6 +72,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         },
         { emAndamento: 0, concluida: 0 }
     );
+
     /**Resumo geral */
     const summary: SummaryProps[] = [
         {
@@ -87,6 +91,17 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
             icon: Layers,
         },
     ];
+
+    //----------- chart data -------------
+    const chartConfig = {
+        visitors: {
+            label: "Visitors",
+        },
+        safari: {
+            label: "Safari",
+            color: "hsl(var(---chart-2))",
+        },
+    } satisfies ChartConfig;
 
     return (
         <AuthProvider value={{ user: auth.user }}>
@@ -142,7 +157,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
                             </div>
                         </section>
                     ) : (
-                        <section>
+                        <section className="mb-10">
                             <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
                                 {summary.map(
                                     ({
@@ -196,7 +211,35 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
                                                     </div>
                                                 </CardHeader>
                                                 <CardContent>
-
+                                                    <ChartContainer config={chartConfig}>
+                                                        <RadialBarChart data={chartData} startAngle={0} endAngle={250} innerRadius={80} outerRadius={110}>
+                                                            <PolarGrid
+                                                                gridType="circle"
+                                                                radialLines={false}
+                                                                stroke="none"
+                                                                className="first:fill-muted last:fill-background"
+                                                            />
+                                                            <RadialBar dataKey="visitors" background cornerRadius={10} />
+                                                            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+                                                                <Label
+                                                                    content={({ viewBox }) => {
+                                                                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                                                            return (
+                                                                                <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
+                                                                                    <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-4xl font-bold">
+                                                                                        {chartData[0].visitors.toLocaleString()}
+                                                                                    </tspan>
+                                                                                    <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
+                                                                                        Visitors
+                                                                                    </tspan>
+                                                                                </text>
+                                                                            )
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </PolarRadiusAxis>
+                                                        </RadialBarChart>
+                                                    </ChartContainer>
                                                 </CardContent>
                                             </Card>
                                         </Link>
