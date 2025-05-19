@@ -93,6 +93,10 @@ class NewLearningPathController extends Controller
             ]);
 
             $trilha = $response->successful() ? $response->json() : null;
+
+            if(empty($trilha)){
+                return redirect()->back()->withErrors(['erro' => "Trilha sem nenhuma questão"]);
+            }
             $progress = $this->getProgress($idUser, $id);
 
             // return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);

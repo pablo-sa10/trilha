@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete("/delete-trilha/{id}", [DashboardController::class, 'destroy'])->name('delete-learning-path.destroy');
 
-    Route::post("/atualiza-progress/{user}/{learningPath}/{totalQuestion}", [ProgressLearningController::class, 'store'])->name('progress-learning-path.store');
+    Route::patch("/atualiza-progress/{user}/{learningPath}/{finalizadas}", [ProgressLearningController::class, 'update'])->name('progress-learning-path.update');
 });
 
 require __DIR__.'/auth.php';

@@ -16,17 +16,19 @@ class ProgressLearningController extends Controller
         return $progress;
     }
 
-    public function store(int $id_usuario, int $id_trilha, int $totalQuestion)
+    public function update(int $id_usuario, int $id_trilha, int $finalizadas)
     {
 
+        // dd([$id_usuario, $id_trilha, $finalizadas]);
         $progress = ProgressLearning::where([
             ['user_id', '=', $id_usuario],
             ['learning_path_id', '=', $id_trilha]
         ])->first();
 
-        $progress->finished_questions = $totalQuestion;
+        // dd($progress);
+        $progress->finished_questions = $finalizadas + 1;
         $progress->save(); // atualiza com Eloquent direto
 
-        return response()->noContent();
+        // return response()->noContent();
     }
 }

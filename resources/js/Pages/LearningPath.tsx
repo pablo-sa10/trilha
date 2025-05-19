@@ -8,11 +8,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrainCircuit, AlertTriangle, CheckCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
+import { finished } from "stream";
 
 type LearningPathType = {
     auth: {
@@ -60,19 +61,16 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     }
 
     const feedbackRef = useRef<HTMLDivElement>(null);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
-    const [hasAnswered, setHasAnswered] = useState(false);
-    const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-    const [isAllowed, setIsAllowed] = useState<boolean>(true);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null); // questao selecionada
+    const [hasAnswered, setHasAnswered] = useState(false); 
+    const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // resultado da resposta
+    const [isNotAllowed, setIsNotAllowed] = useState<boolean>(false); // permite avançar questao
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
         return progress.finished_questions === 0
             ? -1 // Welcome
-            : progress.finished_questions - 1; // Última respondida
+            : progress.finished_questions -1; // Última respondida
     });
-
-    console.log(progress.finished_questions);
-    console.log(currentQuestionIndex)
 
     useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
         if (hasAnswered && feedbackRef.current) {
@@ -87,9 +85,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setSelectedOption(null);
             setHasAnswered(false);
             setIsCorrect(null);
-        }
-        if(currentQuestionIndex == progress.finished_questions){
-            setIsAllowed(false)
+            setIsNotAllowed(true)
         }
     };
 
@@ -163,7 +159,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                 <div className="space-y-3">
                                     {trilha.questoes[currentQuestionIndex].Alternativas.map((alt) => (
                                         <div key={alt.Alternativa} className="flex items-center space-x-2">
-                                            <RadioGroupItem disabled={hasAnswered} value={alt.Alternativa} />
+                                            <RadioGroupItem disabled={isCorrect === true && hasAnswered} value={alt.Alternativa} />
                                             <Label className="text-base" htmlFor="alt">
                                                 {alt.DescricaoAlternativa}
                                             </Label>
@@ -177,6 +173,13 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                     onClick={() => {
                                         const correct =
                                             selectedOption === trilha.questoes[currentQuestionIndex].RespostaCorreta;
+                                        if(correct){
+                                            router.patch(route('progress-learning-path.update', {
+                                                user: auth.user?.id,
+                                                learningPath: trilha.id_trilha,
+                                                finalizadas: currentQuestionIndex,
+                                            }))
+                                        }
                                         setIsCorrect(correct);
                                         setHasAnswered(true);
                                     }}
@@ -230,7 +233,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
                 className=""
-                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1 && isAllowed ? true : false}
+                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1 || (progress.finished_questions == currentQuestionIndex && isNotAllowed)}
                 disabledUp={currentQuestionIndex === -1}
                 upQuestion={goToPrev}
                 downQuestion={goToNext}

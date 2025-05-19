@@ -44,6 +44,8 @@ interface LearningPath {
 
 export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
 
+    // console.log(trilhas)
+
     /**Modal de erro */
     const { errors } = usePage().props;
     const [showModal, setShowModal] = useState(false);
@@ -53,9 +55,12 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
+    console.log(progress)
+
     const { emAndamento, concluida } = (progress ?? []).reduce(
         (acc, pro) => {
-            if (pro.finished_questions === pro.total_questions) {
+            console.log(pro)
+            if (pro.finished_questions > 0 && pro.finished_questions === pro.total_questions) {
                 acc.concluida++;
             } else {
                 acc.emAndamento++;
