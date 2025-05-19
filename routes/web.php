@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewLearningPathController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgressLearningController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post("/nova-trilha", [NewLearningPathController::class, 'store'])->name('new-learning-path.store');
 
     Route::delete("/delete-trilha/{id}", [DashboardController::class, 'destroy'])->name('delete-learning-path.destroy');
+
+    Route::post("/atualiza-progress/{user}/{learningPath}/{totalQuestion}", [ProgressLearningController::class, 'store'])->name('progress-learning-path.store');
 });
 
 require __DIR__.'/auth.php';

@@ -8,21 +8,25 @@ use App\Models\ProgressLearning;
 
 class ProgressLearningController extends Controller
 {
-    public function getProgressLearning($id){
+    public function getProgressLearning($id)
+    {
 
         $progress = ProgressLearning::find($id);
 
         return $progress;
     }
 
-    public function storeProgrssLearning($id_trilha, $id_usuario, $questoes_totais){
+    public function store(int $id_usuario, int $id_trilha, int $totalQuestion)
+    {
 
-        $progress = ProgressLearning::create([
-            'user_id' => $id_usuario,
-            'learning_path_id' => $id_trilha,
-            'total_questions' => $questoes_totais,
-        ]);
+        $progress = ProgressLearning::where([
+            ['user_id', '=', $id_usuario],
+            ['learning_path_id', '=', $id_trilha]
+        ])->first();
 
-        return $progress;
+        $progress->finished_questions = $totalQuestion;
+        $progress->save(); // atualiza com Eloquent direto
+
+        return response()->noContent();
     }
 }

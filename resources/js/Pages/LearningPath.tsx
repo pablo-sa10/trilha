@@ -63,18 +63,22 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [hasAnswered, setHasAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+    const [isAllowed, setIsAllowed] = useState<boolean>(true);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
         return progress.finished_questions === 0
             ? -1 // Welcome
             : progress.finished_questions - 1; // Última respondida
     });
 
+    console.log(progress.finished_questions);
+    console.log(currentQuestionIndex)
+
     useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
         if (hasAnswered && feedbackRef.current) {
             feedbackRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
         }
     }, [hasAnswered]);
-
 
     // avançar questao
     const goToNext = () => {
@@ -83,6 +87,9 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setSelectedOption(null);
             setHasAnswered(false);
             setIsCorrect(null);
+        }
+        if(currentQuestionIndex == progress.finished_questions){
+            setIsAllowed(false)
         }
     };
 
@@ -95,10 +102,6 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setIsCorrect(null);
         }
     };
-
-    // console.log(finished_questions, total_questions)
-    console.log(trilha);
-    console.log(progress);
 
     return (
         <AuthProvider value={{ user: auth.user }}>
@@ -227,7 +230,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
                 className=""
-                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1}
+                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1 && isAllowed ? true : false}
                 disabledUp={currentQuestionIndex === -1}
                 upQuestion={goToPrev}
                 downQuestion={goToNext}
