@@ -26,27 +26,31 @@ class DashboardController extends Controller
          * 3. logo após, é buscado o progresso de cada trilha, armazenado num array e exibido na view
          */
 
-        $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [ // busca as trilhas criadas pelo usuário
-            'id_usuario' => $userId
-        ]);
+        try {
+            $response = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [ // busca as trilhas criadas pelo usuário
+                'id_usuario' => $userId
+            ]);
 
-        $trilhas = $response->successful() ? $response->json() : []; // armazena na variável $trilhas o retorno da API
-        $allProgress = []; // array para armazenar o progresso de cada trilha
+            $trilhas = $response->successful() ? $response->json() : []; // armazena na variável $trilhas o retorno da API
+            $allProgress = []; // array para armazenar o progresso de cada trilha
 
-        if (!empty($trilhas)) {
+            if (!empty($trilhas)) {
 
-            foreach ($trilhas as $trilha) {
+                foreach ($trilhas as $trilha) {
 
-                // Verifica se já existe um registro de progresso para a trilha
-                $progress = $this->getProgress($userId, $trilha['id_trilha']);
-                $allProgress[] = $progress;
+                    // Verifica se já existe um registro de progresso para a trilha
+                    $progress = $this->getProgress($userId, $trilha['id_trilha']);
+                    $allProgress[] = $progress;
+                }
             }
-        }
 
-        return Inertia::render('Dashboard', [
-            'trilhas' => $trilhas,
-            'progress' => $allProgress
-        ]);
+            return Inertia::render('Dashboard', [
+                'trilhas' => $trilhas,
+                'progress' => $allProgress
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
+        }
     }
 
     private function getProgress($userId, $trilhaId)
@@ -98,5 +102,30 @@ class DashboardController extends Controller
             'finished_questions' => $progress->finished_questions,
             'total_questions' => $progress->total_questions
         ];
+    }
+
+    public function destroy(int $id, Request $request)
+    {
+
+        $userId = $request->user()->id;
+
+        try {
+            $url = "https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/RemoverTrilha";
+
+            $query = http_build_query([
+                "id_usuario" => $userId,
+                "id_trilha" => $id,
+            ]);
+
+            $response = Http::delete("$url?$query");
+
+            if ($response->failed()) {
+                return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
+            }
+
+            return redirect(route('dashboard', absolute: false));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);
+        }
     }
 }
