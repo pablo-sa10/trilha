@@ -190,18 +190,29 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                     transition={{ duration: 0.5, ease: "easeOut" }}
                                 >
                                     <Alert
-                                        className={`space-y-4 p-6 border-l-4 ${
-                                            isCorrect 
-                                                ? "border-green-500 bg-green-50 text-green-800"
-                                                : "border-red-500 bg-red-50 text-red-800"
-                                        }`}
+                                        className={`space-y-4 p-6 border-l-4 ${isCorrect
+                                            ? "border-green-500 bg-green-50 text-green-800"
+                                            : "border-red-500 bg-red-50 text-red-800"
+                                            }`}
                                     >
-                                        <AlertTitle className="text-3xl">{isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}</AlertTitle>
-                                        <AlertDescription>
-                                            Clique no botao abaixo para a nossa IA te explicar em detalhes a resposta
+                                        <div className="flex items-center gap-3">
+                                            {isCorrect ? (
+                                                <CheckCircle className="!h-6 !w-6 text-green-500" />
+                                            ) : (
+                                                <AlertTriangle className="!h-6 !w-6 text-red-500" />
+                                            )}
+                                            <AlertTitle className="text-3xl">{isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}</AlertTitle>
+                                        </div>
+                                        <AlertDescription className="text-lg leading-relaxed">
+                                            {isCorrect
+                                                ? "Ótimo trabalho! Se quiser aprofundar ainda mais seu entendimento, clique no botão abaixo para ver a explicação detalhada da IA."
+                                                : "Não se preocupe! Aprender é um processo. Clique no botão abaixo e deixe a nossa IA te mostrar uma explicação completa dessa questão."}
                                         </AlertDescription>
-                                        <div>
-                                            <Button>Consultar IA <BrainCircuit /></Button>
+
+                                        <div className="text-end pt-2">
+                                            <Button className="text-base" variant="outline">
+                                                Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />
+                                            </Button>
                                         </div>
                                     </Alert>
                                 </motion.div>
