@@ -10,7 +10,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { ChartProgress } from "@/components/Dashboard/ChartProgress";
-import { LucideIcon, MoreHorizontal, Plus, Trash } from "lucide-react";
+import { LucideIcon, MoreHorizontal, MoreVertical, Plus, Trash } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -156,7 +156,7 @@ export function DashboardLayout({
                                                     <span className="sr-only">
                                                         Open menu
                                                     </span>
-                                                    <MoreHorizontal />
+                                                    <MoreVertical />
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="start">
