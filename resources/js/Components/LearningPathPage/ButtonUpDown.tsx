@@ -16,7 +16,7 @@ export function ButtonUpDown({
     className?: string;
 }){
     return (
-        <div className="flex gap-2 fixed bottom-7 right-7 z-50" {...props}>
+        <div className="flex justify-end pr-5 pb-7 gap-2 md:p-0 md:fixed md:bottom-7 md:right-7 md:z-50" {...props}>
                 <Button onClick={upQuestion} disabled={disabledUp} size={"icon"} variant={"secondary"}>
                     <ArrowBigUpIcon className="!w-6 !h-6"/>
                 </Button>

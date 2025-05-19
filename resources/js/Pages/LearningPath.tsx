@@ -83,7 +83,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
         <AuthProvider value={{ user: auth.user }}>
             <Head title={trilha.NomeTrilha} />
 
-            <div className="fixed left-10 top-10">
+            <div className="pl-5 pt-10 md:p-0 md:fixed md:left-10 md:top-10 md:z-50">
                 <BackButton page={"dashboard"} />
             </div>
 
@@ -156,6 +156,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
 
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
+                className=""
                 disabledDown={currentQuestionIndex >= trilha.questoes.length - 1}
                 disabledUp={currentQuestionIndex === -1}
                 upQuestion={goToPrev}
