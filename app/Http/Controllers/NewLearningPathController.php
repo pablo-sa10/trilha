@@ -61,10 +61,12 @@ class NewLearningPathController extends Controller
             $query = http_build_query([
                 "id_usuario" => $request->user()->id,
                 "nome_trilha" => $request->name,
-                "materias" => $request->materia,
+                "id_materia" => $request->materia,
             ]);
 
             $response = Http::post("$url?$query");
+
+            // dd($response);
 
             if ($response->failed()) {
                 return redirect()->back()->withErrors(['erro' => "Um erro inesperado aconteceu. Tente novamente mais tarde."]);

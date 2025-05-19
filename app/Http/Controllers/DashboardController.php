@@ -34,6 +34,7 @@ class DashboardController extends Controller
         $allProgress = []; // array para armazenar o progresso de cada trilha
 
         if (!empty($trilhas)) {
+
             foreach ($trilhas as $trilha) {
 
                 // Verifica se já existe um registro de progresso para a trilha

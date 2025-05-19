@@ -58,7 +58,9 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const {finished_questions, total_questions} = progress
     const [finalizadas, setFinalizadas] = useState(finished_questions)
 
-    console.log(finished_questions, total_questions)
+    // console.log(finished_questions, total_questions)
+    console.log(trilha);
+    console.log(progress);
 
     return (
         <AuthProvider value={{ user: auth.user }}>

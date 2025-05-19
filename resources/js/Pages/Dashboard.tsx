@@ -44,8 +44,8 @@ interface LearningPath {
 
 export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
 
-    // console.log(progress);
-    // console.log(trilhas);
+    console.log(progress);
+    console.log(trilhas);
 
     /**Modal de erro */
     const { errors } = usePage().props;
@@ -56,7 +56,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
-    const { emAndamento, concluida } = progress.reduce(
+    const { emAndamento, concluida } = (progress ?? []).reduce(
         (acc, pro) => {
             if (pro.finished_questions === pro.total_questions) {
                 acc.concluida++;
@@ -82,7 +82,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         },
         {
             title: "Trilhas Disponíveis",
-            quantity: trilhas.length || 0,
+            quantity: trilhas?.length || 0,
             icon: Layers,
         },
     ];
@@ -92,7 +92,7 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
             <LearningPathsProvider value={{ trilhas }}>
                 <Head title="Home" />
                 <MainMenu>
-                    <DashboardLayout trilhas={trilhas} summary={summarys} progress={progress} />
+                    <DashboardLayout summary={summarys} progress={progress} />
                 </MainMenu>
                 <Toaster className="toast" />
                 {showModal && (

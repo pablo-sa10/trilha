@@ -13,9 +13,9 @@ import { ChartProgress } from "@/components/Dashboard/ChartProgress";
 import { LucideIcon, MoreHorizontal, MoreVertical, Plus, Trash } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useLearningPathContext } from "@/context/LearningPathsContext";
 
 interface DashboardProps {
-    trilhas: LearningPath[];
     summary: SummaryProps[];
     progress: {
         id_trilha: number;
@@ -37,7 +37,6 @@ interface LearningPath {
 }
 
 export function DashboardLayout({
-    trilhas,
     summary,
     progress,
     ...Props
@@ -45,19 +44,9 @@ export function DashboardLayout({
     // console.log(trilhas);
     // console.log(progress);
 
-    const { emAndamento, concluida } = progress.reduce(
-        (acc, pro) => {
-            if (pro.finished_questions === pro.total_questions) {
-                acc.concluida++;
-            } else {
-                acc.emAndamento++;
-            }
-            return acc;
-        },
-        { emAndamento: 0, concluida: 0 }
-    );
+    const { trilhas } = useLearningPathContext();
 
-    return trilhas.length < 1 ? (
+    return trilhas && trilhas.length < 1 ? (
         <section>
             <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
                 {summary.map(
@@ -134,7 +123,7 @@ export function DashboardLayout({
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {trilhas.map(
+                {trilhas?.map(
                     (
                         { id_trilha, nome_trilha, data_criacao }: LearningPath,
                         index
@@ -159,11 +148,17 @@ export function DashboardLayout({
                                                     <MoreVertical />
                                                 </Button>
                                             </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="start">
-                                                <DropdownMenuLabel className="flex items-center justify-evenly gap-2 hover:cursor-pointer">
+                                            <DropdownMenuContent align="center" side="right">
+                                                <DropdownMenuItem
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        e.preventDefault();
+                                                    }}
+                                                    className="flex items-center justify-evenly gap-2 text-red-600 hover:cursor-pointer"
+                                                >
                                                     Excluir
-                                                    <Trash size={15}/>
-                                                </DropdownMenuLabel>
+                                                    <Trash size={15} />
+                                                </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </div>

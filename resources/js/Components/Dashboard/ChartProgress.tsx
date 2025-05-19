@@ -15,7 +15,7 @@ export function ChartProgress({ progress }: { progress: { finished_questions: nu
             color: "hsl(var(--chart-3))",
         },
     } satisfies ChartConfig;
-
+    
     return (
         <ChartContainer config={chartConfig}>
             <RadialBarChart data={chartData} startAngle={90} endAngle={endAngle} innerRadius={70} outerRadius={100}>
