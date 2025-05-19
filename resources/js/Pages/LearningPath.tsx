@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/BackButton";
 import { ButtonUpDown } from "@/components/LearningPathPage/ButtonUpDown";
 import { WelcomeQuestions } from "@/components/LearningPathPage/WelcomeQuestions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -9,7 +10,8 @@ import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { BrainCircuit, AlertTriangle, CheckCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
 
 type LearningPathType = {
@@ -49,22 +51,38 @@ interface Alternativas {
 
 export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
 
-    const variantMap: Record<string, "success" | "warning" | "destructive"> = {
+    const variantMap: Record<string, "info" | "success" | "warning" | "destructive" | "extreme"> = {
+        "Muito Fácil\n": "info",
         "Fácil": "success",
         "Médio": "warning",
-        "Difícil": "destructive"
+        "Difícil": "destructive",
+        "Muito Difícil": "extreme"
     }
 
+    const feedbackRef = useRef<HTMLDivElement>(null);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [hasAnswered, setHasAnswered] = useState(false);
+    const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
         return progress.finished_questions === 0
             ? -1 // Welcome
             : progress.finished_questions - 1; // Última respondida
     });
 
+    useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
+        if (hasAnswered && feedbackRef.current) {
+            feedbackRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }, [hasAnswered]);
+
+
     // avançar questao
     const goToNext = () => {
         if (currentQuestionIndex < trilha.questoes.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
+            setSelectedOption(null);
+            setHasAnswered(false);
+            setIsCorrect(null);
         }
     };
 
@@ -72,6 +90,9 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const goToPrev = () => {
         if (currentQuestionIndex > -1) {
             setCurrentQuestionIndex((prev) => prev - 1);
+            setSelectedOption(null);
+            setHasAnswered(false);
+            setIsCorrect(null);
         }
     };
 
@@ -87,7 +108,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                 <BackButton page={"dashboard"} />
             </div>
 
-            <section className="flex flex-col gap-4 items-center py-8 min-h-screen justify-center container mx-auto">
+            <section className="flex flex-col gap-4 py-14 items-center min-h-screen justify-center container mx-auto">
                 <AnimatePresence mode="wait">
                     {/* BOAS VINDAS ÀS QUESTÕES */}
                     {currentQuestionIndex === -1 && (
@@ -132,11 +153,14 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                 {trilha.questoes[currentQuestionIndex].Enunciado}
                             </p>
 
-                            <RadioGroup defaultValue="">
+                            <RadioGroup
+                                value={selectedOption}
+                                onValueChange={(value) => setSelectedOption(value)}
+                            >
                                 <div className="space-y-3">
                                     {trilha.questoes[currentQuestionIndex].Alternativas.map((alt) => (
                                         <div key={alt.Alternativa} className="flex items-center space-x-2">
-                                            <RadioGroupItem value={alt.Alternativa} />
+                                            <RadioGroupItem disabled={hasAnswered} value={alt.Alternativa} />
                                             <Label className="text-base" htmlFor="alt">
                                                 {alt.DescricaoAlternativa}
                                             </Label>
@@ -146,8 +170,43 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                             </RadioGroup>
 
                             <div className="pt-4">
-                                <Button>Responder</Button>
+                                <Button
+                                    onClick={() => {
+                                        const correct =
+                                            selectedOption === trilha.questoes[currentQuestionIndex].RespostaCorreta;
+                                        setIsCorrect(correct);
+                                        setHasAnswered(true);
+                                    }}
+                                    disabled={!selectedOption}
+                                >
+                                    Responder
+                                </Button>
                             </div>
+                            {hasAnswered && (
+                                <motion.div
+                                    ref={feedbackRef}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease: "easeOut" }}
+                                >
+                                    <Alert
+                                        className={`space-y-4 p-6 border-l-4 ${
+                                            isCorrect 
+                                                ? "border-green-500 bg-green-50 text-green-800"
+                                                : "border-red-500 bg-red-50 text-red-800"
+                                        }`}
+                                    >
+                                        <AlertTitle className="text-3xl">{isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}</AlertTitle>
+                                        <AlertDescription>
+                                            Clique no botao abaixo para a nossa IA te explicar em detalhes a resposta
+                                        </AlertDescription>
+                                        <div>
+                                            <Button>Consultar IA <BrainCircuit /></Button>
+                                        </div>
+                                    </Alert>
+                                </motion.div>
+                            )}
+
                         </motion.div>
                     )}
 

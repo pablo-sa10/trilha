@@ -63,6 +63,14 @@ export default {
 					DEFAULT: "#facc15", // amarelo
 					foreground: "#000000",
 				},
+				info: {
+					DEFAULT: "#3ABFF8", // azul claro (ou algo como cyan)
+					foreground: "#ffffff"
+				},
+				extreme: {
+					DEFAULT: "#7e22ce", // roxo forte, ou poderia ser vermelho escuro como #991b1b
+					foreground: "#ffffff"
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
