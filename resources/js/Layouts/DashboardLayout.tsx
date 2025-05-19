@@ -42,8 +42,7 @@ export function DashboardLayout({
     progress,
     ...Props
 }: DashboardProps) {
-    // console.log(trilhas);
-    // console.log(progress);
+
 
     const deleteLearningPath = ((id: number) => {
         router.delete(route('delete-learning-path.destroy', id));

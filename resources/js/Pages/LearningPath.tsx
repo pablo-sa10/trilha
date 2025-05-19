@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
-
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Toaster } from "sonner";
 
@@ -55,8 +55,25 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
         "Difícil": "destructive"
     }
 
-    const {finished_questions, total_questions} = progress
-    const [finalizadas, setFinalizadas] = useState(finished_questions)
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
+        return progress.finished_questions === 0
+            ? -1 // Welcome
+            : progress.finished_questions - 1; // Última respondida
+    });
+
+    // avançar questao
+    const goToNext = () => {
+        if (currentQuestionIndex < trilha.questoes.length - 1) {
+            setCurrentQuestionIndex((prev) => prev + 1);
+        }
+    };
+
+    // voltar questao
+    const goToPrev = () => {
+        if (currentQuestionIndex > -1) {
+            setCurrentQuestionIndex((prev) => prev - 1);
+        }
+    };
 
     // console.log(finished_questions, total_questions)
     console.log(trilha);
@@ -71,64 +88,78 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             </div>
 
             <section className="flex flex-col gap-4 items-center py-8 min-h-screen justify-center container mx-auto">
-                {/* BOAS VINDAS ÀS QUESTÕES */}
-                <WelcomeQuestions className={finalizadas === 0 ? "" : "hidden"} nome={trilha.NomeTrilha} />
+                <AnimatePresence mode="wait">
+                    {/* BOAS VINDAS ÀS QUESTÕES */}
+                    {currentQuestionIndex === -1 && (
+                        <motion.div
+                            key="Welcome"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -50 }}
+                            transition={{ duration: 0.4 }}
+                            className="w-full flex justify-center"
+                        >
+                            <WelcomeQuestions nome={trilha.NomeTrilha} materia={trilha.questoes[0].Materia} />
+                        </motion.div>
+                    )}
+                    {/* QUESTAO ATUAL */}
 
-                {/* PERGUNTAS DA TRILHA */}
-                {trilha.questoes.map((value: Questoes, index) => (
-                    <div key={value.Questao} className={`w-10/12 md:w-8/12 space-y-6 ${finalizadas >= 1 && finished_questions - 1 == index ? "":"hidden" }`}>
-                        <div className="flex flex-col md:flex-row justify-between">
-                            <h1 className="text-2xl md:text-3xl font-bold text-primary">Questão {index + 1}</h1>
-                            <Badge className="text-[12px] w-5/12 md:w-auto mt-2 md:mt-0 md:text-sm" variant={variantMap[value.Dificuldade]}>{value.TipoQuestao} - {value.Dificuldade} </Badge>
-                        </div>
-                        {/* Enunciado da pergunta */}
-                        <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">
-                            {value.Enunciado}
-                        </p>
-
-                        {/* Alternativas */}
-                        <RadioGroup defaultValue="">
-                            <div className="space-y-3">
-                                {value.Alternativas.map((alt: Alternativas) => (
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value={alt.Alternativa} />
-                                        <Label className="text-base" htmlFor="alt1">{alt.DescricaoAlternativa}</Label>
-                                    </div>
-                                ))}
+                    {currentQuestionIndex >= 0 && (
+                        <motion.div
+                            key={trilha.questoes[currentQuestionIndex].Questao}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -50 }}
+                            transition={{ duration: 0.4 }}
+                            className="w-10/12 md:w-8/12 space-y-6"
+                        >
+                            <div className="flex flex-col md:flex-row justify-between">
+                                <h1 className="text-2xl md:text-3xl font-bold text-primary">
+                                    Questão {currentQuestionIndex + 1}
+                                </h1>
+                                <Badge
+                                    className="text-[12px] w-5/12 md:w-auto mt-2 md:mt-0 md:text-sm"
+                                    variant={
+                                        variantMap[trilha.questoes[currentQuestionIndex].Dificuldade]
+                                    }
+                                >
+                                    {trilha.questoes[currentQuestionIndex].TipoQuestao} -{" "}
+                                    {trilha.questoes[currentQuestionIndex].Dificuldade}
+                                </Badge>
                             </div>
-                        </RadioGroup>
 
-                        {/* Botão de envio */}
-                        <div className="pt-4">
-                            <Button>Responder</Button>
-                        </div>
-                    </div>
-                )
-                )}
+                            <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">
+                                {trilha.questoes[currentQuestionIndex].Enunciado}
+                            </p>
 
+                            <RadioGroup defaultValue="">
+                                <div className="space-y-3">
+                                    {trilha.questoes[currentQuestionIndex].Alternativas.map((alt) => (
+                                        <div key={alt.Alternativa} className="flex items-center space-x-2">
+                                            <RadioGroupItem value={alt.Alternativa} />
+                                            <Label className="text-base" htmlFor="alt">
+                                                {alt.DescricaoAlternativa}
+                                            </Label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </RadioGroup>
 
-                <div className="w-10/12 md:w-8/12 hidden">
-                    <h1>pergunta 2</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Repellendus ad unde perferendis, est maxime accusantium ipsum minus quo et delectus? Aspernatur
-                        facere harum deserunt illum. Amet explicabo placeat cupiditate dolorum.
-                    </p>
-                </div>
-                <div className="w-10/12 md:w-8/12 hidden">
-                    <h1>pergunta 3</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Repellendus ad unde perferendis, est maxime accusantium ipsum minus quo et delectus? Aspernatur
-                        facere harum deserunt illum. Amet explicabo placeat cupiditate dolorum.
-                    </p>
-                </div>
+                            <div className="pt-4">
+                                <Button>Responder</Button>
+                            </div>
+                        </motion.div>
+                    )}
+
+                </AnimatePresence>
             </section>
 
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
-                disabledDown={finished_questions === total_questions}
-                disabledUp={finished_questions === 0}
+                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1}
+                disabledUp={currentQuestionIndex === -1}
+                upQuestion={goToPrev}
+                downQuestion={goToNext}
             />
             <Toaster className="toast" />
         </AuthProvider>

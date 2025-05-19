@@ -44,9 +44,6 @@ interface LearningPath {
 
 export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
 
-    console.log(progress);
-    console.log(trilhas);
-
     /**Modal de erro */
     const { errors } = usePage().props;
     const [showModal, setShowModal] = useState(false);

@@ -1,4 +1,4 @@
-export function WelcomeQuestions({ className, nome, ...props }: {className?: string, nome: string }) {
+export function WelcomeQuestions({ className, nome, materia, ...props }: {className?: string, nome: string, materia: string }) {
     return (
         <div className={`px-1 md:px-0 text-4xl md:text-5xl font-bold text-center ${className}`} {...props}>
             <h1 className="mb-4">
@@ -23,7 +23,7 @@ export function WelcomeQuestions({ className, nome, ...props }: {className?: str
 
             <div className="flex justify-center">
                 <p className="w-10/12 md:w-5/12 text-sm md:text-base mt-6 px-4 py-1 rounded-full bg-muted text-muted-foreground block">
-                    {nome} — HTML e CSS
+                    {nome} — {materia}
                 </p>
             </div>
 
