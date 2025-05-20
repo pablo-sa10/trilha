@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
 import axios from "axios";
 import { set } from "react-hook-form";
+import { Spinner } from "@/components/ui/spinner";
 
 type LearningPathType = {
     auth: {
@@ -97,12 +98,10 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
         setResponse('');
 
         const message = handleMessage(); // chama a função no momento certo
-        // console.log('Mensagem enviada:', message);
-        // return;
 
         try {
-            const res = await axios.post('chat-gpt.index', { message });
-            const content = res.data.choices[0].message.content;
+            const res = await axios.post(route('chat-gpt.index'), { message });
+            const content = res.data.response
             setResponse(content);
         } catch (error) {
             console.error(error);
@@ -225,6 +224,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                             }))
                                         }
                                         setIsCorrect(correct);
+                                        setShowFeedback(true);
                                         setHasAnswered(true);
                                     }}
                                     disabled={!selectedOption}
@@ -271,8 +271,8 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                             variant="outline"
                                                             className="text-base"
                                                             onClick={() => {
-                                                                setShowFeedback(false);
                                                                 handleSend();
+                                                                setShowFeedback(false);
                                                             }}
                                                         >
                                                             Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />
@@ -295,7 +295,11 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                             Explicação da Questão
                                                         </h2>
                                                         {/* Aqui o conteúdo real da explicação */}
-                                                        <p>teste</p>
+                                                        <p>{loading ? (
+                                                            <Spinner/>
+                                                        ): (
+                                                            `${response}`
+                                                        )}</p>
 
                                                         <div className="pt-4 text-right">
                                                             {/* Botão para voltar ao feedback */}
