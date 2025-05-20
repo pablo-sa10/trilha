@@ -68,10 +68,16 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const [isNotAllowed, setIsNotAllowed] = useState<boolean>(false); // permite avançar questao
     const [showFeedback, setShowFeedback] = useState(true)
 
+    console.log(progress)
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
+
+        if(progress.finished_questions === progress.total_questions) {
+            return progress.finished_questions -1 // Última respondida caso tenha terminado
+        }
         return progress.finished_questions === 0
             ? -1 // Welcome
-            : progress.finished_questions - 1; // Última respondida
+            : progress.finished_questions; // Questão atual
     });
 
     useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
