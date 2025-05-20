@@ -88,6 +88,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setHasAnswered(false);
             setIsCorrect(null);
             setIsNotAllowed(true);
+            setShowFeedback(true);
         }
     };
 
@@ -98,6 +99,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setSelectedOption(null);
             setHasAnswered(false);
             setIsCorrect(null);
+            setShowFeedback(true);
         }
     };
 
@@ -199,7 +201,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                 initial={{ opacity: 0, x: -1200 }}       // começa invisível e deslocado 100px à direita
                                                 animate={{ opacity: 1, x: 0 }}         // aparece totalmente visível na posição normal
                                                 exit={{ opacity: 0, x: -1200 }}         // some deslocando para a esquerda (-100px)
-                                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                                transition={{ duration: 0.5, ease: "easeOut" }}
                                                 className=""
                                             >
                                                 <Alert
@@ -243,7 +245,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                 initial={{ opacity: 0, x: 1200 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 1200 }}
-                                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                                transition={{ duration: 0.5, ease: "easeOut" }}
                                                 className="flex justify-start items-center h-full py-8"
                                             >
                                                 <Card className="w-full shadow-md border rounded-2xl p-6 bg-white dark:bg-zinc-900">
