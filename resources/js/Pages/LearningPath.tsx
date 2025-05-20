@@ -13,10 +13,7 @@ import { User } from "@/types";
 import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, CheckCircle } from "lucide-react";
-import { useContext, useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
-import { CarouselContext } from "@/components/ui/carousel";
+import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
 
 type LearningPathType = {
@@ -101,50 +98,6 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setHasAnswered(false);
             setIsCorrect(null);
         }
-    };
-
-    // ----------- funções para efeito de animação de texto -----------
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true });
-
-    const carousel = useContext(CarouselContext);
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [hasFetched, setHasFetched] = useState(false);
-    const [aiText, setAiText] = useState("");
-
-    // Ouve o slide selecionado
-    useEffect(() => {
-        if (!carousel?.api) return;
-
-        const onSelect = () => {
-            const index = carousel.api?.selectedScrollSnap();
-            setSelectedIndex(index ?? 0);
-        };
-
-        // Primeira execução e listener
-        onSelect();
-        carousel.api.on("select", onSelect);
-
-        // Cleanup
-        return () => {
-            carousel.api?.off("select", onSelect);
-        };
-    }, [carousel?.api]);
-
-    // Dispara IA apenas quando o slide correto estiver visível
-    useEffect(() => {
-        if (isInView && selectedIndex === 1 && !hasFetched) {
-            fetchAIExplanation();
-        }
-    }, [isInView, selectedIndex, hasFetched]);
-
-    const fetchAIExplanation = async () => {
-        const response = await new Promise((resolve) =>
-            setTimeout(() => resolve("Essa é a explicação detalhada da IA para esta questão."), 1000)
-        );
-
-        setAiText(response as string);
-        setHasFetched(true);
     };
 
     return (
@@ -283,16 +236,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                         <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white">
                                                             Explicação da Questão
                                                         </h2>
-                                                        <p className="text-lg text-zinc-700 dark:text-zinc-100 leading-relaxed">
-                                                            {aiText && (
-                                                                <Typewriter
-                                                                    words={[aiText]}
-                                                                    typeSpeed={30}
-                                                                    cursor
-                                                                    cursorStyle="|"
-                                                                />
-                                                            )}
-                                                        </p>
+                                                        teste
                                                     </CardContent>
                                                 </Card>
                                             </div>
