@@ -55,11 +55,11 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
-    console.log(progress)
+    // console.log(progress)
 
     const { emAndamento, concluida } = (progress ?? []).reduce(
         (acc, pro) => {
-            console.log(pro)
+            
             if (pro.finished_questions > 0 && pro.finished_questions === pro.total_questions) {
                 acc.concluida++;
             } else {

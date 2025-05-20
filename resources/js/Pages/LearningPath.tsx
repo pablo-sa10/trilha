@@ -5,7 +5,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, NextAI } from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { AuthProvider } from "@/context/AuthUserContext";
@@ -15,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, BrainCircuit, CheckCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
+import axios from "axios";
+import { set } from "react-hook-form";
 
 type LearningPathType = {
     auth: {
@@ -65,20 +66,51 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const [selectedOption, setSelectedOption] = useState<string | null>(null); // questao selecionada
     const [hasAnswered, setHasAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // resultado da resposta
-    const [isNotAllowed, setIsNotAllowed] = useState<boolean>(false); // permite avançar questao
-    const [showFeedback, setShowFeedback] = useState(true)
-
-    console.log(progress)
+    const [isNotAllowed, setIsNotAllowed] = useState<boolean>(true); // permite avançar questao
+    const [showFeedback, setShowFeedback] = useState(true);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
 
-        if(progress.finished_questions === progress.total_questions) {
-            return progress.finished_questions -1 // Última respondida caso tenha terminado
+        if (progress.finished_questions === progress.total_questions) {
+            return progress.finished_questions - 1 // Última respondida caso tenha terminado
         }
         return progress.finished_questions === 0
             ? -1 // Welcome
             : progress.finished_questions; // Questão atual
     });
+    
+    const handleMessage = () => {
+        const alt = trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].Alternativas.map((alt) => `Alternativa: ${alt.Alternativa} - ${alt.DescricaoAlternativa}`).join('; ');
+        const msg = `Explique em texto unico e simples a questão: 
+                    "${trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].Enunciado} "
+                    e por que a reposta correta é a "${trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].RespostaCorreta}" 
+                    dentre as alternativas disponíveis: "${alt}".
+                `;
+        return msg;
+    }
+
+    const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
+    
+    const handleSend = async () => {
+        setLoading(true);
+        setResponse('');
+
+        const message = handleMessage(); // chama a função no momento certo
+        // console.log('Mensagem enviada:', message);
+        // return;
+
+        try {
+            const res = await axios.post('chat-gpt.index', { message });
+            const content = res.data.choices[0].message.content;
+            setResponse(content);
+        } catch (error) {
+            console.error(error);
+            setResponse('Erro ao chamar a API');
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
         if (hasAnswered && feedbackRef.current) {
@@ -95,6 +127,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setIsCorrect(null);
             setIsNotAllowed(true);
             setShowFeedback(true);
+            setResponse('');
         }
     };
 
@@ -106,6 +139,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setHasAnswered(false);
             setIsCorrect(null);
             setShowFeedback(true);
+            setResponse('');
         }
     };
 
@@ -237,7 +271,8 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                             variant="outline"
                                                             className="text-base"
                                                             onClick={() => {
-                                                                setShowFeedback(false)
+                                                                setShowFeedback(false);
+                                                                handleSend();
                                                             }}
                                                         >
                                                             Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />

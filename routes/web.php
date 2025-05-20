@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatGptController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewLearningPathController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::delete("/delete-trilha/{id}", [DashboardController::class, 'destroy'])->name('delete-learning-path.destroy');
 
     Route::patch("/atualiza-progress/{user}/{learningPath}/{finalizadas}", [ProgressLearningController::class, 'update'])->name('progress-learning-path.update');
+
+    Route::post('/chat', [ChatGptController::class, 'sendAsk'])->name('chat-gpt.index');
 });
 
 require __DIR__.'/auth.php';
