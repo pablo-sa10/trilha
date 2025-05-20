@@ -12,7 +12,7 @@ import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle, CheckCircle } from "lucide-react";
+import { AlertTriangle, BrainCircuit, CheckCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
 
@@ -66,6 +66,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const [hasAnswered, setHasAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // resultado da resposta
     const [isNotAllowed, setIsNotAllowed] = useState<boolean>(false); // permite avançar questao
+    const [showFeedback, setShowFeedback] = useState(true)
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
         return progress.finished_questions === 0
@@ -190,14 +191,15 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                 </Button>
                             </div>
                             {hasAnswered && (
-                                <Carousel>
-                                    <CarouselContent className="">
-                                        <CarouselItem key={1}>
+                                <div>
+                                    <AnimatePresence mode="wait">
+                                        {showFeedback ? (
                                             <motion.div
                                                 ref={feedbackRef}
-                                                initial={{ opacity: 0, y: 50 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                                initial={{ opacity: 0, x: -1200 }}       // começa invisível e deslocado 100px à direita
+                                                animate={{ opacity: 1, x: 0 }}         // aparece totalmente visível na posição normal
+                                                exit={{ opacity: 0, x: -1200 }}         // some deslocando para a esquerda (-100px)
+                                                transition={{ duration: 0.8, ease: "easeOut" }}
                                                 className=""
                                             >
                                                 <Alert
@@ -212,7 +214,9 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                         ) : (
                                                             <AlertTriangle className="!h-6 !w-6 text-red-500" />
                                                         )}
-                                                        <AlertTitle className="text-3xl">{isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}</AlertTitle>
+                                                        <AlertTitle className="text-3xl">
+                                                            {isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}
+                                                        </AlertTitle>
                                                     </div>
                                                     <AlertDescription className="text-lg leading-relaxed">
                                                         {isCorrect
@@ -221,30 +225,49 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                     </AlertDescription>
 
                                                     <div className="text-end pt-2">
-                                                        {/* <Button className="text-base" variant="outline">
+                                                        <Button
+                                                            variant="outline"
+                                                            className="text-base"
+                                                            onClick={() => {
+                                                                setShowFeedback(false)
+                                                            }}
+                                                        >
                                                             Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />
-                                                        </Button> */}
-                                                        <NextAI />
+                                                        </Button>
                                                     </div>
                                                 </Alert>
                                             </motion.div>
-                                        </CarouselItem>
-                                        <CarouselItem key={2}>
-                                            <div className="flex justify-start items-center h-full py-8">
+                                        ) : (
+                                            <motion.div
+                                                key="explicacao"
+                                                initial={{ opacity: 0, x: 1200 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: 1200 }}
+                                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                                className="flex justify-start items-center h-full py-8"
+                                            >
                                                 <Card className="w-full shadow-md border rounded-2xl p-6 bg-white dark:bg-zinc-900">
                                                     <CardContent className="space-y-4 p-0">
                                                         <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white">
                                                             Explicação da Questão
                                                         </h2>
-                                                        teste
+                                                        {/* Aqui o conteúdo real da explicação */}
+                                                        <p>teste</p>
+
+                                                        <div className="pt-4 text-right">
+                                                            {/* Botão para voltar ao feedback */}
+                                                            <Button onClick={() => setShowFeedback(true)}>
+                                                                Voltar
+                                                            </Button>
+                                                        </div>
                                                     </CardContent>
                                                 </Card>
-                                            </div>
-                                        </CarouselItem>
-                                    </CarouselContent>
-                                    {/* <CarouselNext /> */}
-                                </Carousel>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             )}
+
 
                         </motion.div>
                     )}
