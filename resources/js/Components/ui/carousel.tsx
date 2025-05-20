@@ -2,7 +2,7 @@ import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, BrainCircuit } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -250,6 +250,29 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = "CarouselNext"
 
+const NextAI = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof Button>
+>(({ className, variant = "outline", ...props }, ref) => {
+  const { scrollNext } = useCarousel()
+
+  return (
+    <Button 
+      ref={ref}
+      variant="outline"
+      className={cn(
+        "text-base",
+        className
+      )}
+      onClick={scrollNext}
+      {...props}
+    >
+        Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />
+    </Button>
+  )
+})
+NextAI.displayName = "NextAI"
+
 export {
   type CarouselApi,
   Carousel,
@@ -257,4 +280,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  NextAI
 }
