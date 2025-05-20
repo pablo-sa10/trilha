@@ -5,17 +5,19 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, NextAI } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, NextAI } from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { User } from "@/types";
 import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BrainCircuit, AlertTriangle, CheckCircle, Car } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { AlertTriangle, CheckCircle } from "lucide-react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import { CarouselContext } from "@/components/ui/carousel";
 import { Toaster } from "sonner";
-import { TypewriterText } from "@/hooks/typwriterText";
 
 type LearningPathType = {
     auth: {
@@ -102,8 +104,49 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     };
 
     // ----------- funções para efeito de animação de texto -----------
-    const explanationText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
+    const carousel = useContext(CarouselContext);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [hasFetched, setHasFetched] = useState(false);
+    const [aiText, setAiText] = useState("");
+
+    // Ouve o slide selecionado
+    useEffect(() => {
+        if (!carousel?.api) return;
+
+        const onSelect = () => {
+            const index = carousel.api?.selectedScrollSnap();
+            setSelectedIndex(index ?? 0);
+        };
+
+        // Primeira execução e listener
+        onSelect();
+        carousel.api.on("select", onSelect);
+
+        // Cleanup
+        return () => {
+            carousel.api?.off("select", onSelect);
+        };
+    }, [carousel?.api]);
+
+    // Dispara IA apenas quando o slide correto estiver visível
+    useEffect(() => {
+        if (isInView && selectedIndex === 1 && !hasFetched) {
+            fetchAIExplanation();
+        }
+    }, [isInView, selectedIndex, hasFetched]);
+
+    const fetchAIExplanation = async () => {
+        const response = await new Promise((resolve) =>
+            setTimeout(() => resolve("Essa é a explicação detalhada da IA para esta questão."), 1000)
+        );
+
+        setAiText(response as string);
+        setHasFetched(true);
+    };
+
     return (
         <AuthProvider value={{ user: auth.user }}>
             <Head title={trilha.NomeTrilha} />
@@ -240,7 +283,16 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                         <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white">
                                                             Explicação da Questão
                                                         </h2>
-                                                        <TypewriterText text={explanationText} />
+                                                        <p className="text-lg text-zinc-700 dark:text-zinc-100 leading-relaxed">
+                                                            {aiText && (
+                                                                <Typewriter
+                                                                    words={[aiText]}
+                                                                    typeSpeed={30}
+                                                                    cursor
+                                                                    cursorStyle="|"
+                                                                />
+                                                            )}
+                                                        </p>
                                                     </CardContent>
                                                 </Card>
                                             </div>

@@ -280,5 +280,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  NextAI
+  NextAI,
+  CarouselContext
 }
