@@ -27,7 +27,7 @@ type LearningPathType = {
         id_trilha: number;
         finished_questions: number;
         total_questions: number;
-    }
+    };
 };
 
 interface LearningPath {
@@ -52,16 +52,21 @@ interface Alternativas {
     DescricaoAlternativa: string;
 }
 
-
-export default function LearningPath({ auth, trilha, progress }: LearningPathType) {
-
-    const variantMap: Record<string, "info" | "success" | "warning" | "destructive" | "extreme"> = {
+export default function LearningPath({
+    auth,
+    trilha,
+    progress,
+}: LearningPathType) {
+    const variantMap: Record<
+        string,
+        "info" | "success" | "warning" | "destructive" | "extreme"
+    > = {
         "Muito Fácil\n": "info",
-        "Fácil": "success",
-        "Médio": "warning",
-        "Difícil": "destructive",
-        "Muito Difícil": "extreme"
-    }
+        Fácil: "success",
+        Médio: "warning",
+        Difícil: "destructive",
+        "Muito Difícil": "extreme",
+    };
 
     const feedbackRef = useRef<HTMLDivElement>(null);
     const [selectedOption, setSelectedOption] = useState<string | null>(null); // questao selecionada
@@ -69,51 +74,87 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // resultado da resposta
     const [isNotAllowed, setIsNotAllowed] = useState<boolean>(true); // permite avançar questao
     const [showFeedback, setShowFeedback] = useState(true);
+    const [isTyping, setIsTyping] = useState(false);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(() => {
-
         if (progress.finished_questions === progress.total_questions) {
-            return progress.finished_questions - 1 // Última respondida caso tenha terminado
+            return progress.finished_questions - 1; // Última respondida caso tenha terminado
         }
         return progress.finished_questions === 0
             ? -1 // Welcome
             : progress.finished_questions; // Questão atual
     });
-    
+
     const handleMessage = () => {
-        const alt = trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].Alternativas.map((alt) => `Alternativa: ${alt.Alternativa} - ${alt.DescricaoAlternativa}`).join('; ');
+        const alt = trilha.questoes[
+            currentQuestionIndex == -1 ? 0 : currentQuestionIndex
+        ].Alternativas.map(
+            (alt) =>
+                `Alternativa: ${alt.Alternativa} - ${alt.DescricaoAlternativa}`
+        ).join("; ");
         const msg = `Explique em texto unico e simples a questão: 
-                    "${trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].Enunciado} "
-                    e por que a reposta correta é a "${trilha.questoes[currentQuestionIndex == -1 ? 0 : currentQuestionIndex].RespostaCorreta}" 
+                    "${
+                        trilha.questoes[
+                            currentQuestionIndex == -1
+                                ? 0
+                                : currentQuestionIndex
+                        ].Enunciado
+                    } "
+                    e por que a reposta correta é a "${
+                        trilha.questoes[
+                            currentQuestionIndex == -1
+                                ? 0
+                                : currentQuestionIndex
+                        ].RespostaCorreta
+                    }" 
                     dentre as alternativas disponíveis: "${alt}".
                 `;
         return msg;
-    }
+    };
 
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState("");
     const [loading, setLoading] = useState(false);
-    
+
     const handleSend = async () => {
         setLoading(true);
-        setResponse('');
+        setResponse("");
 
         const message = handleMessage(); // chama a função no momento certo
 
         try {
-            const res = await axios.post(route('chat-gpt.index'), { message });
-            const content = res.data.response
-            setResponse(content);
+            const res = await axios.post(route("chat-gpt.index"), { message });
+            const content = res.data.response;
+            typeEffect(content);
         } catch (error) {
             console.error(error);
-            setResponse('Erro ao chamar a API');
+            setResponse("Erro ao chamar a API");
         } finally {
             setLoading(false);
         }
-    }
+    };
 
-    useEffect(() => { // rolar scrool ao feedback quando ele se tornar visivel
+    const typeEffect = (text: string, delay = 10) => {
+        let index = 0;
+        setIsTyping(true);
+
+        const interval = setInterval(() => {
+            setResponse((prev) => prev + text[index]);
+            index++;
+
+            if (index >= text.length) {
+                clearInterval(interval);
+                setIsTyping(false);
+            }
+        }, delay);
+    };
+
+    useEffect(() => {
+        // rolar scrool ao feedback quando ele se tornar visivel
         if (hasAnswered && feedbackRef.current) {
-            feedbackRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+            feedbackRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
         }
     }, [hasAnswered]);
 
@@ -126,7 +167,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setIsCorrect(null);
             setIsNotAllowed(true);
             setShowFeedback(true);
-            setResponse('');
+            setResponse("");
         }
     };
 
@@ -138,7 +179,7 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
             setHasAnswered(false);
             setIsCorrect(null);
             setShowFeedback(true);
-            setResponse('');
+            setResponse("");
         }
     };
 
@@ -162,7 +203,10 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                             transition={{ duration: 0.4 }}
                             className="w-full flex justify-center"
                         >
-                            <WelcomeQuestions nome={trilha.NomeTrilha} materia={trilha.questoes[0].Materia} />
+                            <WelcomeQuestions
+                                nome={trilha.NomeTrilha}
+                                materia={trilha.questoes[0].Materia}
+                            />
                         </motion.div>
                     )}
                     {/* QUESTAO ATUAL */}
@@ -183,27 +227,57 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                 <Badge
                                     className="text-[12px] w-5/12 md:w-auto mt-2 md:mt-0 md:text-sm"
                                     variant={
-                                        variantMap[trilha.questoes[currentQuestionIndex].Dificuldade]
+                                        variantMap[
+                                            trilha.questoes[
+                                                currentQuestionIndex
+                                            ].Dificuldade
+                                        ]
                                     }
                                 >
-                                    {trilha.questoes[currentQuestionIndex].TipoQuestao} -{" "}
-                                    {trilha.questoes[currentQuestionIndex].Dificuldade}
+                                    {
+                                        trilha.questoes[currentQuestionIndex]
+                                            .TipoQuestao
+                                    }{" "}
+                                    -{" "}
+                                    {
+                                        trilha.questoes[currentQuestionIndex]
+                                            .Dificuldade
+                                    }
                                 </Badge>
                             </div>
 
                             <p className="text-lg md:text-lg text-muted-foreground leading-relaxed">
-                                {trilha.questoes[currentQuestionIndex].Enunciado}
+                                {
+                                    trilha.questoes[currentQuestionIndex]
+                                        .Enunciado
+                                }
                             </p>
 
                             <RadioGroup
                                 value={selectedOption}
-                                onValueChange={(value) => setSelectedOption(value)}
+                                onValueChange={(value) =>
+                                    setSelectedOption(value)
+                                }
                             >
                                 <div className="space-y-3">
-                                    {trilha.questoes[currentQuestionIndex].Alternativas.map((alt) => (
-                                        <div key={alt.Alternativa} className="flex items-center space-x-2">
-                                            <RadioGroupItem disabled={isCorrect === true && hasAnswered} value={alt.Alternativa} />
-                                            <Label className="text-base" htmlFor="alt">
+                                    {trilha.questoes[
+                                        currentQuestionIndex
+                                    ].Alternativas.map((alt) => (
+                                        <div
+                                            key={alt.Alternativa}
+                                            className="flex items-center space-x-2"
+                                        >
+                                            <RadioGroupItem
+                                                disabled={
+                                                    isCorrect === true &&
+                                                    hasAnswered
+                                                }
+                                                value={alt.Alternativa}
+                                            />
+                                            <Label
+                                                className="text-base"
+                                                htmlFor="alt"
+                                            >
                                                 {alt.DescricaoAlternativa}
                                             </Label>
                                         </div>
@@ -215,13 +289,23 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                 <Button
                                     onClick={() => {
                                         const correct =
-                                            selectedOption === trilha.questoes[currentQuestionIndex].RespostaCorreta;
+                                            selectedOption ===
+                                            trilha.questoes[
+                                                currentQuestionIndex
+                                            ].RespostaCorreta;
                                         if (correct) {
-                                            router.patch(route('progress-learning-path.update', {
-                                                user: auth.user?.id,
-                                                learningPath: trilha.id_trilha,
-                                                finalizadas: currentQuestionIndex,
-                                            }))
+                                            router.patch(
+                                                route(
+                                                    "progress-learning-path.update",
+                                                    {
+                                                        user: auth.user?.id,
+                                                        learningPath:
+                                                            trilha.id_trilha,
+                                                        finalizadas:
+                                                            currentQuestionIndex,
+                                                    }
+                                                )
+                                            );
                                         }
                                         setIsCorrect(correct);
                                         setShowFeedback(true);
@@ -238,17 +322,24 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                         {showFeedback ? (
                                             <motion.div
                                                 ref={feedbackRef}
-                                                initial={{ opacity: 0, x: -1200 }}       // começa invisível e deslocado 100px à direita
-                                                animate={{ opacity: 1, x: 0 }}         // aparece totalmente visível na posição normal
-                                                exit={{ opacity: 0, x: -1200 }}         // some deslocando para a esquerda (-100px)
-                                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                                initial={{
+                                                    opacity: 0,
+                                                    x: -1200,
+                                                }} // começa invisível e deslocado 100px à direita
+                                                animate={{ opacity: 1, x: 0 }} // aparece totalmente visível na posição normal
+                                                exit={{ opacity: 0, x: -1200 }} // some deslocando para a esquerda (-100px)
+                                                transition={{
+                                                    duration: 0.5,
+                                                    ease: "easeOut",
+                                                }}
                                                 className=""
                                             >
                                                 <Alert
-                                                    className={`space-y-4 p-6 border-l-4 ${isCorrect
-                                                        ? "border-green-500 bg-green-50 text-green-800"
-                                                        : "border-red-500 bg-red-50 text-red-800"
-                                                        }`}
+                                                    className={`space-y-4 p-6 border-l-4 ${
+                                                        isCorrect
+                                                            ? "border-green-500 bg-green-50 text-green-800"
+                                                            : "border-red-500 bg-red-50 text-red-800"
+                                                    }`}
                                                 >
                                                     <div className="flex items-center gap-3">
                                                         {isCorrect ? (
@@ -257,7 +348,9 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                             <AlertTriangle className="!h-6 !w-6 text-red-500" />
                                                         )}
                                                         <AlertTitle className="text-3xl">
-                                                            {isCorrect ? "Resposta Correta!" : "Resposta Incorreta"}
+                                                            {isCorrect
+                                                                ? "Resposta Correta!"
+                                                                : "Resposta Incorreta"}
                                                         </AlertTitle>
                                                     </div>
                                                     <AlertDescription className="text-lg leading-relaxed">
@@ -272,10 +365,14 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                                             className="text-base"
                                                             onClick={() => {
                                                                 handleSend();
-                                                                setShowFeedback(false);
+                                                                setShowFeedback(
+                                                                    false
+                                                                );
                                                             }}
                                                         >
-                                                            Consultar explicação com IA <BrainCircuit className="ml-2 !h-6 !w-6" />
+                                                            Consultar explicação
+                                                            com IA{" "}
+                                                            <BrainCircuit className="ml-2 !h-6 !w-6" />
                                                         </Button>
                                                     </div>
                                                 </Alert>
@@ -283,27 +380,51 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                         ) : (
                                             <motion.div
                                                 key="explicacao"
-                                                initial={{ opacity: 0, x: 1200 }}
+                                                initial={{
+                                                    opacity: 0,
+                                                    x: 1200,
+                                                }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 1200 }}
-                                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                                transition={{
+                                                    duration: 0.5,
+                                                    ease: "easeOut",
+                                                }}
                                                 className="flex justify-start items-center h-full py-8"
                                             >
-                                                <Card className="w-full shadow-md border rounded-2xl p-6 bg-white dark:bg-zinc-900">
+                                                <Card className="w-full shadow-md border rounded-2xl p-6 bg-zinc-950">
                                                     <CardContent className="space-y-4 p-0">
-                                                        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white">
-                                                            Explicação da Questão
+                                                        <h2 className="text-2xl font-semibold text-white">
+                                                            Explicação da
+                                                            Questão
                                                         </h2>
                                                         {/* Aqui o conteúdo real da explicação */}
-                                                        <p>{loading ? (
-                                                            <Spinner/>
-                                                        ): (
-                                                            `${response}`
-                                                        )}</p>
+                                                        {/* Terminal-style content */}
+                                                        <div className="bg-zinc-950 text-white font-mono text-base rounded-lg p-4 whitespace-pre-wrap min-h-[50px]">
+                                                            {loading ? (
+                                                                <Spinner />
+                                                            ) : (
+                                                                <>
+                                                                    {response}
+                                                                    {isTyping && (
+                                                                        <span className="animate-ping">
+                                                                            |
+                                                                        </span>
+                                                                    )}
+                                                                </>
+                                                            )}
+                                                        </div>
 
                                                         <div className="pt-4 text-right">
                                                             {/* Botão para voltar ao feedback */}
-                                                            <Button onClick={() => setShowFeedback(true)}>
+                                                            <Button
+                                                            variant={"destructive"}
+                                                                onClick={() =>
+                                                                    setShowFeedback(
+                                                                        true
+                                                                    )
+                                                                }
+                                                            >
                                                                 Voltar
                                                             </Button>
                                                         </div>
@@ -314,18 +435,19 @@ export default function LearningPath({ auth, trilha, progress }: LearningPathTyp
                                     </AnimatePresence>
                                 </div>
                             )}
-
-
                         </motion.div>
                     )}
-
                 </AnimatePresence>
             </section>
 
             {/* BOTOES PARA LOCOCOMOVER AS QUESTÕES */}
             <ButtonUpDown
                 className=""
-                disabledDown={currentQuestionIndex >= trilha.questoes.length - 1 || (progress.finished_questions == currentQuestionIndex && isNotAllowed)}
+                disabledDown={
+                    currentQuestionIndex >= trilha.questoes.length - 1 ||
+                    (progress.finished_questions == currentQuestionIndex &&
+                        isNotAllowed)
+                }
                 disabledUp={currentQuestionIndex === -1}
                 upQuestion={goToPrev}
                 downQuestion={goToNext}
