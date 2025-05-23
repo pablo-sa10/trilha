@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { router } from '@inertiajs/react';
+import { router } from "@inertiajs/react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SummaryCards } from "@/components/Dashboard/SummaryCards";
@@ -13,7 +13,12 @@ import {
 import { ChartProgress } from "@/components/Dashboard/ChartProgress";
 import { LucideIcon, MoreVertical, Plus, Trash } from "lucide-react";
 import { Link } from "@inertiajs/react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useLearningPathContext } from "@/context/LearningPathsContext";
 
 interface DashboardProps {
@@ -42,11 +47,9 @@ export function DashboardLayout({
     progress,
     ...Props
 }: DashboardProps) {
-
-
-    const deleteLearningPath = ((id: number) => {
-        router.delete(route('delete-learning-path.destroy', id));
-    })
+    const deleteLearningPath = (id: number) => {
+        router.delete(route("delete-learning-path.destroy", id));
+    };
 
     const { trilhas } = useLearningPathContext();
 
@@ -152,12 +155,17 @@ export function DashboardLayout({
                                                     <MoreVertical />
                                                 </Button>
                                             </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="center" side="right">
+                                            <DropdownMenuContent
+                                                align="center"
+                                                side="right"
+                                            >
                                                 <DropdownMenuItem
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         e.preventDefault();
-                                                        deleteLearningPath(id_trilha)
+                                                        deleteLearningPath(
+                                                            id_trilha
+                                                        );
                                                     }}
                                                     className="flex items-center justify-evenly gap-2 text-red-600 hover:cursor-pointer"
                                                 >
