@@ -45,7 +45,7 @@ export function AdmPanelLayout({ users, ...props }: AdminLayoutProps) {
             </div>
 
             <Table className="">
-                <TableCaption>A list of your recent invoices.</TableCaption>
+                <TableCaption>Ranking dos melhores</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">Colocação</TableHead>
