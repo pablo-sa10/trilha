@@ -1,7 +1,5 @@
 import InputError from '@/components/InputError';
-import InputLabel from '@/components/delete/InputLabel';
 // import PrimaryButton from '@/components/PrimaryButton';
-import TextInput from '@/components/delete/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -11,7 +9,7 @@ export default function UpdateProfileInformation({
     status,
     className = '',
 }: {
-    mustVerifyEmail: boolean;
+    mustVerifyEmail?: boolean;
     status?: string;
     className?: string;
 }) {

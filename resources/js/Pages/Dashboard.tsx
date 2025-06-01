@@ -40,11 +40,10 @@ interface LearningPath {
     id_trilha: number;
     id_usuario: number;
     nome_trilha: string;
+    nome_materia: string;
 }
 
 export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
-
-    // console.log(trilhas)
 
     /**Modal de erro */
     const { errors } = usePage().props;

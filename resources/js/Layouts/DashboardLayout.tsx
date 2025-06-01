@@ -40,6 +40,7 @@ interface LearningPath {
     id_trilha: number;
     id_usuario: number;
     nome_trilha: string;
+    nome_materia: string;
 }
 
 export function DashboardLayout({
@@ -47,11 +48,14 @@ export function DashboardLayout({
     progress,
     ...Props
 }: DashboardProps) {
+
     const deleteLearningPath = (id: number) => {
         router.delete(route("delete-learning-path.destroy", id));
     };
 
     const { trilhas } = useLearningPathContext();
+    
+    console.log(trilhas)
 
     return trilhas && trilhas.length < 1 ? (
         <section {...Props}>
@@ -132,7 +136,7 @@ export function DashboardLayout({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {trilhas?.map(
                     (
-                        { id_trilha, nome_trilha, data_criacao }: LearningPath,
+                        { id_trilha, nome_trilha, data_criacao, nome_materia }: LearningPath,
                         index
                     ) => (
                         <Link
@@ -176,7 +180,7 @@ export function DashboardLayout({
                                         </DropdownMenu>
                                     </div>
                                     <CardDescription>
-                                        Materia na qual é ligada a trilhas
+                                        {nome_materia}
                                     </CardDescription>
                                     <div>
                                         <p className="text-sm text-gray-400 font-semibold">

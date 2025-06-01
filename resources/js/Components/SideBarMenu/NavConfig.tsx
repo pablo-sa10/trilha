@@ -31,7 +31,7 @@ interface ConfigsProps {
 const configItems = [
     {
         name: "Editar Perfil",
-        url: "dashboard",
+        url: "profile.edit",
         icon: UserPen,
     },
 ];

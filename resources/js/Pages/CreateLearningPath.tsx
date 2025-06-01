@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/context/AuthUserContext";
+import { AuthProvider, useAuthContext } from "@/context/AuthUserContext";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
 import { User } from "@/types";
 import { Head } from "@inertiajs/react";
@@ -19,6 +19,7 @@ interface LearningPath {
     id_trilha: number;
     id_usuario: number;
     nome_trilha: string;
+    nome_materia: string;
 }
 
 interface Subject {
@@ -27,6 +28,7 @@ interface Subject {
 }
 
 export default function CreateLearningPath({ auth, trilhas, materias }: LearningPathsProps) {
+
 
     return (
         <AuthProvider value={{ user: auth.user }}>

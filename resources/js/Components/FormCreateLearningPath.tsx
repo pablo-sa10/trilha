@@ -31,7 +31,15 @@ import {
 import { Label } from "./ui/label";
 import InputError from "./InputError";
 import { BackButton } from "./BackButton";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "./ui/select";
 import { ScrollArea } from "./ui/scroll-area";
 import { Spinner } from "./ui/spinner";
 import { ModalInfo } from "./modal/ModalInfo";
@@ -51,11 +59,11 @@ export function FormCreateLearningPath({
     subjects,
     ...props
 }: {
-    className?: React.ComponentPropsWithoutRef<"div">,
-    subjects: SubjectsProps[]
+    className?: React.ComponentPropsWithoutRef<"div">;
+    subjects: SubjectsProps[];
 }) {
-
-    const academys: AcademysProps[] = [ // vestibulares disponíveis
+    const academys: AcademysProps[] = [
+        // vestibulares disponíveis
         {
             label: "Fatec - Faculdade de Tecnologia - 1/2024",
             id: 1,
@@ -63,7 +71,7 @@ export function FormCreateLearningPath({
         {
             label: "Fatec - Faculdade de Tecnologia - 2/2024",
             id: 2,
-        }
+        },
     ];
 
     // const {errors} = usePage().props; // pegando os erros do back end
@@ -131,16 +139,16 @@ export function FormCreateLearningPath({
                                             className={cn(
                                                 "w-full justify-between",
                                                 !data.vestibular &&
-                                                "text-muted-foreground",
+                                                    "text-muted-foreground",
                                                 "truncate"
                                             )}
                                         >
                                             {data.vestibular
                                                 ? academys.find(
-                                                    (acad) =>
-                                                        acad.id ===
-                                                        data.vestibular
-                                                )?.label
+                                                      (acad) =>
+                                                          acad.id ===
+                                                          data.vestibular
+                                                  )?.label
                                                 : "Selecione o vestibular"}
                                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
@@ -190,7 +198,10 @@ export function FormCreateLearningPath({
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
-                                <InputError className="mt-2" message={errors.vestibular} />
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.vestibular}
+                                />
                             </div>
                             <div>
                                 <Label className="mb-3 block">
@@ -204,23 +215,35 @@ export function FormCreateLearningPath({
                                         setData("name", e.target.value);
                                     }}
                                 />
-                                <InputError className="mt-2" message={errors.name} />
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name}
+                                />
                             </div>
                         </div>
 
                         <div className="mt-16 space-y-7">
                             <CardDescription>
-                                Selecione a matéria que você deseja estudar nessa trilha.
+                                Selecione a matéria que você deseja estudar
+                                nessa trilha.
                             </CardDescription>
                             <div className="w-full">
-                                <Select onValueChange={(value) => setData("materia", value)}>
+                                <Select
+                                    onValueChange={(value) =>
+                                        setData("materia", value)
+                                    }
+                                >
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Selecione a matéria" />
                                     </SelectTrigger>
                                     <SelectContent side="bottom" align="start">
-                                        <ScrollArea className="h-60"> {/* define a altura máxima */}
+                                        <ScrollArea className="h-60">
+                                            {" "}
+                                            {/* define a altura máxima */}
                                             <SelectGroup>
-                                                <SelectLabel>Matéria</SelectLabel>
+                                                <SelectLabel>
+                                                    Matéria
+                                                </SelectLabel>
                                                 {subjects.map((sub) => (
                                                     <SelectItem
                                                         key={sub.id_materia}
@@ -233,16 +256,20 @@ export function FormCreateLearningPath({
                                         </ScrollArea>
                                     </SelectContent>
                                 </Select>
-                                <InputError className="mt-2" message={errors.materia} />
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.materia}
+                                />
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button
-                            type="submit"
-                            disabled={processing}
-                        >
-                            {!processing ? "Enviar" : <Spinner className="text-black" />}
+                        <Button type="submit" disabled={processing}>
+                            {!processing ? (
+                                "Enviar"
+                            ) : (
+                                <Spinner className="text-black" />
+                            )}
                         </Button>
                     </CardFooter>
                 </form>
@@ -256,7 +283,6 @@ export function FormCreateLearningPath({
                     description={errors.erro}
                 />
             )}
-
         </section>
     );
 }

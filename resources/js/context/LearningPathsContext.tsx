@@ -10,6 +10,7 @@ interface Props {
     id_trilha: number;
     id_usuario: number;
     nome_trilha: string;
+    nome_materia: string;
 }
 
 const LearningPathsContext = createContext<LearningPathsType | undefined>(undefined);

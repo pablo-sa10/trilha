@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,26 +19,42 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $userId = $request->user()->id;
+
+        $responseTrilhas = Http::get("https://0yvgan5za6.execute-api.us-east-2.amazonaws.com/Trilhas", [
+            'id_usuario' => $userId
+        ]);
+        $trilhas = $responseTrilhas->successful() ? $responseTrilhas->json() : [];
+
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
+            'trilhas' => $trilhas,
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user = User::find(Auth::id());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($user->id),
+            ],
+        ]);
 
-        $request->user()->save();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
 
-        return Redirect::route('profile.edit');
+        return redirect(route('dashboard', absolute: false)); // redireciona para a rota dashboard
     }
 
     /**
