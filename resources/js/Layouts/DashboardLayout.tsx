@@ -55,8 +55,6 @@ export function DashboardLayout({
 
     const { trilhas } = useLearningPathContext();
     
-    console.log(trilhas)
-
     return trilhas && trilhas.length < 1 ? (
         <section {...Props}>
             <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">

@@ -2,9 +2,9 @@ import { Head } from "@inertiajs/react";
 import { User } from "@/types";
 import { AuthProvider } from "@/context/AuthUserContext";
 import { LearningPathsProvider } from "@/context/LearningPathsContext";
-import { Toaster } from "sonner";
 import { MainMenu } from "@/Layouts/MainMenuLayout";
 import { FormEditPRofile } from "@/components/FormEditProfile";
+import { Toaster } from "@/components/ui/sonner";
 
 interface EditProfileProps {
     auth: {

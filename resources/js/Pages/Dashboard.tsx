@@ -54,8 +54,6 @@ export default function Dashboard({ auth, trilhas, progress }: DashboardProps) {
         }
     }, [errors]);
 
-    // console.log(progress)
-
     const { emAndamento, concluida } = (progress ?? []).reduce(
         (acc, pro) => {
             

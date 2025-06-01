@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChatGptController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewLearningPathController;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::patch("/atualiza-progress/{user}/{learningPath}/{finalizadas}", [ProgressLearningController::class, 'update'])->name('progress-learning-path.update');
 
     Route::post('/chat', [ChatGptController::class, 'sendAsk'])->name('chat-gpt.index');
+});
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/adminpanel', [AdminController::class, 'index'])->name('admin.panel');
 });
 
 require __DIR__.'/auth.php';

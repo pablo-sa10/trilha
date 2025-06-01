@@ -23,7 +23,6 @@ type FormData = {
 
 export function FormEditPRofile() {
     const auth = useAuthContext();
-    console.log(auth);
 
     const { data, setData, patch, processing, errors, reset } =
         useForm<FormData>({
