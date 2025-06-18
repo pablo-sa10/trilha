@@ -45,7 +45,7 @@ class AdminController extends Controller
 
             $concluidas = 0;
             foreach ($progressUser as $progress) {
-                if ($progress["finished_questions"] == $progress["total_questions"]) {
+                if ($progress["finished_questions"] == $progress["total_questions"] && $progress["total_questions"] != 0) {
                     $concluidas++;
                 }
             }
