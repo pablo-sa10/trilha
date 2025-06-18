@@ -44,7 +44,7 @@ export default function WelcomeGuest() {
 
                     <Link
                         rel=""
-                        href=""
+                        href={route('login')}
                         target="_blank"
                         className={`w-full md:w-1/3 ${buttonVariants({
                             variant: "outline",
